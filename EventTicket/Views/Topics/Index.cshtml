@@ -1,0 +1,48 @@
+﻿@using EventTicket.Entities;
+@model List<Topic>
+
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewData["Title"] = "Danh sách chủ đề";
+}
+
+<!-- Page Heading -->
+
+<a href="/admin/topics/create" class="btn btn-info h3 mb-2 ">Tạo mới</a>
+<!-- DataTales Example -->
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Danh sách chủ đề sự kiện</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered display nowrap" id="dataTable" cellspacing="0" style="width: 100%;">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Tên</th>
+                        <th>Số sự kiện</th>
+                        <th>Trạng thái</th>
+                        <th>Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var topic in Model)
+                    {
+                        var temp = topic.Status;
+                        <tr>
+                            <td>@topic.Id</td>
+                            <td>@topic.Name</td>
+                            <td>@topic.Events.Count</td>
+                            <td>@(temp ? "Hiển thị" : "Ẩn")</td>
+                            <td>
+                                <a href="/admin/topics/edit/@topic.Id" class="btn btn-success">Sửa</a>
+                                <a href="/admin/topics/delete/@topic.Id" class="btn btn-danger">Xoá</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

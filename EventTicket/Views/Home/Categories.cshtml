@@ -1,0 +1,109 @@
+﻿@using EventTicket.Entities;
+@{
+	Layout = "~/Views/Shared/_Layout.cshtml";
+	ViewData["Title"] = "Danh mục sự kiện";
+
+	var categories = (List<Category>)ViewData["categories"];
+	var events = (List<Event>)ViewData["events"];
+}
+
+<div class="breadcrumb-block ">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12 col-md-10">
+				<div class="">
+					<nav aria-label="breadcrumb">
+						<ol class="breadcrumb d-flex" >
+							<li class="breadcrumb-item item-home" itemprop="itemListElement" >
+								<a rel="index home" class="bread-link bread-home" href="/" title="Trang chủ">Trang chủ</a>
+							</li>
+							<li style="margin-left: 4px; margin-right: 4px;"> / </li>
+							<li class=" active">
+								<span> Danh mục sự kiện</span>
+							</li>
+						</ol>
+					</nav>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<div class="event-dt-block p-80">
+	<div class="latest-posts">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12 col-md-12">
+					<div class="main-title checkout-title">
+						<h3>Danh mục sự kiện</h3>
+					</div>
+				</div>
+				<div class="col-lg-12 col-md-12">
+					<div class="bt_40">
+						<div class="row g-4">
+							@foreach(var cate in categories)
+							{
+								<div class="col-xl-3 col-lg-4 col-md-6">
+									<div class="main-card">
+										<div class="blog-thumbnail">
+											<a href="/danh-muc-su-kien/" class="thumbnail-img">
+												<img data-lazyloaded="1" src="@cate.Image" data-src="@cate.Image" alt=""><noscript><img src="@cate.Image" alt=""></noscript>
+											</a>
+										</div>
+										<div class="blog-content">
+											<a href="/danh-muc-su-kien" class="blog-title fs-16">@cate.Name</a>
+											<div class="post-meta bt_33">
+												<span class="post-date fs-14"><i class="fa-regular fa-calendar-days me-2"></i>@cate.Events.Count sự kiện</span>
+											</div>
+										</div>
+									</div>
+								</div>
+							}
+
+						</div>
+					</div>
+				</div>
+
+				<div class="col-xl-12 col-lg-12 col-md-12">
+					<div class="more-events">
+						<div class="main-title position-relative">
+							<h3>Sự kiện nổi bật</h3>
+							<a href="/danh-sach-su-kien" class="view-all-link">Xem tất cả<i class="fa-solid fa-right-long ms-2"></i></a>
+						</div>
+						<div class="owl-carousel moreEvents-slider owl-theme">
+							@foreach(var ev in events)
+							{
+								<div class="item">
+									<div class="main-card mt-4">
+										<div class="event-thumbnail">
+											<a href="/danh-sach-su-kien" title="@ev.Name" target="_blank" class="thumbnail-img">
+												<img data-lazyloaded="1" src="@ev.Image" data-src="@ev.Image" alt="@ev.Name"><noscript><img src="@ev.Image" alt="@ev.Name"></noscript>
+											</a>
+										</div>
+										<div class="event-content">
+											<a href="/danh-sach-su-kien" title="@ev.Name" target="_blank" class="event-title">@ev.Name</a>
+											<div class="duration-price-remaining">
+												<span class="duration-price">Vào cổng tự do</span>
+											</div>
+										</div>
+										<div class="event-footer">
+											<div class="event-timing">
+												<div class="publish-date">
+													<span><i class="fa-solid fa-calendar-day me-2"></i>@ev.StartDate.ToShortTimeString()</span>
+													<span class="dot"><i class="fa-solid fa-circle"></i></span>
+													<span>@ev.StartDate.ToShortDateString()</span>
+												</div>
+												<span class="publish-time"><i class="fa-solid fa-eye me-2"></i>18.7 K</span>
+											</div>
+										</div>
+									</div>
+								</div>
+							}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

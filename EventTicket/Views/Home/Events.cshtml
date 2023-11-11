@@ -1,0 +1,335 @@
+﻿@using EventTicket.Entities;
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Danh sách sự kiện";
+
+	var events = (List<Event>)ViewData["events"];
+}
+
+
+
+<div class="hero-banner">
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-xl-8 col-lg-8 col-md-10">
+				<div class="hero-banner-content">
+					<h2>Discover Events For All The Things You Love</h2>
+					<div class="search-form main-form">
+						<div class="row g-3">
+							<div class="em pixelbones em-search has-search-main has-views has-advanced advanced-mode-modal advanced-hidden em-events-search" id="em-search-277491057" data-view="list">
+								<form action="https://sansukien.com/danh-sach-su-kien" method="post" class="em-search-form" id="em-search-form-277491057">
+									<input type="hidden" name="action" value="search_events" />
+									<input type="hidden" name="view_id" value="277491057" />
+									<div class="em-search-main em-search-main-bar">
+										<!-- START General Search -->
+										<div class="em-search-text em-search-field input">
+											<label for="em-search-text-0" class="screen-reader-text">
+												Từ khóa sự kiện
+											</label>
+											<input type="text" name="em_search" class="em-search-text" id="em-search-text-0" placeholder="Từ khóa sự kiện">
+										</div>
+										<!-- END General Search -->									<div class="em-search-advanced-trigger">
+											<button type="button" class="em-search-advanced-trigger em-clickable em-tooltip" data-search-advanced-id="em-search-advanced-277491057" id="em-search-advanced-trigger-277491057" aria-label="Hiện tìm kiếm mở rộng"></button>
+										</div>
+										<div class="em-search-views" aria-label="View Types">
+											<div class="em-search-views-trigger" data-template="em-search-views-options-277491057">
+												<button type="button" class="em-search-view-option em-clickable em-search-view-type-list" data-view="list">List</button>
+											</div>
+											<div class="em-search-views-options input" id="em-search-views-options-277491057">
+												<select name="view" multiple="multiple" class="em-search-views-options-list" id="em-search-views-options-select-277491057" size="5">
+													<option class="em-search-view-option em-search-view-type-list" value="list" data-view="list" selected>List</option>
+													<option class="em-search-view-option em-search-view-type-list-grouped" value="list-grouped" data-view="list-grouped">Grouped Lists</option>
+													<option class="em-search-view-option em-search-view-type-grid" value="grid" data-view="grid">Grid</option>
+													<option class="em-search-view-option em-search-view-type-map" value="map" data-view="map">Map</option>
+													<option class="em-search-view-option em-search-view-type-calendar" value="calendar" data-view="calendar">Calendar</option>
+												</select>
+												<label for id="em-search-views-options-select-277491057" class="screen-reader-text">Search Results View Type</label>
+											</div>
+										</div>
+										<div class="em-search-submit input">
+											<button type="submit" class="em-search-submit">Tìm kiếm</button>
+										</div>
+									</div>
+									<input name="near_distance" type="hidden" value="25" />			<input name="near_unit" type="hidden" value="mi" />							<div class="em-modal em pixelbones em-search em-search-advanced em-events-search-advanced" id="em-search-advanced-277491057" data-parent="em-search-form-277491057" data-view="list">
+										<div class="em-modal-popup">
+											<header>
+												<a class="em-close-modal" href="#"></a><!-- close modal -->
+												<div class="em-modal-title">
+													Hiện tìm kiếm mở rộng
+												</div>
+											</header>
+											<div class="em-modal-content em-search-sections input">
+												<section class="em-search-main">
+													<!-- START General Search -->
+													<div class="em-search-text em-search-field input">
+														<label for="em-search-text-277491057" class="screen-reader-text">
+															Từ khóa sự kiện
+														</label>
+														<input type="text" name="em_search" class="em-search-text" id="em-search-text-277491057" placeholder="Từ khóa sự kiện">
+													</div>
+													<!-- END General Search --><!-- START Date Search -->
+													<div class="em-search-scope em-search-field em-datepicker em-datepicker-range input" data-separator=" đến" data-format="d/m/Y">
+														<label for="em-search-scope-277491057" class="screen-reader-text">Từ ngày</label>
+														<input id="em-search-scope-277491057" type="hidden" class="em-date-input em-search-scope" aria-hidden="true" placeholder="Từ ngày">
+														<div class="em-datepicker-data">
+															<input type="date" name="scope[0]" value="" aria-label="Từ ngày">
+															<span class="separator"> đến</span>
+															<input type="date" name="scope[1]" value="" aria-label=" đến">
+														</div>
+													</div>
+													<!-- END Date Search -->
+												</section>
+												<section class="em-search-advanced-sections">
+													<section class="em-search-section-location em-search-advanced-section">
+														<header>Location Options</header>
+														<div class="em-search-section-content">
+															<div class="em-search-location">
+																<input type="hidden" name="country" value="">	<div class="em-search-location-meta">
+																	<!-- START State/County Search -->
+																	<div class="em-search-state em-search-field">
+																		<label class="screen-reader-text" for="em-search-state-277491057">
+																			Quận/Huyện
+																		</label>
+																		<select name="state" class="em-search-state em-selectize">
+																			<option value=''>Quận/Huyện</option>
+																			<option>Ba Đình</option>
+																			<option>Bà Rịa - Vũng Tàu</option>
+																			<option>Buôn Ma Thuột</option>
+																			<option>Cẩm Lệ</option>
+																			<option>Dương Kinh</option>
+																			<option>Hà Đông</option>
+																			<option>Hai Bà Trưng</option>
+																			<option>Hậu Giang</option>
+																			<option>Huyện Lương Sơn</option>
+																			<option>Huyện Trảng Bàng</option>
+																			<option>Quận 1</option>
+																			<option>Quận 10</option>
+																			<option>Quận 11</option>
+																			<option>Quận 12</option>
+																			<option>Quận 2</option>
+																			<option>Quận 3</option>
+																			<option>Quận 4</option>
+																			<option>Quận 5</option>
+																			<option>Quận 7</option>
+																			<option>Quận 8</option>
+																			<option>Quận Ba Đình</option>
+																			<option>Quận Bình Thạnh</option>
+																			<option>Quận Cầu Giấy</option>
+																			<option>Quận Đống Đa</option>
+																			<option>Quận Hai Bà Trưng</option>
+																			<option>Quận Hoàn Kiếm</option>
+																			<option>Quận Nam Từ Liêm</option>
+																			<option>Quận Ninh Kiều</option>
+																			<option>Quận Phú Nhuận</option>
+																			<option>Quận Sơn Trà</option>
+																			<option>Quận Tân Bình</option>
+																			<option>Quận Tân Phú</option>
+																			<option>Quận Tây Hồ</option>
+																			<option>Quận Thanh Xuân </option>
+																			<option>Quận Thủ Đức</option>
+																			<option>Thành phố Huế</option>
+																			<option>Thành phố mới Bình Dương</option>
+																			<option>Thành phố Việt Trì</option>
+																			<option>Thành phố Vũng Tàu</option>
+																			<option>Thanh Xuân</option>
+																			<option>Thị xã Sơn Tây</option>
+																			<option>TP. Thanh Hóa</option>
+																			<option>Tp. Thủ Dầu Một</option>
+																			<option>Từ Sơn</option>
+																		</select>
+																	</div>
+																	<!-- END State/County Search --><!-- START City Search -->
+																	<div class="em-search-town em-search-field">
+																		<label class="screen-reader-text" for="em-search-town-277491057">
+																			Tỉnh/thành
+																		</label>
+																		<select name="town" class="em-search-town em-selectize" id="em-search-town-277491057">
+																			<option value=''>Tất cả tỉnh thành</option>
+																			<option>Bà Rịa Vũng Tàu</option>
+																			<option>Bắc Ninh</option>
+																			<option>Bình Dương</option>
+																			<option>Cần Thơ</option>
+																			<option>Đà Nẵng</option>
+																			<option>Đắc Lắk</option>
+																			<option>Hà Nội</option>
+																			<option>Hải Phòng</option>
+																			<option>Hồ Chí Minh</option>
+																			<option>Hoà Bình</option>
+																			<option>Phú Thọ</option>
+																			<option>Tây Ninh</option>
+																			<option>Thanh Hóa</option>
+																			<option>Thừa Thiên Huế</option>
+																			<option>TP. Hồ Chí Minh</option>
+																			<option>Vị Thanh</option>
+																			<option>Vũng Tàu</option>
+																		</select>
+																	</div>
+																	<!-- END City Search -->
+																</div>
+															</div>
+														</div>
+													</section>
+													<section class="em-search-section-categories em-search-advanced-section">
+														<header>Danh mục</header>
+														<div class="em-search-section-content">
+															<!-- START Category Search -->
+															<div class="em-search-category em-search-field">
+																<label for="em-search-category-277491057" class="screen-reader-text">Danh mục</label>
+
+																<select name="category[]" class="em-search-category em-selectize always-open checkboxes" id="em-search-category-277491057" multiple size="10" placeholder="Chọn danh mục...">
+																	<option class="level-0" value="7">Cuộc thi</option>
+																	<option class="level-0" value="8">Gặp gỡ &amp; Giao lưu</option>
+																	<option class="level-0" value="5">Hoạt động xã hội</option>
+																	<option class="level-0" value="6">Hội chợ &amp; Triển lãm</option>
+																	<option class="level-0" value="3">Hội thảo &amp; Đào tạo</option>
+																	<option class="level-0" value="10">Khai trương &amp; Khuyến mãi</option>
+																	<option class="level-0" value="2">Lễ hội truyền thống</option>
+																	<option class="level-0" value="9">Thể thao &amp; Du lịch</option>
+																	<option class="level-0" value="4">Văn hóa &amp; Giải trí</option>
+																</select>
+															</div>
+															<!-- END Category Search -->
+														</div>
+													</section>
+												</section>
+											</div><!-- content -->
+											<footer class="em-submit-section input">
+												<div>
+													<button type="reset" class="button button-secondary">Clear All</button>
+												</div>
+												<div>
+													<button type="submit" class="button button-primary">Tìm kiếm</button>
+												</div>
+											</footer>
+										</div><!-- modal -->
+									</div>
+								</form>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="explore-events p-80">
+	<div class="container">
+		<div class="row">
+			<div class="em em-view-container" id="em-view-277491057" data-view="list">
+				<div class="em-list em-events-list" id="em-events-list-277491057" data-view-id="277491057">
+					<div class="col-xl-12 col-lg-12 col-md-12">
+						<div class="event-filter-items">
+							<div class="featured-controls">
+								<div class="controls">
+									<button type="button" class="control" data-filter="all">Tất cả</button>
+									<button type="button" class="control" data-filter=".free">Miễn phí</button>
+									<button type="button" class="control" data-filter=".ticket-on">Bán vé</button>
+									<button type="button" class="control" data-filter=".duoc-tai-tro">Được tài trợ</button><button type="button" class="control" data-filter=".hoi-thao">Hội thảo</button><button type="button" class="control" data-filter=".le-hoi">Lễ hội</button><button type="button" class="control" data-filter=".marketing">Marketing</button><button type="button" class="control" data-filter=".ra-mat-san-pham">Ra mắt sản phẩm</button>
+								</div>
+								<div class="row" data-ref="event-filter-content">
+									@foreach(var ev in events)
+									{
+										<div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 events-list-item mix free hoi_thao marketing" data-ref="mixitup-target">
+											<div class="main-card mt-4">
+												<div class="event-thumbnail">
+													<a href="/danh-sach-su-kien" class="thumbnail-img">
+														<img data-lazyloaded="1" src="data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-src="@ev.Image" alt=""><noscript><img src="@ev.Image" alt=""></noscript>
+													</a>
+												</div>
+												<div class="event-content">
+													<span class="card-subtitle text-muted">
+														@ev.Place.Name
+														| @ev.Status
+													</span>
+													<a href="/danh-sach-su-kien" class="event-title">@ev.Name</a>
+													<div class="duration-price-remaining">
+														<span class="duration-price">Vào cổng tự do</span>
+
+													</div>
+												</div>
+												<div class="event-footer">
+													<div class="event-timing">
+														<div class="publish-date">
+															<span>
+																<i class="fa-solid fa-calendar-day me-2"></i>
+
+																@ev.StartDate.ToShortTimeString()
+
+															</span>
+															<span class="dot"><i class="fa-solid fa-circle"></i></span>
+															<span>
+																@ev.StartDate.ToShortDateString()
+
+															</span>
+
+														</div>
+														<span class="publish-time"><i class="fa-solid fa-eye me-2"></i>11.2 K</span>
+													</div>
+												</div>
+											</div>
+										</div>
+
+									}
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-xl-12 col-lg-12 col-md-12">
+				<div class="more-events">
+					<div class="main-title position-relative">
+						<h3>Sự kiện nổi bật</h3>
+						<a href="/" class="view-all-link">Xem tất cả<i class="fa-solid fa-right-long ms-2"></i></a>
+					</div>
+					<div class="owl-carousel moreEvents-slider owl-theme">
+						@foreach (var ev in events)
+						{
+							<div class="item">
+								<div class="main-card mt-4">
+									<div class="event-thumbnail">
+										<a href="/danh-sach-su-kien" title="@ev.Name" target="_blank" class="thumbnail-img">
+											<img data-lazyloaded="1" src="@ev.Image" data-src="@ev.Image" alt="@ev.Name"><noscript><img src="@ev.Image" alt="@ev.Name"></noscript>
+										</a>
+									</div>
+									<div class="event-content">
+										<a href="/danh-sach-su-kien" title="@ev.Name" target="_blank" class="event-title">@ev.Name</a>
+										<div class="duration-price-remaining">
+											<span class="duration-price">Vào cổng tự do</span>
+										</div>
+									</div>
+									<div class="event-footer">
+										<div class="event-timing">
+											<div class="publish-date">
+												<span><i class="fa-solid fa-calendar-day me-2"></i>@ev.StartDate.ToShortTimeString()</span>
+												<span class="dot"><i class="fa-solid fa-circle"></i></span>
+												<span>@ev.StartDate.ToShortDateString()</span>
+											</div>
+											<span class="publish-time"><i class="fa-solid fa-eye me-2"></i>18.7 K</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+@section Scripts{
+	<script>
+		var containerEl = document.querySelector('[data-ref~="event-filter-content"]');
+
+		var mixer = mixitup(containerEl, {
+			selectors: {
+				target: '[data-ref~="mixitup-target"]'
+			}
+		});
+	</script>
+}
+

@@ -1,8 +1,711 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@using EventTicket.Entities;
+@{
+	Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Săn sự kiện";
+	var topics = (List<Topic>)ViewData["topics"];
+	var events = (List<Event>)ViewData["events"];
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
+<div class="hero-banner">
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-xl-7 col-lg-9 col-md-10">
+				<div class="hero-banner-content">
+					<h2>Săn Sự Kiện - Giải pháp chuyển đổi số hoàn hảo để bán vé sự kiện</h2>
+					<p>Chúng tôi cung cấp nền tảng Bán vé điện tử và Quản lý sự kiện đầy sáng tạo đến những nhà tổ chức sự kiện. Dễ dàng tạo, quảng bá và quản lý các sự kiện ở tất cả các loại hình và quy mô, giúp việc bán vé có hiệu quả và tác động tốt hơn</p>
+					<a href="#about-one" rel="nofollow" class="main-btn btn-hover">Khám phá các tính năng <i class="fa-solid fa-caret-down ms-3"></i></a>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
+<div class="explore-events p-80">
+	<div class="container">
+		<div class="row">
+			<div class="col-xl-12 col-lg-12 col-md-12">
+				<div class="main-title">
+					<h3>Sự kiện sắp diễn ra</h3>
+				</div>
+			</div>
+			<div class="col-xl-12 col-lg-12 col-md-12">
+				<div class="event-filter-items">
+					<div class="featured-controls">
+						<div class="filter-tag">
+							<a href="danh-sach-su-kien.html" class="active">Mới nhất</a>
+							@foreach(var topic in topics)
+							{
+								<a href="/">@topic.Name</a>
+							}
+						</div>
+						<div class="row">
+							@foreach(var ev in events)
+							{
+
+								<div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 events-list-item mix free duoc_tai_tro marketing" data-ref="mixitup-target">
+									<div class="main-card mt-4">
+										<div class="event-thumbnail">
+											<a href="su-kien/trien-lam-vietbuild-hcm.html" class="thumbnail-img">
+												<img data-lazyloaded="1" src="@ev.Image" data-src="@ev.Image" alt=""><noscript><img src="@ev.Image" alt=""></noscript>
+											</a>
+										</div>
+										<div class="event-content">
+											<span class="card-subtitle text-muted">
+
+												@ev.Place?.Name
+
+												| @ev.Status
+
+											</span>
+											<a href="su-kien/trien-lam-vietbuild-hcm.html" class="event-title">@ev.Name</a>
+											<div class="duration-price-remaining">
+												<span class="duration-price">Vào cổng tự do</span>
+
+											</div>
+										</div>
+										<div class="event-footer">
+											<div class="event-timing">
+												<div class="publish-date">
+													<span>
+														<i class="fa-solid fa-calendar-day me-2"></i>
+														@ev.StartDate.ToShortTimeString()
+													</span>
+													<span class="dot"><i class="fa-solid fa-circle"></i></span>
+													<span>
+														@ev.StartDate.ToShortDateString()
+													</span>
+												</div>
+												<span class="publish-time"><i class="fa-solid fa-eye me-2"></i>56.7 K</span>
+											</div>
+										</div>
+									</div>
+								</div>
+							}
+						</div>
+						<div class="browse-btn">
+							<a href="/danh-sach-su-kien" class="main-btn btn-hover ">Xem tất cả sự kiện</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="about-one" class="host-engaging-event-block p-80">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-10">
+				<div class="main-title">
+					<h3>Ai có thể sử dụng Sansukien.com ?</h3>
+					<p>Bạn đang tìm kiếm giải pháp bán vé sự kiện trực tuyến theo cách thông minh hơn, sáng tạo hơn và đỡ mất thời gian hơn? Sansukien.com chắc chắn là sự lựa chọn tốt nhất của bạn. Chúng tôi hỗ trợ rất tốt các nhóm sự kiện sau:</p>
+				</div>
+			</div>
+			<div class="col-lg-12">
+				<div class="engaging-block">
+					<div class="owl-carousel engaging-slider owl-theme">
+						<div class="item">
+							<div class="main-card">
+								<div class="host-item">
+									<div class="host-img">
+										<img data-lazyloaded="1" src="data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-src="/wp-content/themes/SanSuKien/assets/images/icons/venue-events.png" alt=""><noscript><img src="wp-content/themes/SanSuKien/assets/images/icons/venue-events.png" alt=""></noscript>
+									</div>
+									<h4>Sự kiện tại chỗ </h4>
+									<p>Tạo trang sự kiện nổi bật cho các sự kiện tại chỗ của bạn với nền tảng quản lý sự kiện tất cả trong một, có khả năng xử lý tất cả các loại hình sự kiện ở mọi quy mô, thu hút người tham dự và bán được nhiều vé hơn.</p>
+								</div>
+							</div>
+						</div>
+						<div class="item">
+							<div class="main-card">
+								<div class="host-item">
+									<div class="host-img">
+										<img data-lazyloaded="1" src="data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-src="/wp-content/themes/SanSuKien/assets/images/icons/online-class.png" alt=""><noscript><img src="wp-content/themes/SanSuKien/assets/images/icons/online-class.png" alt=""></noscript>
+									</div>
+									<h4>Sự kiện trực tuyến</h4>
+									<p>Biến Trang sự kiện thành đích đến trung tâm để fan xem và tương tác bằng cách lên lịch bán vé và tổ chức sự kiện trực tuyến theo thời gian thực, nâng cao mức độ nhận biết sự kiện và thu hút nhiều người đăng ký hơn.</p>
+								</div>
+							</div>
+						</div>
+						<div class="item">
+							<div class="main-card">
+								<div class="host-item">
+									<div class="host-img">
+										<img data-lazyloaded="1" src="data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-src="/wp-content/themes/SanSuKien/assets/images/icons/webinar.png" alt=""><noscript><img src="wp-content/themes/SanSuKien/assets/images/icons/webinar.png" alt=""></noscript>
+									</div>
+									<h4>Ca nhạc, Giải trí & Liveshow</h4>
+									<p>Sử dụng mẫu sự kiện trực quan, tích hợp sẵn đa chức năng để rút gọn quy trình bán vé sự kiện truyền thống, gia tăng doanh thu bán vé, từ đó giảm bớt gánh nặng về quá trình tổ chức cũng như phân phối vé Online.</p>
+								</div>
+							</div>
+						</div>
+						<div class="item">
+							<div class="main-card">
+								<div class="host-item">
+									<div class="host-img">
+										<img data-lazyloaded="1" src="data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-src="/wp-content/themes/SanSuKien/assets/images/icons/training-workshop.png" alt=""><noscript><img src="wp-content/themes/SanSuKien/assets/images/icons/training-workshop.png" alt=""></noscript>
+									</div>
+									<h4>Khóa học & Hội thảo </h4>
+									<p>Tạo và tổ chức các hội thảo và buổi đào tạo có lợi nhuận trực tuyến, bán vé chyên nghiệp và thu tiền tự động, hỗ trợ từ tổ chức sự kiện và bán vé cho đến tăng khả năng hiển thị và quảng bá.</p>
+								</div>
+							</div>
+						</div>
+
+						<div class="item">
+							<div class="main-card">
+								<div class="host-item">
+									<div class="host-img">
+										<img data-lazyloaded="1" src="data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-src="/wp-content/themes/SanSuKien/assets/images/icons/talk-show.png" alt=""><noscript><img src="wp-content/themes/SanSuKien/assets/images/icons/talk-show.png" alt=""></noscript>
+									</div>
+									<h4>Landing Page sự kiện </h4>
+									<p>Với gói Professional: sở hữu website sự kiện đẹp mắt phù hợp với thương hiệu của bạn, từ tên miền, logo, hình ảnh, và thậm chí một thiết kế riêng — để phù hợp nhất với chiến lược phân phối vé điện tử của bạn.</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="browse-btn">
+					<a href="/danh-muc-su-kien" class="main-btn btn-hover ">Danh mục sự kiện</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div id="about-two" class="feature-block p-80">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-10">
+				<div class="main-title">
+					<h3>Bán vé sự kiện thông minh hơn và thành công tốt đẹp</h3>
+					<p>Công tác quản lý bán vé sự kiện giờ đây trở nên tiện dụng hơn bao giờ hết với các ứng dụng hỗ trợ tuyệt vời dành cho người tổ chức sự kiện.</p>
+				</div>
+			</div>
+
+
+			<div class="col-lg-12">
+				<div class="feature-group-list">
+					<div class="row">
+						<div class="col-xl-3 col-lg-4 col-md-6">
+							<div class="feature-item mt-46">
+								<div class="feature-icon">
+									<img data-lazyloaded="1" src="data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-src="/wp-content/themes/SanSuKien/assets/images/icons/feature-icon-1.png" alt=""><noscript><img src="wp-content/themes/SanSuKien/assets/images/icons/feature-icon-1.png" alt=""></noscript>
+								</div>
+								<h4>Đăng tin sự kiện</h4>
+								<p>Tạo sự kiện với thông tin như Tên sự kiện, địa điểm tổ chức, thời gian, mô tả, hỏi đáp tư vấn,..., nơi mọi người có thể xem và đặt mua vé trực tuyến.</p>
+							</div>
+						</div>
+						<div class="col-xl-3 col-lg-4 col-md-6">
+							<div class="feature-item mt-46">
+								<div class="feature-icon">
+									<img data-lazyloaded="1" src="data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-src="/wp-content/themes/SanSuKien/assets/images/icons/feature-icon-2.png" alt=""><noscript><img src="wp-content/themes/SanSuKien/assets/images/icons/feature-icon-2.png" alt=""></noscript>
+								</div>
+								<h4>Địa điểm sự kiện</h4>
+								<p>Hãy để những người tham dự của bạn biết họ đăng ký cho sự kiện gì. Tạo một thông tin địa điểm chi tiết, hiển thị cả chỉ dẫn đường đi trên bản đồ Google Map.</p>
+							</div>
+						</div>
+						<div class="col-xl-3 col-lg-4 col-md-6">
+							<div class="feature-item mt-46">
+								<div class="feature-icon">
+									<img data-lazyloaded="1" src="data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-src="/wp-content/themes/SanSuKien/assets/images/icons/feature-icon-3.png" alt=""><noscript><img src="wp-content/themes/SanSuKien/assets/images/icons/feature-icon-3.png" alt=""></noscript>
+								</div>
+								<h4>Bán vé sự kiện</h4>
+								<p>Cấu hình nhiều hạng vé, thêm mô tả và làm nổi bật tùy chọn tốt nhất để giúp người tham dự dễ dàng đưa ra quyết định. Gửi vé ngay lập tức qua email.</p>
+							</div>
+						</div>
+						<div class="col-xl-3 col-lg-4 col-md-6">
+							<div class="feature-item mt-46">
+								<div class="feature-icon">
+									<img data-lazyloaded="1" src="data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-src="/wp-content/themes/SanSuKien/assets/images/icons/feature-icon-4.png" alt=""><noscript><img src="wp-content/themes/SanSuKien/assets/images/icons/feature-icon-4.png" alt=""></noscript>
+								</div>
+								<h4>Quảng bá sự kiện</h4>
+								<p>Quảng bá sự kiện thông qua các ứng dụng chuyên biệt như: email marketing, tích hợp lên Facebook Fanpage, tích hợp lên website, hoặc các mini game (chia sẻ để nhận quà) </p>
+							</div>
+						</div>
+						<div class="col-xl-3 col-lg-4 col-md-6">
+							<div class="feature-item mt-46">
+								<div class="feature-icon">
+									<img data-lazyloaded="1" src="data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-src="/wp-content/themes/SanSuKien/assets/images/icons/feature-icon-5.png" alt=""><noscript><img src="wp-content/themes/SanSuKien/assets/images/icons/feature-icon-5.png" alt=""></noscript>
+								</div>
+								<h4>Tối đa doanh thu</h4>
+								<p>Có toàn quyền kiểm soát trải nghiệm mua vé từ đầu đến cuối. Đặt ngày bán vé, hạng vé và giới hạn mua chỉ trong vài phút.</p>
+							</div>
+						</div>
+						<div class="col-xl-3 col-lg-4 col-md-6">
+							<div class="feature-item mt-46">
+								<div class="feature-icon">
+									<img data-lazyloaded="1" src="data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-src="/wp-content/themes/SanSuKien/assets/images/icons/feature-icon-6.png" alt=""><noscript><img src="wp-content/themes/SanSuKien/assets/images/icons/feature-icon-6.png" alt=""></noscript>
+								</div>
+								<h4>Kết nối cổng thanh toán</h4>
+								<p>Phân phối vé trực tuyến tiện lợi bằng tất cả các phương thức thanh toán (COD, ATM, Visa & Master, Momo, NgânLượng.vn, ...)</p>
+							</div>
+						</div>
+						<div class="col-xl-3 col-lg-4 col-md-6">
+							<div class="feature-item mt-46">
+								<div class="feature-icon" style="margin-bottom: 33px;">
+									<img data-lazyloaded="1" src="data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-src="/wp-content/themes/SanSuKien/assets/images/icons/feature-icon-7.png" alt=""><noscript><img src="wp-content/themes/SanSuKien/assets/images/icons/feature-icon-7.png" alt=""></noscript>
+								</div>
+								<h4>Tạo mã ưu đãi</h4>
+								<p>Khuyến khích mua vé và tăng lượt đăng ký tham dự sự kiện bằng cách ưu đãi đăng ký trước và các khuyến mãi khác. Thiết lập ngày hết hạn cho mã ưu đãi và đẩy nhanh tốc độ bán vé.</p>
+							</div>
+						</div>
+						<div class="col-xl-3 col-lg-4 col-md-6">
+							<div class="feature-item mt-46">
+								<div class="feature-icon">
+									<img data-lazyloaded="1" src="data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-src="/wp-content/themes/SanSuKien/assets/images/icons/feature-icon-8.png" alt=""><noscript><img src="wp-content/themes/SanSuKien/assets/images/icons/feature-icon-8.png" alt=""></noscript>
+								</div>
+								<h4>Bảng câu hỏi</h4>
+								<p>Thay đổi & tùy chỉnh form mua vé, các biểu mẫu thu thập ý kiến khách hàng trước khi đặt mua vé</p>
+							</div>
+						</div>
+						<div class="col-xl-3 col-lg-4 col-md-6">
+							<div class="feature-item mt-46">
+								<div class="feature-icon">
+									<img data-lazyloaded="1" src="data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-src="/wp-content/themes/SanSuKien/assets/images/icons/feature-icon-9.png" alt=""><noscript><img src="wp-content/themes/SanSuKien/assets/images/icons/feature-icon-9.png" alt=""></noscript>
+								</div>
+								<h4>Công cụ CRM</h4>
+								<p>Kiểm soát toàn bộ thông tin các giao dịch và khách hàng. Trích xuất ra Excel để trao đổi & quản lý.</p>
+							</div>
+						</div>
+						<div class="col-xl-3 col-lg-4 col-md-6">
+							<div class="feature-item mt-46">
+								<div class="feature-icon">
+									<img data-lazyloaded="1" src="data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-src="/wp-content/themes/SanSuKien/assets/images/icons/feature-icon-10.png" alt=""><noscript><img src="wp-content/themes/SanSuKien/assets/images/icons/feature-icon-10.png" alt=""></noscript>
+								</div>
+								<h4>Email Reminder</h4>
+								<p>Gửi Email thông báo đến toàn bộ khách hàng đã mua vé giúp quảng bá hiệu quả hơn.</p>
+							</div>
+						</div>
+						<div class="col-xl-3 col-lg-4 col-md-6">
+							<div class="feature-item mt-46">
+								<div class="feature-icon">
+									<img data-lazyloaded="1" src="data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-src="/wp-content/themes/SanSuKien/assets/images/icons/feature-icon-11.png" alt=""><noscript><img src="wp-content/themes/SanSuKien/assets/images/icons/feature-icon-11.png" alt=""></noscript>
+								</div>
+								<h4>Quản lý sự kiện</h4>
+								<p>Cập nhật liên tục số lượt đăng ký, doanh thu bán vé, số người tham dự, các phiên sự kiện và nhiều hơn nữa, tất cả chỉ từ một màn hình duy nhất.</p>
+							</div>
+						</div>
+						<div class="col-xl-3 col-lg-4 col-md-6">
+							<div class="feature-item mt-46">
+								<div class="feature-icon">
+									<img data-lazyloaded="1" src="data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-src="/wp-content/themes/SanSuKien/assets/images/icons/feature-icon-12.png" alt=""><noscript><img src="wp-content/themes/SanSuKien/assets/images/icons/feature-icon-12.png" alt=""></noscript>
+								</div>
+								<h4>Soát vé thông minh</h4>
+								<p>Soát vé (Check-in) tại thời điểm diễn ra sự kiện bằng ứng dụng Soát vé tiện lợi. Hỗ trợ soát vé qua mã QR code hoặc mã vé điện tử.</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div id="about-three" class="host-step-block p-80">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-10">
+				<div class="main-title">
+					<h3>Tạo tiếng vang cho sự kiện của bạn chỉ trong 4 bước đơn giản</h3>
+					<p>Hợp lý hóa các hoạt động của bạn trước, trong và sau một sự kiện. Xây dựng trang web, cài đặt bán vé, lên kế hoạch cho các phiên, v.v. </p>
+				</div>
+			</div>
+			<div class="col-lg-12">
+				<div class="easy-steps-tab">
+					<div class="nav step-tabs" role="tablist">
+						<button class="step-link active" data-bs-toggle="tab" data-bs-target="#step-01" type="button" role="tab" aria-controls="step-01" aria-selected="true">Bước 1<span>Tạo sự kiện</span></button>
+						<button class="step-link" data-bs-toggle="tab" data-bs-target="#step-02" type="button" role="tab" aria-controls="step-02" aria-selected="false">Bước 2<span>Bán vé và nhận thanh toán</span></button>
+						<button class="step-link" data-bs-toggle="tab" data-bs-target="#step-03" type="button" role="tab" aria-controls="step-03" aria-selected="false">Bước 3<span>Quản lý sự kiện</span></button>
+						<button class="step-link" data-bs-toggle="tab" data-bs-target="#step-04" type="button" role="tab" aria-controls="step-04" aria-selected="false">Bước 4<span>Soát vé thông minh</span></button>
+					</div>
+					<div class="tab-content">
+						<div class="tab-pane fade show active" id="step-01" role="tabpanel">
+							<div class="row">
+								<div class="col-lg-12 col-md-12">
+									<div class="step-text">Bắt đầu sự kiện bằng cách đăng ký tài khoản miễn phí và tạo sự kiện của bạn dễ dàng trong vài phút. </div>
+								</div>
+								<div class="col-lg-4 col-md-6">
+									<div class="step-item">
+										<div class="step-icon">
+											<img data-lazyloaded="1" src="data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-src="/wp-content/themes/SanSuKien/assets/images/icons/step-icon-1.png" alt=""><noscript><img src="wp-content/themes/SanSuKien/assets/images/icons/step-icon-1.png" alt=""></noscript>
+										</div>
+										<h4>Đăng tải sự kiện miễn phí</h4>
+										<p>Nhập tất cả các thông tin mà người tham dự muốn biết, chẳng hạn như tên sự kiện, ngày, địa điểm tổ chức và mạng xã hội cho sự kiện của bạn.</p>
+									</div>
+								</div>
+								<div class="col-lg-4 col-md-6">
+									<div class="step-item">
+										<div class="step-icon">
+											<img data-lazyloaded="1" src="data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-src="/wp-content/themes/SanSuKien/assets/images/icons/step-icon-2.png" alt=""><noscript><img src="wp-content/themes/SanSuKien/assets/images/icons/step-icon-2.png" alt=""></noscript>
+										</div>
+										<h4>Sử dụng mẫu trang sự kiện tích hợp sẵn</h4>
+										<p>Sở hữu một trang quảng bá sự kiện hấp dẫn với các chủ đề đáp ứng mọi sở thích. Tùy chỉnh, tùy chọn hiển thị và đưa vào sử dụng ngay lập tức mà không cần viết một dòng mã nào.</p>
+									</div>
+								</div>
+								<div class="col-lg-4 col-md-6">
+									<div class="step-item">
+										<div class="step-icon">
+											<img data-lazyloaded="1" src="data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-src="/wp-content/themes/SanSuKien/assets/images/icons/step-icon-3.png" alt=""><noscript><img src="wp-content/themes/SanSuKien/assets/images/icons/step-icon-3.png" alt=""></noscript>
+										</div>
+										<h4>Tùy chỉnh trang sự kiện theo ý muốn (Professional)</h4>
+										<p>Thiết kế website sự kiện hấp dẫn với các chủ đề đáp ứng mọi sở thích. Thêm Logo, tùy chỉnh các chi tiết để tạo trang sự kiện hấp dẫn.</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="tab-pane fade" id="step-02" role="tabpanel">
+							<div class="row">
+								<div class="col-lg-12 col-md-12">
+									<div class="step-text">Biến việc bán vé trở nên đơn giản với SanSuKien, cấu hình, bán vé sự kiện và theo dõi hoạt động bán vé.</div>
+								</div>
+								<div class="col-lg-4 col-md-6">
+									<div class="step-item">
+										<div class="step-icon">
+											<img data-lazyloaded="1" src="data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-src="/wp-content/themes/SanSuKien/assets/images/icons/step-icon-4.png" alt=""><noscript><img src="wp-content/themes/SanSuKien/assets/images/icons/step-icon-4.png" alt=""></noscript>
+										</div>
+										<h4>Dễ dàng thiết lập vé sự kiện</h4>
+										<p>Cấu hình nhiều hạng vé, thêm mô tả và làm nổi bật tùy chọn tốt nhất để giúp người tham dự dễ dàng đưa ra quyết định. Gửi vé ngay lập tức qua email.</p>
+									</div>
+								</div>
+								<div class="col-lg-4 col-md-6">
+									<div class="step-item">
+										<div class="step-icon">
+											<img data-lazyloaded="1" src="data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-src="/wp-content/themes/SanSuKien/assets/images/icons/step-icon-5.png" alt=""><noscript><img src="wp-content/themes/SanSuKien/assets/images/icons/step-icon-5.png" alt=""></noscript>
+										</div>
+										<h4>Sử dụng chiết khấu, mã ưu đãi & vé nhóm</h4>
+										<p>Nhân đôi doanh số bán vé bằng cách sử dụng các tính năng chiết khấu, mã ưu đãi và bán vé theo nhóm được tích hợp sẵn để đẩy nhanh tốc độ bán vé.</p>
+									</div>
+								</div>
+								<div class="col-lg-4 col-md-6">
+									<div class="step-item">
+										<div class="step-icon">
+											<img data-lazyloaded="1" src="data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-src="/wp-content/themes/SanSuKien/assets/images/icons/step-icon-6.png" alt=""><noscript><img src="wp-content/themes/SanSuKien/assets/images/icons/step-icon-6.png" alt=""></noscript>
+										</div>
+										<h4>Nhận thanh toán đầy đủ & an toàn</h4>
+										<p>Người tham dự được trải nghiệm mua vé trực tuyến thuận lợi. Với khả năng hỗ trợ tất cả các cổng thanh toán thông dụng, bạn sẽ nhận được thanh toán đầy đủ và an toàn ngay sau khi bán vé.</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="tab-pane fade" id="step-03" role="tabpanel">
+							<div class="row">
+								<div class="col-lg-12 col-md-12">
+									<div class="step-text">Cấu hình sự kiện và quản lý doanh số bán vé mọi lúc mọi nơi</div>
+								</div>
+								<div class="col-lg-4 col-md-6">
+									<div class="step-item">
+										<div class="step-icon">
+											<img data-lazyloaded="1" src="data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-src="/wp-content/themes/SanSuKien/assets/images/icons/step-icon-7.png" alt=""><noscript><img src="wp-content/themes/SanSuKien/assets/images/icons/step-icon-7.png" alt=""></noscript>
+										</div>
+										<h4>Thống kê doanh thu & chi phí rõ ràng</h4>
+										<p>Nhờ tính năng cập nhật nhanh chóng và lưu trữ không giới hạn mà người quản lý có thể theo dõi báo cáo bất cứ khi nào từ: thông tin người tham dự, số lượng vé bán, doanh thu, lượt tương tác.</p>
+									</div>
+								</div>
+								<div class="col-lg-4 col-md-6">
+									<div class="step-item">
+										<div class="step-icon">
+											<img data-lazyloaded="1" src="data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-src="/wp-content/themes/SanSuKien/assets/images/icons/step-icon-8.png" alt=""><noscript><img src="wp-content/themes/SanSuKien/assets/images/icons/step-icon-8.png" alt=""></noscript>
+										</div>
+										<h4>Quản lý dữ liệu người mua vé hiệu quả.</h4>
+										<p>Kiểm soát toàn bộ thông tin các giao dịch và khách hàng. Trích xuất ra Excel để trao đổi & quản lý.</p>
+									</div>
+								</div>
+								<div class="col-lg-4 col-md-6">
+									<div class="step-item">
+										<div class="step-icon">
+											<img data-lazyloaded="1" src="data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-src="/wp-content/themes/SanSuKien/assets/images/icons/step-icon-9.png" alt=""><noscript><img src="wp-content/themes/SanSuKien/assets/images/icons/step-icon-9.png" alt=""></noscript>
+										</div>
+										<h4>Kết nối với người tham dự</h4>
+										<p>Gửi email tùy chỉnh thông báo ngay cho người tham dự các cập nhật về sự kiện. Mang đến cho họ trải nghiệm khiến họ phải trở lại.</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="tab-pane fade" id="step-04" role="tabpanel">
+							<div class="row">
+								<div class="col-lg-12 col-md-12">
+									<div class="step-text">Check in sự kiện bằng mã QR chuyên nghiệp, theo xu thế thời đại công nghệ 4.0</div>
+								</div>
+								<div class="col-lg-4 col-md-6">
+									<div class="step-item">
+										<div class="step-icon">
+											<img data-lazyloaded="1" src="data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-src="/wp-content/themes/SanSuKien/assets/images/icons/step-icon-10.png" alt=""><noscript><img src="wp-content/themes/SanSuKien/assets/images/icons/step-icon-10.png" alt=""></noscript>
+										</div>
+										<h4>Kiểm soát người tham dự</h4>
+										<p>Thống kê số lượng khách mời đã check in, chưa check in, vé không hợp lệ. Theo dõi lịch sử thời gian khách mời đến sự kiện một cách chính xác</p>
+									</div>
+								</div>
+								<div class="col-lg-4 col-md-6">
+									<div class="step-item">
+										<div class="step-icon">
+											<img data-lazyloaded="1" src="data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-src="/wp-content/themes/SanSuKien/assets/images/icons/step-icon-11.png" alt=""><noscript><img src="wp-content/themes/SanSuKien/assets/images/icons/step-icon-11.png" alt=""></noscript>
+										</div>
+										<h4>Chuyên nghiệp, hiện đại, tiết kiệm chi phí</h4>
+										<p>Đơn giản trong việc phân chia vé, đưa vé đến tay khách mời sự kiện. Dễ dàng sử dụng vé, không sợ quên vé, không sợ mất, nát hay bị rách vé như vé truyền thống</p>
+									</div>
+								</div>
+								<div class="col-lg-4 col-md-6">
+									<div class="step-item">
+										<div class="step-icon">
+											<img data-lazyloaded="1" src="data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-src="/wp-content/themes/SanSuKien/assets/images/icons/step-icon-12.png" alt=""><noscript><img src="wp-content/themes/SanSuKien/assets/images/icons/step-icon-12.png" alt=""></noscript>
+										</div>
+										<h4>Dễ dàng sử dụng</h4>
+										<p>Chức năng check in sự kiện bằng mã QR qua điện thoại thao tác một cách đơn giản, người soát vé chỉ cần quét mã QR trên vé khách mời.</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="testimonial-block p-80">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-10">
+				<div class="main-title">
+					<h3>Đảm bảo việc đăng ký và bán vé diễn ra suôn sẻ</h3>
+					<p>Một sự kiện có thành công hay không phụ thuộc vào số người tham dự. Tạo điều kiện thuận lợi cho mọi người đăng ký và quan tâm họ thông qua email để nắm bắt. Luôn kiểm soát công tác bán vé và nhận thanh toán tức thì.</p>
+				</div>
+			</div>
+			<div class="col-lg-12">
+				<div class="testimonial-slider-area">
+					<div class="owl-carousel testimonial-slider owl-theme">
+						<div class="item">
+							<div class="main-card">
+								<div class="testimonial-content">
+									<div class="testimonial-text">
+										<p>Tất cả những sự kiện của Tourzy đều được hiệu quả phần nhiều nhờ vào hệ thống bán vé tích hợp của Săn Sự Kiện. Hệ thống bán vé điện tử linh hoạt giúp chúng tôi thu hút gấp 3 lần lượng khách hàng mua vé.</p>
+									</div>
+									<div class="testimonial-user-dt">
+										<h5>Ms. Hoàng Hương Trà</h5>
+										<span>Công ty truyền thông TOURZY MEDIA</span>
+										<ul>
+											<li><i class="fa-solid fa-star"></i></li>
+											<li><i class="fa-solid fa-star"></i></li>
+											<li><i class="fa-solid fa-star"></i></li>
+											<li><i class="fa-solid fa-star"></i></li>
+											<li><i class="fa-solid fa-star"></i></li>
+										</ul>
+									</div>
+									<span class="quote-icon"><i class="fa-solid fa-quote-right"></i></span>
+								</div>
+							</div>
+						</div>
+						<div class="item">
+							<div class="main-card">
+								<div class="testimonial-content">
+									<div class="testimonial-text">
+										<p>Đợt Year End Party, mình hợp tác cùng Săn Sự Kiện để phân phối vé tham dự đến đối tác và nhân viên công ty. Phải nói rằng, hệ thống bán vé của Săn Sự Kiện rất sáng tạo, mọi người tham dự đều khen công ty mình biết ứng dụng chuyển đổi số để gửi vé mời điện tử rất tiện lợi.</p>
+									</div>
+									<div class="testimonial-user-dt">
+										<h5>Mr. Nguyễn Văn Thạnh</h5>
+										<span>Công ty Tiến Phát Logistics</span>
+										<ul>
+											<li><i class="fa-solid fa-star"></i></li>
+											<li><i class="fa-solid fa-star"></i></li>
+											<li><i class="fa-solid fa-star"></i></li>
+											<li><i class="fa-solid fa-star"></i></li>
+											<li><i class="fa-solid fa-star"></i></li>
+										</ul>
+									</div>
+									<span class="quote-icon"><i class="fa-solid fa-quote-right"></i></span>
+								</div>
+							</div>
+						</div>
+						<div class="item">
+							<div class="main-card">
+								<div class="testimonial-content">
+									<div class="testimonial-text">
+										<p>Đối với một sự kiện trong thời kỳ công nghệ số như hiện nay thì việc bán vé trực tuyến đóng một vai trò hết sức quan trọng. Để tìm được một đơn vị uy tín và chuyên nghiệp về bán vé trực tuyến là một điều khó khăn. Kinh nghiệm của bản thân tôi là đánh giá năng lực của đối tác về kiến thức, kỹ năng, tính chuyên nghiệp, sự nhiệt tình. Và Săn Sự Kiện chính là đơn vị tôi đã đặt niềm tin và không thất vọng. Hy vọng các bạn sẽ có những lựa chọn đúng đắn cho sự kiện của mình.</p>
+									</div>
+									<div class="testimonial-user-dt">
+										<h5>Ms. Hoàng Bích Diệp</h5>
+										<span>Vinexad’s marketing department</span>
+										<ul>
+											<li><i class="fa-solid fa-star"></i></li>
+											<li><i class="fa-solid fa-star"></i></li>
+											<li><i class="fa-solid fa-star"></i></li>
+											<li><i class="fa-solid fa-star"></i></li>
+											<li><i class="fa-solid fa-star"></i></li>
+										</ul>
+									</div>
+									<span class="quote-icon"><i class="fa-solid fa-quote-right"></i></span>
+								</div>
+							</div>
+						</div>
+						<div class="item">
+							<div class="main-card">
+								<div class="testimonial-content">
+									<div class="testimonial-text">
+										<p>Đội ngũ Săn Sự Kiện có phong cách trẻ trung, năng động và có ý thức cầu tiến rất cao, chính vì vậy tôi hoàn toàn yên tâm khi hợp tác bán vé sự kiện. Bên cạnh đó còn nhiều sự kiện sắp tới tôi vẫn đang triển khai kết hợp cùng các bạn. Tôi tin rằng với nhiệt huyết của các thành viên Team Săn Sự Kiện, các bạn sẽ trở thành một trong những nhà cung cấp dịch vụ bán vé sự kiện chuyên nghiệp nhất tại Việt Nam và luôn được sự tin tưởng của khách hàng.</p>
+									</div>
+									<div class="testimonial-user-dt">
+										<h5>Ms. Lê Hương Giang</h5>
+										<span>Công ty cổ phần KINGBAP</span>
+										<ul>
+											<li><i class="fa-solid fa-star"></i></li>
+											<li><i class="fa-solid fa-star"></i></li>
+											<li><i class="fa-solid fa-star"></i></li>
+											<li><i class="fa-solid fa-star"></i></li>
+											<li><i class="fa-solid fa-star"></i></li>
+										</ul>
+									</div>
+									<span class="quote-icon"><i class="fa-solid fa-quote-right"></i></span>
+								</div>
+							</div>
+						</div>
+						<div class="item">
+							<div class="main-card">
+								<div class="testimonial-content">
+									<div class="testimonial-text">
+										<p>Hệ thống bán vé các bạn làm dễ sử dụng, chức năng linh hoạt, có thể nâng cấp theo yêu cầu, phù hợp với các sự kiện vừa và nhỏ, cá nhân cũng có thể bán vé bằng 1 web sự kiện với chi phí rất thấp. Trong quá trình thực hiện thiết kế web, đội ngũ chuyên viên rất có ý tưởng sáng tạo, thiết kế web đẹp, mang tính hiện đại, thể hiện được phong cách riêng biệt của sự kiện. Sau khi hoàn tất sự kiện, dịch vụ chăm sóc khách hàng cũng như chế độ hậu mãi, duy trì web rất tận tâm, chu đáo. Chúng tôi rất yên tâm về các dịch vụ mà Săn Sự Kiện đã cung cấp.</p>	`
+									</div>
+									<div class="testimonial-user-dt">
+										<h5>Mr Tuấn Tú</h5>
+										<span>Saigon Vina</span>
+										<ul>
+											<li><i class="fa-solid fa-star"></i></li>
+											<li><i class="fa-solid fa-star"></i></li>
+											<li><i class="fa-solid fa-star"></i></li>
+											<li><i class="fa-solid fa-star"></i></li>
+											<li><i class="fa-solid fa-star"></i></li>
+										</ul>
+									</div>
+									<span class="quote-icon"><i class="fa-solid fa-quote-right"></i></span>
+								</div>
+							</div>
+						</div>
+						<div class="item">
+							<div class="main-card">
+								<div class="testimonial-content">
+									<div class="testimonial-text">
+										<p>Sau khi đã làm việc với rất nhiều đơn vị trước đó, tôi tình cờ biết đến Săn Sự Kiện qua Google. Các bạn bên Săn Sự Kiện đã hỗ trợ sự kiện rất nhiệt tình và nhanh chóng để kịp hoàn thành tiến độ bán vé. Các bạn đã tìm hiểu rất kỹ để tư vấn về sự kiện cũng như các hạng vé để đưa ra được giải pháp bán vé trực tuyến tối ưu nhất.</p>
+									</div>
+									<div class="testimonial-user-dt">
+										<h5>Mr. Tuấn</h5>
+										<span>Công ty Cổ phần Tập đoàn Hương Sen</span>
+										<ul>
+											<li><i class="fa-solid fa-star"></i></li>
+											<li><i class="fa-solid fa-star"></i></li>
+											<li><i class="fa-solid fa-star"></i></li>
+											<li><i class="fa-solid fa-star"></i></li>
+											<li><i class="fa-solid fa-star"></i></li>
+										</ul>
+									</div>
+									<span class="quote-icon"><i class="fa-solid fa-quote-right"></i></span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="our-organisations-block p-80">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="main-title text-center">
+					<h3>Các thương hiệu tin tưởng chúng tôi khi bán vé sự kiện</h3>
+
+				</div>
+			</div>
+			<div class="col-lg-12">
+				<div class="organisations-area">
+					<div class="owl-carousel organisations-slider owl-theme">
+						<div class="item">
+							<div class="sponsor">
+								<a href="https://adpex.vn/" rel="nofollow" title="Công ty Cổ phần ADPEX" target="_blank">
+									<img data-lazyloaded="1" src="data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-src="/wp-content/themes/SanSuKien/assets/images/partners/adpex.png" alt=""><noscript><img src="wp-content/themes/SanSuKien/assets/images/partners/adpex.png" alt=""></noscript>
+								</a>
+							</div>
+						</div>
+						<div class="item">
+							<div class="sponsor">
+								<a href="http://coex.vn/" rel="nofollow" title="Coex Vietnam" target="_blank">
+									<img data-lazyloaded="1" src="data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-src="/wp-content/themes/SanSuKien/assets/images/partners/coex-vietnam.png" alt=""><noscript><img src="wp-content/themes/SanSuKien/assets/images/partners/coex-vietnam.png" alt=""></noscript>
+								</a>
+							</div>
+						</div>
+						<div class="item">
+							<div class="sponsor">
+								<a href="https://tourzy.vn/" rel="nofollow" title="Công ty Cổ phần Dịch vụ truyền thông Tourzy.vn" target="_blank">
+									<img data-lazyloaded="1" src="data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-src="/wp-content/themes/SanSuKien/assets/images/partners/tourzy.png" alt=""><noscript><img src="wp-content/themes/SanSuKien/assets/images/partners/tourzy.png" alt=""></noscript>
+								</a>
+							</div>
+						</div>
+						<div class="item">
+							<div class="sponsor">
+								<a href="https://secc.com.vn/" rel="nofollow" title="Trung tâm Hội chợ và Triển lãm Sài Gòn - SECC" target="_blank">
+									<img data-lazyloaded="1" src="data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-src="/wp-content/themes/SanSuKien/assets/images/partners/secc.png" alt=""><noscript><img src="wp-content/themes/SanSuKien/assets/images/partners/secc.png" alt=""></noscript>
+								</a>
+							</div>
+						</div>
+						<div class="item">
+							<div class="sponsor">
+								<a href="https://www.thaitrade.com/" rel="nofollow" title="ThaiTrade" target="_blank">
+									<img data-lazyloaded="1" src="data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-src="/wp-content/themes/SanSuKien/assets/images/partners/thaitrade.png" alt=""><noscript><img src="wp-content/themes/SanSuKien/assets/images/partners/thaitrade.png" alt=""></noscript>
+								</a>
+							</div>
+						</div>
+						<div class="item">
+							<div class="sponsor">
+								<a href="http://www.tradepro.vn/" rel="nofollow" title="Công ty Xúc tiến Thương mại Quốc tế Việt Nam - TradePro" target="_blank">
+									<img data-lazyloaded="1" src="data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-src="/wp-content/themes/SanSuKien/assets/images/partners/tradepro.png" alt=""><noscript><img src="wp-content/themes/SanSuKien/assets/images/partners/tradepro.png" alt=""></noscript>
+								</a>
+							</div>
+						</div>
+						<div class="item">
+							<div class="sponsor">
+								<a href="http://vinexad.com.vn/" rel="nofollow" title="Công ty Cổ phần Quảng cáo và Hội chợ Thương mại Vinexad" target="_blank">
+									<img data-lazyloaded="1" src="data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-src="/wp-content/themes/SanSuKien/assets/images/partners/vinexad.png" alt=""><noscript><img src="wp-content/themes/SanSuKien/assets/images/partners/vinexad.png" alt=""></noscript>
+								</a>
+							</div>
+						</div>
+						<div class="item">
+							<div class="sponsor">
+								<a href="http://www.dongnam.com.vn/" title="CÔNG TY CP QUẢNG CÁO & XÚC TIẾN THƯƠNG MẠI ĐÔNG NAM - Dong Nam Promotion" rel="nofollow" target="_blank">
+									<img data-lazyloaded="1" src="data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-src="/wp-content/themes/SanSuKien/assets/images/partners/dongnam-promotion.png" alt=""><noscript><img src="wp-content/themes/SanSuKien/assets/images/partners/dongnam-promotion.png" alt=""></noscript>
+								</a>
+							</div>
+						</div>
+						<div class="item">
+							<div class="sponsor">
+								<a href="http://vietfair.vn/" rel="nofollow" title="CÔNG TY CỔ PHẦN HỘI CHỢ TRIỂN LÃM VÀ QUẢNG CÁO VIỆT NAM - VIETFAIR" target="_blank">
+									<img data-lazyloaded="1" src="data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-src="/wp-content/themes/SanSuKien/assets/images/partners/viet-fair.png" alt=""><noscript><img src="wp-content/themes/SanSuKien/assets/images/partners/viet-fair.png" alt=""></noscript>
+								</a>
+							</div>
+						</div>
+						<div class="item">
+							<div class="sponsor">
+								<a href="https://vietrade.gov.vn/" rel="nofollow" target="_blank">
+									<img data-lazyloaded="1" src="data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-src="/wp-content/themes/SanSuKien/assets/images/partners/viettrade.png" alt=""><noscript><img src="wp-content/themes/SanSuKien/assets/images/partners/viettrade.png" alt=""></noscript>
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="hero-banner">
+	<div class="container">
+		<div class="row justify-content-between">
+			<div class="col-xl-6 col-lg-6 col-md-12">
+				<div class="hero-banner-content text-lg-start">
+					<h2>Hợp tác để thành công hơn</h2>
+					<p class="ps-0">Tập trung tổ chức sự kiện trong khi Săn Sự Kiện phụ trách phần bán vé.</p>
+					<a href="chon-goi-dang-ky.html" class="main-btn btn-hover">Xem các gói dịch vụ<i class="fa-solid fa-arrow-right ms-3"></i></a>
+				</div>
+			</div>
+			<div class="col-xl-5 col-lg-6 col-md-10">
+				<div class="hero-side-banner d-none d-lg-block">
+					<img src="wp-content/themes/SanSuKien/assets/images/icons/pricing-banner.gif" alt="">
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+

@@ -1,0 +1,32 @@
+﻿@using EventTicket.Models.Category;
+@model PlaceVM;
+
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewData["Title"] = "Thêm mới địa điểm";
+}
+<a href="/admin/places" class="btn btn-outline-danger mb-3">Quay lại</a>
+<form class="user w-50" action="/admin/places/create" method="post">
+    <div class="form-group ">
+        <input asp-for="@Model.Name" class="form-control form-control-user mb-3"
+               required placeholder="Tên địa điểm" />
+        <input asp-for="@Model.Address" class="form-control form-control-user mb-3"
+               required placeholder="Địa chỉ" />
+        <input asp-for="@Model.Phone" class="form-control form-control-user mb-3"
+               required placeholder="Điện thoại" />
+        <input asp-for="@Model.CreatedBy" class="form-control form-control-user mb-3"
+               required placeholder="Người tạo" />
+        <input asp-for="@Model.TimeActive" class="form-control form-control-user mb-3"
+               required placeholder="Thời gian hoạt động" />
+        <input asp-for="@Model.Description" class="form-control form-control-user mb-3"
+               required placeholder="Mô tả" />
+        <input asp-for="@Model.PlaceId" class="form-control form-control-user mb-3"
+               required placeholder="PlaceId" />
+        <a href="https://developers.google.com/maps/documentation/places/web-service/place-id" target="_blank">Lấy placeId của địa điểm bạn muốn tổ chức</a>
+    </div>
+    <div class="mt-3 d-flex justify-content-center">
+        <button type="submit" class="btn btn-primary btn-user btn-block">
+            Tạo mới
+        </button>
+    </div>
+</form>

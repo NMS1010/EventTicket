@@ -1,49 +1,442 @@
-﻿<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - EventTicket</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/EventTicket.styles.css" asp-append-version="true" />
-</head>
-<body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">EventTicket</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
+﻿@using EventTicket.Entities;
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+@{
+	User user = null;
+	string temp = null;
+	if (User.Identity.IsAuthenticated)
+	{
+		temp = HttpContextAccessor.HttpContext.Session.GetString("User");
+		if (temp != null)
+			user = Newtonsoft.Json.JsonConvert.DeserializeObject<User>(temp);
+		else
+		{
+			temp = "nouser";
+		}
+	}
+}
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2023 - EventTicket - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+<!DOCTYPE html>
+<html lang="vi-VN" class="h-100" itemscope itemtype="http://schema.org/WebPage">
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+<head>
+	<meta charset="UTF-8">
+	<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin />
+	<script>WebFontConfig = { google: { families: ["Roboto:ital,wght@0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900"] } }; if (typeof WebFont === "object" && typeof WebFont.load === "function") { WebFont.load(WebFontConfig); }</script>
+	<script data-optimized="1" src="/wp-content/plugins/litespeed-cache/assets/js/webfontloader.min.js"></script>
+	<link data-optimized="2" rel="stylesheet" href="/wp-content/litespeed/css/455865f16fab70530fd0f51732d0763650f2.css?ver=15680" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, shrink-to-fit=9">
+	<meta name="format-detection" content="telephone=no">
+	<meta http-equiv="refresh" content="600">
+
+	<meta property="fb:app_id" content="1585629815015041">
+	<meta property="fb:admins" content="100000218546853">
+	<meta property="fb:admins" content="100011389226210">
+
+
+	<link rel="preconnect" href="https://fonts.googleapis.com/">
+	<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+	<meta name='robots' content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' />
+
+	<!-- This site is optimized with the Yoast SEO plugin v21.5 - https://yoast.com/wordpress/plugins/seo/ -->
+	<title>Săn Sự Kiện - Kênh thông tin sự kiện, mua bán vé sự kiện online</title>
+	<meta name="description" content="Mạng chia sẻ sự kiện, đăng tin sự kiện, bán vé sự kiện online, mua vé sự kiện online, sự kiện trong ngày, sự kiện hay, lịch hội chợ, triễn lãm, hội thảo, khóa học." />
+	<link rel="canonical" href="/" />
+	<link rel="next" href="page/2.html" />
+	<meta property="og:locale" content="vi_VN" />
+	<meta property="og:type" content="website" />
+	<meta property="og:title" content="Săn Sự Kiện - Kênh thông tin sự kiện, mua bán vé sự kiện online" />
+	<meta property="og:description" content="Mạng chia sẻ sự kiện, đăng tin sự kiện, bán vé sự kiện online, mua vé sự kiện online, sự kiện trong ngày, sự kiện hay, lịch hội chợ, triễn lãm, hội thảo, khóa học." />
+	<meta property="og:url" content="https://sansukien.com/" />
+	<meta property="og:site_name" content="Săn Sự Kiện" />
+	<meta property="og:image" content="/wp-content/uploads/2017/02/facebook-cover-828x315.png" />
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="google-site-verification" content="UnYvixVfmxBuAAPftUSDeJGUlZvX901dafrSjtP-Kxo" />
+	<!-- / Yoast SEO plugin. -->
+
+
+	<link rel='dns-prefetch' href='http://fonts.googleapis.com/' />
+	<style id='classic-theme-styles-inline-css'>
+		/*! This file is auto-generated */
+		.wp-block-button__link {
+			color: #fff;
+			background-color: #32373c;
+			border-radius: 9999px;
+			box-shadow: none;
+			text-decoration: none;
+			padding: calc(.667em + 2px) calc(1.333em + 2px);
+			font-size: 1.125em
+		}
+
+		.wp-block-file__button {
+			background: #32373c;
+			color: #fff;
+			text-decoration: none
+		}
+	</style>
+
+	<style id='events-manager-inline-css'>
+		body .em {
+			--font-family: inherit;
+			--font-weight: inherit;
+			--font-size: 1em;
+			--line-height: inherit;
+		}
+	</style>
+	<script data-optimized="1" src='/wp-content/litespeed/js/5245757a9ceca2b90bebe25929fa726102f3.js?ver=a7261' id='jquery-js'></script>
+	<script id='events-manager-js-extra'>
+		var EM = { "ajaxurl": "https:\/\/sansukien.com\/wp-admin\/admin-ajax.php", "locationajaxurl": "https:\/\/sansukien.com\/wp-admin\/admin-ajax.php?action=locations_search", "firstDay": "1", "locale": "vi", "dateFormat": "yy-mm-dd", "ui_css": "https:\/\/sansukien.com\/wp-content\/plugins\/events-manager\/includes\/css\/jquery-ui\/build.css", "show24hours": "1", "is_ssl": "1", "autocomplete_limit": "10", "calendar": { "breakpoints": { "small": 560, "medium": 908, "large": false } }, "datepicker": { "format": "d\/m\/Y" }, "search": { "breakpoints": { "small": 650, "medium": 850, "full": false } }, "google_maps_api": "AIzaSyDFoZE4Eoq0LcDpUnsv09cHIL2z3tv7loQ", "bookingInProgress": "Please wait while the booking is being submitted.", "tickets_save": "Save Ticket", "bookingajaxurl": "https:\/\/sansukien.com\/wp-admin\/admin-ajax.php", "bookings_export_save": "Export Bookings", "bookings_settings_save": "Save Settings", "booking_delete": "Are you sure you want to delete?", "booking_offset": "30", "bookings": { "submit_button": { "text": { "default": "Thanh to\u00e1n", "free": "Thanh to\u00e1n", "payment": "Thanh to\u00e1n", "processing": "Processing ..." } } }, "bb_full": "H\u1ebft v\u00e9", "bb_book": "Ho\u00e0n t\u1ea5t \u0111\u1eb7t v\u00e9", "bb_booking": "\u0110ang x\u1eed l\u00fd \u0111\u1eb7t v\u00e9...", "bb_booked": "\u0110\u00e3 g\u1eedi y\u00eau c\u1ea7u \u0111\u1eb7t v\u00e9", "bb_error": "L\u1ed7i \u0111\u1eb7t v\u00e9. Th\u1eed l\u1ea1i?", "bb_cancel": "H\u1ee7y", "bb_canceling": "\u0110ang h\u1ee7y...", "bb_cancelled": "\u0110\u00e3 h\u1ee7y", "bb_cancel_error": "L\u1ed7i h\u1ee7y v\u00e9. Th\u1eed l\u1ea1i?", "txt_search": "T\u1eeb kh\u00f3a s\u1ef1 ki\u1ec7n", "txt_searching": "Searching...", "txt_loading": "Loading...", "cache": "1", "api_nonce": "b3091e0f0a", "attendance_api_url": "https:\/\/sansukien.com\/wp-json\/events-manager\/v1\/attendance" };
+	</script>
+	<script data-optimized="1" src='/wp-content/litespeed/js/ca6161678172e595d594e01187493e3ebcb9.js?ver=93e3e' id='events-manager-js'></script>
+	<script data-optimized="1" src='/wp-content/litespeed/js/5178eafafd405d179d0bb42be8d6016cdcd1.js?ver=6016c' id='events-manager-pro-js'></script>
+	<script id='simple-likes-public-js-js-extra'>
+		var simpleLikes = { "ajaxurl": "https:\/\/sansukien.com\/wp-admin\/admin-ajax.php", "likeTitle": "Ch\u1ecdn tham gia", "like": "S\u1ebd tham gia ?", "unlikeTitle": "H\u1ee7y tham gia", "unlike": "S\u1ebd tham gia" };
+	</script>
+	<script data-optimized="1" src='/wp-content/litespeed/js/35b0cfc09d1b90351dd2ba5f89f92190104e.js?ver=92190' id='simple-likes-public-js-js'></script>
+	<script data-optimized="1" src='/wp-content/litespeed/js/8be6604ad60826853ad37c5de76e9c489fe4.js?ver=e9c48' id='ssk-scrolltofixed-js'></script>
+	<script data-optimized="1" src='/wp-content/litespeed/js/a5cd7abf8e5ecacb8bfc4079e77bb14688f3.js?ver=bb146' id='infinite-scroll-js'></script>
+	<script id='favorites-js-extra'>
+		var favorites_data = { "ajaxurl": "https:\/\/sansukien.com\/wp-admin\/admin-ajax.php", "nonce": "7ec75bdefa", "favorite": "<i class=\"fa-regular fa-bookmark me-2\"><\/i>Save", "favorited": "<i class=\"fa-solid fa-bookmark me-2\"><\/i>Saved", "includecount": "", "indicate_loading": "1", "loading_text": "Loading", "loading_image": "<span class=\"sf-icon-spinner-wrapper\"><i class=\"sf-icon-spinner\"><\/i><\/span>", "loading_image_active": "<span class=\"sf-icon-spinner-wrapper active\"><i class=\"sf-icon-spinner active\"><\/i><\/span>", "loading_image_preload": "", "cache_enabled": "1", "button_options": { "button_type": "custom", "custom_colors": true, "box_shadow": true, "include_count": false, "default": { "background_default": "#ffffff", "border_default": "#efefef", "text_default": "#000000", "icon_default": "#000000", "count_default": false }, "active": { "background_active": "#6ac045", "border_active": "#6ac045", "text_active": "#ffffff", "icon_active": "#ffffff", "count_active": false } }, "authentication_modal_content": "<p>Please login to add favorites.<\/p>\n<p><a href=\"#\" data-favorites-modal-close>Dismiss this notice<\/a><\/p>\n", "authentication_redirect": "", "dev_mode": "", "logged_in": "", "user_id": "0", "authentication_redirect_url": "https:\/\/sansukien.com\/wp-login.php" };
+	</script>
+	<script data-optimized="1" src='/wp-content/litespeed/js/6d347c8a27f81d0d1837edbeef4cc06afb26.js?ver=cc06a' id='favorites-js'></script>
+	<style>
+		.em-coupon-message {
+			display: inline-block;
+			margin: 5px 0 0;
+		}
+
+		.em-coupon-success {
+			color: green;
+		}
+
+		.em-coupon-error {
+			color: red;
+		}
+
+		.em-cart-coupons-form .em-coupon-message {
+			margin: 0 20px 0 0;
+		}
+
+		.em-coupon-error .em-icon {
+			background-color: red;
+			-webkit-mask-image: var(--icon-cross-circle);
+			mask-image: var(--icon-cross-circle);
+		}
+
+		.em-coupon-success .em-icon {
+			background-color: green;
+			-webkit-mask-image: var(--icon-checkmark-circle);
+			mask-image: var(--icon-checkmark-circle);
+		}
+
+		.em-coupon-code.loading {
+			background: var(--icon-spinner) calc(100% - 10px) 50% no-repeat;
+			background-size: 20px;
+		}
+	</style>
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-KSD53J98LQ"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
+
+		gtag('config', 'G-KSD53J98LQ');
+	</script>
+
+	<script>(function (i, s, o, g, r, a, m) { i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () { (i[r].q = i[r].q || []).push(arguments) }, i[r].l = 1 * new Date(); a = s.createElement(o), m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m) })(window, document, 'script', '../www.google-analytics.com/analytics.js', 'ga'); ga('create', 'UA-106935225-1', 'auto'); ga('require', 'displayfeatures'); ga('require', 'linkid', 'index.html'); ga('send', 'pageview');</script>
+	<!-- Google Tag Manager -->
+	<script>(function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = '../www.googletagmanager.com/gtm5445.html?id=' + i + dl; f.parentNode.insertBefore(j, f); })(window, document, 'script', 'dataLayer', 'GTM-PCVCGFP');</script> <!-- End Google Tag Manager -->
+	<script type="application/ld+json">
+		{
+		  "@@context": "https://schema.org",
+		  "@@type": "Organization",
+		  "url": "https://sansukien.com",
+		  "logo": "https://sansukien.com/wp-content/themes/SanSuKien/assets/logo/favicon.png",
+		  "contactPoint": [{
+			"@@type": "ContactPoint",
+			"telephone": "+84908198689",
+			"contactType": "customer service",
+			"contactOption": "TollFree",
+			"areaServed": [
+			  "VN",
+			  "US"
+			],
+			"availableLanguage": [
+			  "Vietnamese",
+			  "English"
+			]
+		  }]
+		}</script>
+	<link rel="icon" href="/wp-content/uploads/2022/12/cropped-favicon-32x32.png" sizes="32x32" />
+	<link rel="icon" href="/wp-content/uploads/2022/12/cropped-favicon-192x192.png" sizes="192x192" />
+	<link rel="apple-touch-icon" href="/wp-content/uploads/2022/12/cropped-favicon-180x180.png" />
+	<meta name="msapplication-TileImage" content="/wp-content/uploads/2022/12/cropped-favicon-270x270.png" />
+
+
+</head>
+<body class="home blog d-flex flex-column h-100">
+	<!-- Google Tag Manager (noscript) -->
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PCVCGFP" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript> <!-- End Google Tag Manager (noscript) -->
+	<!-- Header Start-->
+	<header class="header">
+		<div class="header-inner">
+			<nav class="navbar navbar-expand-lg bg-barren barren-head navbar fixed-top justify-content-sm-start pt-0 pb-0">
+				<div class="container">
+					<button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+						<span class="navbar-toggler-icon">
+							<i class="fa-solid fa-bars"></i>
+						</span>
+					</button>
+					<a class="navbar-brand order-1 order-lg-0 ml-lg-0 ml-2 me-auto" href="/">
+						<div class="res-main-logo">
+							<img data-lazyloaded="1" src="data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-src="/wp-content/themes/SanSuKien/assets/logo/ssk-logo-icon.png" alt="SanSuKien"><noscript><img src="/wp-content/themes/SanSuKien/assets/logo/ssk-logo-icon.png" alt="SanSuKien"></noscript>
+						</div>
+						<div class="main-logo" id="logo">
+							<img data-lazyloaded="1" src="data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-src="/wp-content/themes/SanSuKien/assets/logo/ssk-logo.png" alt="SanSuKien"><noscript><img src="/wp-content/themes/SanSuKien/assets/logo/ssk-logo.png" alt="SanSuKien"></noscript>
+							<img data-lazyloaded="1" src="data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" class="logo-inverse" data-src="/wp-content/themes/SanSuKien/assets/logo/ssk-logo-dark.png" alt="SanSuKien"><noscript><img class="logo-inverse" src="/wp-content/themes/SanSuKien/assets/logo/ssk-logo-dark.png" alt="SanSuKien"></noscript>
+						</div>
+					</a>
+					<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+						<div class="offcanvas-header">
+							<div class="offcanvas-logo" id="offcanvasNavbarLabel">
+								<img data-lazyloaded="1" src="data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-src="/wp-content/themes/SanSuKien/assets/logo/ssk-logo-icon.png" alt="SanSuKien"><noscript><img src="/wp-content/themes/SanSuKien/assets/logo/ssk-logo-icon.png" alt="SanSuKien"></noscript>
+							</div>
+							<button type="button" class="close-btn" data-bs-dismiss="offcanvas" aria-label="Close">
+								<i class="fa-solid fa-xmark"></i>
+							</button>
+						</div>
+						<div class="offcanvas-body">
+							<div class="offcanvas-top-area">
+								<div class="create-bg">
+									<a href="chon-goi-dang-ky.html" class="offcanvas-create-btn">
+										<i class="fa-solid fa-calendar-days"></i>
+										<span>Tạo sự kiện</span>
+									</a>
+								</div>
+							</div>
+							<ul class="navbar-nav justify-content-end flex-grow-1 pe_5">
+								<li class="nav-item">
+									<a class="nav-link" aria-current="page" href="/">Trang chủ</a>
+								</li>
+								<li class="nav-item dropdown">
+									<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+										Khám phá
+									</a>
+									<ul class="dropdown-menu dropdown-submenu">
+										<li><a class="dropdown-item" href="/danh-sach-su-kien">Tất cả sự kiện</a></li>
+										<li><a class="dropdown-item" href="/dia-diem-to-chuc-su-kien">Địa điểm tổ chức sự kiện</a></li>
+										<li><a class="dropdown-item" href="/chu-de-su-kien">Chủ đề sự kiện</a></li>
+										<li><a class="dropdown-item" href="/danh-muc-su-kien">Danh mục sự kiện</a></li>
+									</ul>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link" aria-current="page" href="/">Blog</a>
+								</li>
+								<li class="nav-item dropdown">
+									<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+										Trợ giúp
+									</a>
+									<ul class="dropdown-menu dropdown-submenu">
+										<li><a class="dropdown-item" href="/">Liên hệ</a></li>
+										<li><a class="dropdown-item" href="/">Trung tâm trợ giúp</a></li>
+										<li><a class="dropdown-item" href="/">Hướng dẫn đặt vé</a></li>
+										<li><a class="dropdown-item" href="/">Tra cứu thông tin đặt vé</a></li>
+									</ul>
+								</li>
+							</ul>
+						</div>
+						<div class="offcanvas-footer">
+							<div class="offcanvas-social">
+								<h5>Follow Us</h5>
+								<ul class="social-links">
+									<li><a href="/" class="social-link" target="_blank"><i class="fab fa-facebook-square"></i></a>
+									<li><a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+									<li><a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+									<li><a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+									<li><a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="right-header order-2">
+						<ul class="align-self-stretch">
+							@{/*<li>
+								<a href="chon-goi-dang-ky.html" class="create-btn btn-hover">
+									<i class="fa-solid fa-calendar-days"></i>
+									<span>Tạo sự kiện</span>
+								</a>
+							</li>*/}
+							@if (user == null)
+							{
+								<li class="dropdown account-dropdown">
+									<a href="#" class="account-link" role="button" id="accountClick" data-bs-auto-close="outside" data-bs-toggle="dropdown" aria-expanded="false">
+										<img data-lazyloaded="1" src="data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-src="/wp-content/themes/SanSuKien/assets/images/sign-up.png" alt=""><noscript><img src="/wp-content/themes/SanSuKien/assets/images/sign-up.png" alt=""></noscript>
+										<i class="fas fa-caret-down arrow-icon"></i>
+									</a>
+									<ul class="dropdown-menu dropdown-menu-account dropdown-menu-end" aria-labelledby="accountClick">
+										<li class="profile-link">
+											<a href="/member-register" class="link-item">Đăng ký</a>
+											<a href="/member-login" class="link-item">Đăng nhập</a>
+										</li>
+									</ul>
+								</li>
+							}
+							else
+							{
+								<li class="dropdown account-dropdown">
+									<a href="#" class="account-link" role="button" id="accountClick" data-bs-auto-close="outside" data-bs-toggle="dropdown" aria-expanded="false">
+										<img data-lazyloaded="1" src="@user?.Avatar" data-src="@user.Avatar" class="custom_avatar entered litespeed-loaded" width="60" height="60" alt="" data-ll-status="loaded"><noscript><img src="@user.Avatar" class="custom_avatar" width="60" height="60" alt=""></noscript>
+										<i class="fas fa-caret-down arrow-icon"></i>
+									</a>
+									<ul class="dropdown-menu dropdown-menu-account dropdown-menu-end" aria-labelledby="accountClick">
+										<li>
+											<div class="dropdown-account-header">
+												<div class="account-holder-avatar">
+													<img data-lazyloaded="1" src="@user?.Avatar" data-src="@user.Avatar" class="custom_avatar entered litespeed-loaded" width="60" height="60" alt="" data-ll-status="loaded"><noscript><img src="@user.Avatar" class="custom_avatar" width="60" height="60" alt=""></noscript>
+												</div>
+												<h5>
+													@user.Name
+												</h5>
+												<p>@user.Email</p>
+											</div>
+										</li>
+										<li class="profile-link">
+											<a href="/" class="link-item">Hồ sơ cá nhân</a>
+											<a href="/home/logout" onclick="return confirm('Are you sure to log out?')" class="link-item">Đăng xuất</a>
+										</li>
+									</ul>
+								</li>
+							}
+							<li>
+								<div class="night_mode_switch__btn">
+									<div id="night-mode" class="fas fa-moon fa-sun"></div>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</nav>
+			<div class="overlay"></div>
+		</div>
+	</header>
+	<div class="wrapper">
+		@RenderBody()
+	</div>
+	<!-- Body End-->
+	<!-- Footer Start-->
+	<footer class="footer position-relative mt-auto ">
+		<div class="footer-top">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-3 col-md-6">
+						<div class="footer-content">
+							<h4>Về chúng tôi</h4>
+							<ul class="footer-link-list">
+								<li><a href="gioi-thieu-san-su-kien.html" class="footer-link">Giới thiệu</a></li>
+								<li><a href="chon-goi-dang-ky.html" class="footer-link">Bảng giá dịch vụ</a></li>
+								<li><a href="lien-he-san-su-kien.html" class="footer-link">Liên hệ hợp tác</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-lg-3 col-md-6">
+						<div class="footer-content">
+							<h4>Trợ giúp</h4>
+							<ul class="footer-link-list">
+								<li><a href="quy-trinh-mua-ban-ve-su-kien.html" class="footer-link">Hướng dẫn mua vé</a></li>
+								<li><a href="trung-tam-tro-giup.html" class="footer-link">Trung tâm trợ giúp</a></li>
+
+								<li><a href="quy-dinh-dieu-khoan.html" class="footer-link">Quy định và Điều khoản</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-lg-3 col-md-6">
+						<div class="footer-content">
+							<h4>Thông tin</h4>
+							<ul class="footer-link-list">
+
+								<li><a href="quy-che-hoat-dong.html" class="footer-link">Quy chế hoạt động</a></li>
+								<li><a href="co-che-giai-quyet-tranh-chap.html" class="footer-link">Cơ chế giải quyết tranh chấp</a></li>
+								<li><a href="chinh-sach-bao-mat-thong-tin-ca-nhan-khach-hang.html" class="footer-link">Chính sách bảo mật thông tin</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-lg-3 col-md-6">
+						<div class="footer-content">
+							<a href="http://online.gov.vn/HomePage/WebsiteDisplay.aspx?DocId=56215" target="_blank" title="Website đã đăng ký Bộ Công Thương"><img data-lazyloaded="1" src="data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-src="/wp-content/themes/SanSuKien/assets/images/license-online-gov-vn.png" oncontextmenu="javascript:alert('Copying Prohibited by Law - Trusted Website License provided by Ministry of Industry and Trade, Vietnam. Click the logo to see Information.'); return false;" alt="Website đã đăng ký Bộ Công Thương" style="height: 55px;" class=""><noscript><img src="/wp-content/themes/SanSuKien/assets/images/license-online-gov-vn.png" oncontextmenu="javascript:alert('Copying Prohibited by Law - Trusted Website License provided by Ministry of Industry and Trade, Vietnam. Click the logo to see Information.'); return false;" alt="Website đã đăng ký Bộ Công Thương" style="height: 55px;" class=""></noscript></a>
+							<p class="mb-0 mt-3">Giấy phép Kinh doanh số 0315666259 do Sở Kế hoạch & Đầu tư TP. HCM cấp ngày 09/05/2019</p>
+						</div>
+						<div class="footer-content mt-4">
+							<h4>Hỗ trợ thanh toán</h4>
+							<div class="download-app-link">
+								<img data-lazyloaded="1" src="data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" class="me-2" data-src="/wp-content/themes/SanSuKien/assets/images/momo.png" alt=""><noscript><img class="me-2" src="/wp-content/themes/SanSuKien/assets/images/momo.png" alt=""></noscript>
+								<img data-lazyloaded="1" src="data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" class="me-2" data-src="/wp-content/themes/SanSuKien/assets/images/atm.png" alt=""><noscript><img class="me-2" src="/wp-content/themes/SanSuKien/assets/images/atm.png" alt=""></noscript>
+								<img data-lazyloaded="1" src="data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" class="me-2" data-src="/wp-content/themes/SanSuKien/assets/images/visa-master-card.png" alt=""><noscript><img class="me-2" src="/wp-content/themes/SanSuKien/assets/images/visa-master-card.png" alt=""></noscript>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="footer-bottom">
+			<div class="container">
+				<div class="row">
+					<div class="col-12">
+						<div class="footer-copyright-text pt-3 font-monospace">
+							<p class="mb-0">Một sản phẩm của Công ty TNHH MTV Săn Sự Kiện</p>
+							<p class="mb-0">© 2017 - 2023, <strong>Sansukien Co., Ltd</strong>.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</footer>
+	<!-- Footer End-->
+	<script data-optimized="1" src='/wp-content/litespeed/js/3e109ad305bc95636a0e24b59071e48b83bf.js?ver=1e48b' id='bootstrap-js'></script>
+	<script data-optimized="1" src='/wp-content/litespeed/js/c10299af8a1f28a5bda99c5a1df149d8dbf1.js?ver=149d8' id='OwlCarousel-js'></script>
+	<script data-optimized="1" src='/wp-content/litespeed/js/a71f47c0e1f612aeea1a78d855155d070b47.js?ver=55d07' id='bootstrap-select-js'></script>
+	<script data-optimized="1" src='/wp-content/litespeed/js/b2d69e294288da6f266b555fef5fca6fe442.js?ver=fca6f' id='mixitup-js'></script>
+	<script data-optimized="1" src='/wp-content/litespeed/js/934843bfe5f72115909900dae9fc2ba9e92f.js?ver=c2ba9' id='night-mode-js'></script>
+	<script data-optimized="1" src='/wp-content/litespeed/js/0218e95b0938253121e180dc5df24c5fdd11.js?ver=24c5f' id='jquery-ui-core-js'></script>
+	<script data-optimized="1" src='/wp-content/litespeed/js/3fc9b278ba592eca463fa324726ebadfe4d8.js?ver=ebadf' id='jquery-ui-datepicker-js'></script>
+	<script id="jquery-ui-datepicker-js-after">
+		jQuery(function (jQuery) { jQuery.datepicker.setDefaults({ "closeText": "\u0110\u00f3ng", "currentText": "H\u00f4m nay", "monthNames": ["Th\u00e1ng M\u1ed9t", "Th\u00e1ng Hai", "Th\u00e1ng Ba", "Th\u00e1ng T\u01b0", "Th\u00e1ng N\u0103m", "Th\u00e1ng S\u00e1u", "Th\u00e1ng B\u1ea3y", "Th\u00e1ng T\u00e1m", "Th\u00e1ng Ch\u00edn", "Th\u00e1ng M\u01b0\u1eddi", "Th\u00e1ng M\u01b0\u1eddi M\u1ed9t", "Th\u00e1ng M\u01b0\u1eddi Hai"], "monthNamesShort": ["Th1", "Th2", "Th3", "Th4", "Th5", "Th6", "Th7", "Th8", "Th9", "Th10", "Th11", "Th12"], "nextText": "Ti\u1ebfp theo", "prevText": "Quay v\u1ec1", "dayNames": ["Ch\u1ee7 Nh\u1eadt", "Th\u1ee9 Hai", "Th\u1ee9 Ba", "Th\u1ee9 T\u01b0", "Th\u1ee9 N\u0103m", "Th\u1ee9 S\u00e1u", "Th\u1ee9 B\u1ea3y"], "dayNamesShort": ["CN", "T2", "T3", "T4", "T5", "T6", "T7"], "dayNamesMin": ["C", "H", "B", "T", "N", "S", "B"], "dateFormat": "dd\/mm\/yy", "firstDay": 1, "isRTL": false }); });
+	</script>
+	<script id='ssk-scripts-js-extra'>
+		var ssk_scripts = { "fixedfee": "12000", "standard": "8", "professional": "9" };
+	</script>
+	<script data-optimized="1" src='/wp-content/litespeed/js/01886afa5a8c9503d002be00fed1588e6304.js?ver=1588e' id='ssk-scripts-js'></script>
+	@{/*<script src='../www.google.com/recaptcha/api.js' async defer></script>*/}
+
+	<script>
+		jQuery(document).ready(function ($) {
+			$('.anonymous-save').on('click', function (e) {
+				e.preventDefault();
+				$('#NoticeModal-text').text('Vui lòng đăng nhập để lưu sự kiện!');
+				$('#NoticeModal').modal('show');
+			});
+		});
+	</script>
+
+	<div id="NoticeModal" class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header bg-secondary">
+					<h5 class="modal-title text-white">Thông báo</h5>
+					<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<p class="text-center mt-3" id="NoticeModal-text"></p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script data-no-optimize="1">!function (t, e) { "object" == typeof exports && "undefined" != typeof module ? module.exports = e() : "function" == typeof define && define.amd ? define(e) : (t = "undefined" != typeof globalThis ? globalThis : t || self).LazyLoad = e() }(this, function () { "use strict"; function e() { return (e = Object.assign || function (t) { for (var e = 1; e < arguments.length; e++) { var n, a = arguments[e]; for (n in a) Object.prototype.hasOwnProperty.call(a, n) && (t[n] = a[n]) } return t }).apply(this, arguments) } function i(t) { return e({}, it, t) } function o(t, e) { var n, a = "LazyLoad::Initialized", i = new t(e); try { n = new CustomEvent(a, { detail: { instance: i } }) } catch (t) { (n = document.createEvent("CustomEvent")).initCustomEvent(a, !1, !1, { instance: i }) } window.dispatchEvent(n) } function l(t, e) { return t.getAttribute(gt + e) } function c(t) { return l(t, bt) } function s(t, e) { return function (t, e, n) { e = gt + e; null !== n ? t.setAttribute(e, n) : t.removeAttribute(e) }(t, bt, e) } function r(t) { return s(t, null), 0 } function u(t) { return null === c(t) } function d(t) { return c(t) === vt } function f(t, e, n, a) { t && (void 0 === a ? void 0 === n ? t(e) : t(e, n) : t(e, n, a)) } function _(t, e) { nt ? t.classList.add(e) : t.className += (t.className ? " " : "") + e } function v(t, e) { nt ? t.classList.remove(e) : t.className = t.className.replace(new RegExp("(^|\\s+)" + e + "(\\s+|$)"), " ").replace(/^\s+/, "").replace(/\s+$/, "") } function g(t) { return t.llTempImage } function b(t, e) { !e || (e = e._observer) && e.unobserve(t) } function p(t, e) { t && (t.loadingCount += e) } function h(t, e) { t && (t.toLoadCount = e) } function n(t) { for (var e, n = [], a = 0; e = t.children[a]; a += 1)"SOURCE" === e.tagName && n.push(e); return n } function m(t, e) { (t = t.parentNode) && "PICTURE" === t.tagName && n(t).forEach(e) } function a(t, e) { n(t).forEach(e) } function E(t) { return !!t[st] } function I(t) { return t[st] } function y(t) { return delete t[st] } function A(e, t) { var n; E(e) || (n = {}, t.forEach(function (t) { n[t] = e.getAttribute(t) }), e[st] = n) } function k(a, t) { var i; E(a) && (i = I(a), t.forEach(function (t) { var e, n; e = a, (t = i[n = t]) ? e.setAttribute(n, t) : e.removeAttribute(n) })) } function L(t, e, n) { _(t, e.class_loading), s(t, ut), n && (p(n, 1), f(e.callback_loading, t, n)) } function w(t, e, n) { n && t.setAttribute(e, n) } function x(t, e) { w(t, ct, l(t, e.data_sizes)), w(t, rt, l(t, e.data_srcset)), w(t, ot, l(t, e.data_src)) } function O(t, e, n) { var a = l(t, e.data_bg_multi), i = l(t, e.data_bg_multi_hidpi); (a = at && i ? i : a) && (t.style.backgroundImage = a, n = n, _(t = t, (e = e).class_applied), s(t, ft), n && (e.unobserve_completed && b(t, e), f(e.callback_applied, t, n))) } function N(t, e) { !e || 0 < e.loadingCount || 0 < e.toLoadCount || f(t.callback_finish, e) } function C(t, e, n) { t.addEventListener(e, n), t.llEvLisnrs[e] = n } function M(t) { return !!t.llEvLisnrs } function z(t) { if (M(t)) { var e, n, a = t.llEvLisnrs; for (e in a) { var i = a[e]; n = e, i = i, t.removeEventListener(n, i) } delete t.llEvLisnrs } } function R(t, e, n) { var a; delete t.llTempImage, p(n, -1), (a = n) && --a.toLoadCount, v(t, e.class_loading), e.unobserve_completed && b(t, n) } function T(o, r, c) { var l = g(o) || o; M(l) || function (t, e, n) { M(t) || (t.llEvLisnrs = {}); var a = "VIDEO" === t.tagName ? "loadeddata" : "load"; C(t, a, e), C(t, "error", n) }(l, function (t) { var e, n, a, i; n = r, a = c, i = d(e = o), R(e, n, a), _(e, n.class_loaded), s(e, dt), f(n.callback_loaded, e, a), i || N(n, a), z(l) }, function (t) { var e, n, a, i; n = r, a = c, i = d(e = o), R(e, n, a), _(e, n.class_error), s(e, _t), f(n.callback_error, e, a), i || N(n, a), z(l) }) } function G(t, e, n) { var a, i, o, r, c; t.llTempImage = document.createElement("IMG"), T(t, e, n), E(c = t) || (c[st] = { backgroundImage: c.style.backgroundImage }), o = n, r = l(a = t, (i = e).data_bg), c = l(a, i.data_bg_hidpi), (r = at && c ? c : r) && (a.style.backgroundImage = 'url("'.concat(r, '")'), g(a).setAttribute(ot, r), L(a, i, o)), O(t, e, n) } function D(t, e, n) { var a; T(t, e, n), a = e, e = n, (t = It[(n = t).tagName]) && (t(n, a), L(n, a, e)) } function V(t, e, n) { var a; a = t, (-1 < yt.indexOf(a.tagName) ? D : G)(t, e, n) } function F(t, e, n) { var a; t.setAttribute("loading", "lazy"), T(t, e, n), a = e, (e = It[(n = t).tagName]) && e(n, a), s(t, vt) } function j(t) { t.removeAttribute(ot), t.removeAttribute(rt), t.removeAttribute(ct) } function P(t) { m(t, function (t) { k(t, Et) }), k(t, Et) } function S(t) { var e; (e = At[t.tagName]) ? e(t) : E(e = t) && (t = I(e), e.style.backgroundImage = t.backgroundImage) } function U(t, e) { var n; S(t), n = e, u(e = t) || d(e) || (v(e, n.class_entered), v(e, n.class_exited), v(e, n.class_applied), v(e, n.class_loading), v(e, n.class_loaded), v(e, n.class_error)), r(t), y(t) } function $(t, e, n, a) { var i; n.cancel_on_exit && (c(t) !== ut || "IMG" === t.tagName && (z(t), m(i = t, function (t) { j(t) }), j(i), P(t), v(t, n.class_loading), p(a, -1), r(t), f(n.callback_cancel, t, e, a))) } function q(t, e, n, a) { var i, o, r = (o = t, 0 <= pt.indexOf(c(o))); s(t, "entered"), _(t, n.class_entered), v(t, n.class_exited), i = t, o = a, n.unobserve_entered && b(i, o), f(n.callback_enter, t, e, a), r || V(t, n, a) } function H(t) { return t.use_native && "loading" in HTMLImageElement.prototype } function B(t, i, o) { t.forEach(function (t) { return (a = t).isIntersecting || 0 < a.intersectionRatio ? q(t.target, t, i, o) : (e = t.target, n = t, a = i, t = o, void (u(e) || (_(e, a.class_exited), $(e, n, a, t), f(a.callback_exit, e, n, t)))); var e, n, a }) } function J(e, n) { var t; et && !H(e) && (n._observer = new IntersectionObserver(function (t) { B(t, e, n) }, { root: (t = e).container === document ? null : t.container, rootMargin: t.thresholds || t.threshold + "px" })) } function K(t) { return Array.prototype.slice.call(t) } function Q(t) { return t.container.querySelectorAll(t.elements_selector) } function W(t) { return c(t) === _t } function X(t, e) { return e = t || Q(e), K(e).filter(u) } function Y(e, t) { var n; (n = Q(e), K(n).filter(W)).forEach(function (t) { v(t, e.class_error), r(t) }), t.update() } function t(t, e) { var n, a, t = i(t); this._settings = t, this.loadingCount = 0, J(t, this), n = t, a = this, Z && window.addEventListener("online", function () { Y(n, a) }), this.update(e) } var Z = "undefined" != typeof window, tt = Z && !("onscroll" in window) || "undefined" != typeof navigator && /(gle|ing|ro)bot|crawl|spider/i.test(navigator.userAgent), et = Z && "IntersectionObserver" in window, nt = Z && "classList" in document.createElement("p"), at = Z && 1 < window.devicePixelRatio, it = { elements_selector: ".lazy", container: tt || Z ? document : null, threshold: 300, thresholds: null, data_src: "src", data_srcset: "srcset", data_sizes: "sizes", data_bg: "bg", data_bg_hidpi: "bg-hidpi", data_bg_multi: "bg-multi", data_bg_multi_hidpi: "bg-multi-hidpi", data_poster: "poster", class_applied: "applied", class_loading: "litespeed-loading", class_loaded: "litespeed-loaded", class_error: "error", class_entered: "entered", class_exited: "exited", unobserve_completed: !0, unobserve_entered: !1, cancel_on_exit: !0, callback_enter: null, callback_exit: null, callback_applied: null, callback_loading: null, callback_loaded: null, callback_error: null, callback_finish: null, callback_cancel: null, use_native: !1 }, ot = "src", rt = "srcset", ct = "sizes", lt = "poster", st = "llOriginalAttrs", ut = "loading", dt = "loaded", ft = "applied", _t = "error", vt = "native", gt = "data-", bt = "ll-status", pt = [ut, dt, ft, _t], ht = [ot], mt = [ot, lt], Et = [ot, rt, ct], It = { IMG: function (t, e) { m(t, function (t) { A(t, Et), x(t, e) }), A(t, Et), x(t, e) }, IFRAME: function (t, e) { A(t, ht), w(t, ot, l(t, e.data_src)) }, VIDEO: function (t, e) { a(t, function (t) { A(t, ht), w(t, ot, l(t, e.data_src)) }), A(t, mt), w(t, lt, l(t, e.data_poster)), w(t, ot, l(t, e.data_src)), t.load() } }, yt = ["IMG", "IFRAME", "VIDEO"], At = { IMG: P, IFRAME: function (t) { k(t, ht) }, VIDEO: function (t) { a(t, function (t) { k(t, ht) }), k(t, mt), t.load() } }, kt = ["IMG", "IFRAME", "VIDEO"]; return t.prototype = { update: function (t) { var e, n, a, i = this._settings, o = X(t, i); { if (h(this, o.length), !tt && et) return H(i) ? (e = i, n = this, o.forEach(function (t) { -1 !== kt.indexOf(t.tagName) && F(t, e, n) }), void h(n, 0)) : (t = this._observer, i = o, t.disconnect(), a = t, void i.forEach(function (t) { a.observe(t) })); this.loadAll(o) } }, destroy: function () { this._observer && this._observer.disconnect(), Q(this._settings).forEach(function (t) { y(t) }), delete this._observer, delete this._settings, delete this.loadingCount, delete this.toLoadCount }, loadAll: function (t) { var e = this, n = this._settings; X(t, n).forEach(function (t) { b(t, e), V(t, n, e) }) }, restoreAll: function () { var e = this._settings; Q(e).forEach(function (t) { U(t, e) }) } }, t.load = function (t, e) { e = i(e); V(t, e) }, t.resetStatus = function (t) { r(t) }, Z && function (t, e) { if (e) if (e.length) for (var n, a = 0; n = e[a]; a += 1)o(t, n); else o(t, e) }(t, window.lazyLoadOptions), t }); !function (e, t) { "use strict"; function a() { t.body.classList.add("litespeed_lazyloaded") } function n() { console.log("[LiteSpeed] Start Lazy Load Images"), d = new LazyLoad({ elements_selector: "[data-lazyloaded]", callback_finish: a }), o = function () { d.update() }, e.MutationObserver && new MutationObserver(o).observe(t.documentElement, { childList: !0, subtree: !0, attributes: !0 }) } var d, o; e.addEventListener ? e.addEventListener("load", n, !1) : e.attachEvent("onload", n) }(window, document);</script>
+	@await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

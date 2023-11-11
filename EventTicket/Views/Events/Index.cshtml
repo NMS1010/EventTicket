@@ -1,0 +1,60 @@
+﻿@using EventTicket.Entities;
+@model List<Event>
+
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewData["Title"] = "Danh sách sự kiện";
+}
+
+<!-- Page Heading -->
+
+<a href="/admin/events/create" class="btn btn-info h3 mb-2 ">Tạo mới</a>
+<!-- DataTales Example -->
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Danh sách sự kiện</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered display nowrap" id="dataTable" cellspacing="0" style="width: 100%;">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Ảnh</th>
+                        <th>Tên</th>
+                        <th>Mô tả</th>
+                        <th>Ngày bắt đầu</th>
+                        <th>Ngày kết thúc</th>
+                        <th>Địa điểm</th>
+                        <th>Danh mục</th>
+                        <th>Chủ đề</th>
+                        <th>Trạng thái</th>
+                        <th>Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var ev in Model)
+                    {
+                        var temp = ev.Status;
+                        <tr>
+                            <td>@ev.Id</td>
+                            <td><img src="@ev.Image" alt="Avatar" width="100" height="100" /></td>
+                            <td>@ev.Name</td>
+                            <td>@ev.Description</td>
+                            <td>@ev.StartDate.ToString()</td>
+                            <td>@ev.EndDate.ToString()</td>
+                            <td>@ev?.Place?.Name</td>
+                            <td>@ev?.Category?.Name</td>
+                            <td>@ev?.Topic?.Name</td>
+                            <td>@temp</td>
+                            <td>
+                                <a href="/admin/events/edit/@ev.Id" class="btn btn-success">Sửa</a>
+                                <a href="/admin/events/delete/@ev.Id" class="btn btn-danger">Xoá</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

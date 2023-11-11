@@ -1,0 +1,68 @@
+﻿@{
+    Layout = "~/Views/Shared/_AuthLayout.cshtml";
+}
+<div class="row justify-content-center">
+	<div class="col-lg-10 col-md-10">
+		<div class="app-top-items">
+			<a href="https://sansukien.com/">
+				<div class="sign-logo" id="logo">
+					<img src="https://sansukien.com/wp-content/themes/SanSuKien/assets/logo/ssk-logo.png" alt="SanSuKien">
+					<img class="logo-inverse" src="https://sansukien.com/wp-content/themes/SanSuKien/assets/logo/ssk-logo-dark.png" alt="SanSuKien">
+				</div>
+			</a>
+			<div class="app-top-right-link">
+				Chưa có tài khoản?<a class="sidebar-register-link" href="https://sansukien.com/member-register">Đăng ký ngay</a>
+			</div>
+		</div>
+	</div>
+	<div class="col-xl-5 col-lg-6 col-md-7">
+		<div class="registration">
+
+
+
+			<form name="login-form" id="login-form" method="post" action="/member-login">
+				<h2 class="registration-title">Đăng nhập tài khoản</h2>
+
+
+				<div class="form-group mt-5">
+					<label class="form-label">Tên đăng nhập hoặc Email*</label>
+					<input class="form-control h_50" type="text" name="UserName" id="username" placeholder="" value="" required>
+				</div>
+
+				<div class="form-group mt-4">
+					<div class="field-password">
+						<label class="form-label">Mật khẩu*</label>
+					</div>
+					<div class="loc-group position-relative">
+						<input class="form-control h_50" type="password" name="Password" id="password" placeholder="">
+						<span class="pass-show-eye"><i class="fas fa-eye-slash"></i></span>
+					</div>
+				</div>
+
+				@*<div class="form-group">
+					<div class="d-flex align-items-center flex-wrap pt-4 flex-nowrap float-start">
+						<label class="btn-switch m-0 me-3">
+							<input type="checkbox" name="rememberme" id="rememberme" value="forever" checked="">
+							<span class="checkbox-slider"></span>
+						</label>
+						<div>
+							<label class="fs-12 m-0">Ghi nhớ</label>
+						</div>
+					</div>
+					<div class="float-end pt-4"><a class="forgot-pass-link position-static" href="https://sansukien.com/member-password-lost">Quên mật khẩu?</a></div>
+				</div>*@
+
+
+				<script>
+					function onSubmit(token) {
+						document.getElementById("login-form").submit();
+					}
+				</script>
+				<input type="submit" name="submit-login-button" id="submit-login-button" class="main-btn btn-hover w-100 mt-4" >
+			</form>
+			<div class="new-sign-link">
+				Chưa có tài khoản?<a class="signup-link" href="https://sansukien.com/member-register">Đăng ký ngay</a>
+			</div>
+		</div>
+	</div>
+</div>

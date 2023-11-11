@@ -1,0 +1,58 @@
+﻿@using EventTicket.Entities;
+@model List<Place>
+
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewData["Title"] = "Danh sách địa điểm";
+}
+
+<!-- Page Heading -->
+
+<a href="/admin/places/create" class="btn btn-info h3 mb-2 ">Tạo mới</a>
+<!-- DataTales Example -->
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Danh sách địa điểm sự kiện</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered display nowrap" id="dataTable" cellspacing="0" style="width: 100%;">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Tên</th>
+                        <th>Địa chỉ</th>
+                        <th>Số điện thoại</th>
+                        <th>Người tạo</th>
+                        <th>Ngày tạo</th>
+                        <th>Thời gian hoạt động</th>
+                        <th>Số sự kiện</th>
+                        <th>Trạng thái</th>
+                        <th>Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var place in Model)
+                    {
+                        var temp = place.Status;
+                        <tr>
+                            <td>@place.Id</td>
+                            <td>@place.Name</td>
+                            <td>@place.Address</td>
+                            <td>@place.Phone</td>
+                            <td>@place.CreatedBy</td>
+                            <td>@place.UpdatedAt</td>
+                            <td>@place.TimeActive</td>
+                            <td>@place.Events.Count</td>
+                            <td>@(temp ? "Hiển thị" : "Ẩn")</td>
+                            <td>
+                                <a href="/admin/places/edit/@place.Id" class="btn btn-success">Sửa</a>
+                                <a href="/admin/places/delete/@place.Id" class="btn btn-danger">Xoá</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
