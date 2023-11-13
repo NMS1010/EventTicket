@@ -1,0 +1,3019 @@
+﻿@using EventTicket.Entities;
+@model Event;
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var events = (List<Event>)ViewData["events"];
+	User user = null;
+	string temp = null;
+	if (User.Identity.IsAuthenticated)
+	{
+		temp = HttpContextAccessor.HttpContext.Session.GetString("User");
+		if (temp != null)
+			user = Newtonsoft.Json.JsonConvert.DeserializeObject<User>(temp);
+		else
+		{
+			temp = "nouser";
+		}
+	}
+}
+<style id="classic-theme-styles-inline-css">
+    /*! This file is auto-generated */
+    .wp-block-button__link {
+        color: #fff;
+        background-color: #32373c;
+        border-radius: 9999px;
+        box-shadow: none;
+        text-decoration: none;
+        padding: calc(0.667em + 2px) calc(1.333em + 2px);
+        font-size: 1.125em;
+    }
+
+    .wp-block-file__button {
+        background: #32373c;
+        color: #fff;
+        text-decoration: none;
+    }
+</style>
+<link rel="stylesheet"
+      id="contact-form-7-css"
+      href="https://sansukien.com/wp-content/plugins/contact-form-7/includes/css/styles.css"
+      media="all" />
+<link rel="stylesheet"
+      id="events-manager-css"
+      href="https://sansukien.com/wp-content/plugins/events-manager/includes/css/events-manager.css"
+      media="all" />
+<style id="events-manager-inline-css">
+    body .em {
+        --font-family: inherit;
+        --font-weight: inherit;
+        --font-size: 1em;
+        --line-height: inherit;
+    }
+</style>
+<link rel="stylesheet"
+      id="events-manager-pro-css"
+      href="https://sansukien.com/wp-content/plugins/events-manager-pro/includes/css/events-manager-pro.css"
+      media="all" />
+<link rel="stylesheet"
+      id="post-views-counter-frontend-css"
+      href="https://sansukien.com/wp-content/plugins/post-views-counter/css/frontend.min.css"
+      media="all" />
+<link rel="stylesheet"
+      id="wpdiscuz-frontend-css-css"
+      href="https://sansukien.com/wp-content/plugins/wpdiscuz/themes/default/style.css"
+      media="all" />
+<style id="wpdiscuz-frontend-css-inline-css">
+    #wpdcom .wpd-blog-administrator .wpd-comment-label {
+        color: #ffffff;
+        background-color: #6ac045;
+        border: none;
+    }
+
+    #wpdcom .wpd-blog-administrator .wpd-comment-author,
+    #wpdcom .wpd-blog-administrator .wpd-comment-author a {
+        color: #6ac045;
+    }
+
+    #wpdcom.wpd-layout-1
+    .wpd-comment
+    .wpd-blog-administrator
+    .wpd-avatar
+    img {
+        border-color: #6ac045;
+    }
+
+    #wpdcom.wpd-layout-2
+    .wpd-comment.wpd-reply
+    .wpd-comment-wrap.wpd-blog-administrator {
+        border-left: 3px solid #6ac045;
+    }
+
+    #wpdcom.wpd-layout-2
+    .wpd-comment
+    .wpd-blog-administrator
+    .wpd-avatar
+    img {
+        border-bottom-color: #6ac045;
+    }
+
+    #wpdcom.wpd-layout-3 .wpd-blog-administrator .wpd-comment-subheader {
+        border-top: 1px dashed #6ac045;
+    }
+
+    #wpdcom.wpd-layout-3
+    .wpd-reply
+    .wpd-blog-administrator
+    .wpd-comment-right {
+        border-left: 1px solid #6ac045;
+    }
+
+    #wpdcom .wpd-blog-editor .wpd-comment-label {
+        color: #ffffff;
+        background-color: #6ac045;
+        border: none;
+    }
+
+    #wpdcom .wpd-blog-editor .wpd-comment-author,
+    #wpdcom .wpd-blog-editor .wpd-comment-author a {
+        color: #6ac045;
+    }
+
+    #wpdcom.wpd-layout-1 .wpd-comment .wpd-blog-editor .wpd-avatar img {
+        border-color: #6ac045;
+    }
+
+    #wpdcom.wpd-layout-2
+    .wpd-comment.wpd-reply
+    .wpd-comment-wrap.wpd-blog-editor {
+        border-left: 3px solid #6ac045;
+    }
+
+    #wpdcom.wpd-layout-2 .wpd-comment .wpd-blog-editor .wpd-avatar img {
+        border-bottom-color: #6ac045;
+    }
+
+    #wpdcom.wpd-layout-3 .wpd-blog-editor .wpd-comment-subheader {
+        border-top: 1px dashed #6ac045;
+    }
+
+    #wpdcom.wpd-layout-3 .wpd-reply .wpd-blog-editor .wpd-comment-right {
+        border-left: 1px solid #6ac045;
+    }
+
+    #wpdcom .wpd-blog-thanhvien .wpd-comment-label {
+        color: #ffffff;
+        background-color: #00b38f;
+        border: none;
+    }
+
+    #wpdcom .wpd-blog-thanhvien .wpd-comment-author,
+    #wpdcom .wpd-blog-thanhvien .wpd-comment-author a {
+        color: #00b38f;
+    }
+
+    #wpdcom.wpd-layout-1 .wpd-comment .wpd-blog-thanhvien .wpd-avatar img {
+        border-color: #00b38f;
+    }
+
+    #wpdcom.wpd-layout-2 .wpd-comment .wpd-blog-thanhvien .wpd-avatar img {
+        border-bottom-color: #00b38f;
+    }
+
+    #wpdcom.wpd-layout-3 .wpd-blog-thanhvien .wpd-comment-subheader {
+        border-top: 1px dashed #00b38f;
+    }
+
+    #wpdcom.wpd-layout-3 .wpd-reply .wpd-blog-thanhvien .wpd-comment-right {
+        border-left: 1px solid #00b38f;
+    }
+
+    #wpdcom .wpd-blog-standard .wpd-comment-label {
+        color: #ffffff;
+        background-color: #6ac045;
+        border: none;
+    }
+
+    #wpdcom .wpd-blog-standard .wpd-comment-author,
+    #wpdcom .wpd-blog-standard .wpd-comment-author a {
+        color: #6ac045;
+    }
+
+    #wpdcom.wpd-layout-1 .wpd-comment .wpd-blog-standard .wpd-avatar img {
+        border-color: #6ac045;
+    }
+
+    #wpdcom.wpd-layout-2 .wpd-comment .wpd-blog-standard .wpd-avatar img {
+        border-bottom-color: #6ac045;
+    }
+
+    #wpdcom.wpd-layout-3 .wpd-blog-standard .wpd-comment-subheader {
+        border-top: 1px dashed #6ac045;
+    }
+
+    #wpdcom.wpd-layout-3 .wpd-reply .wpd-blog-standard .wpd-comment-right {
+        border-left: 1px solid #6ac045;
+    }
+
+    #wpdcom .wpd-blog-professional .wpd-comment-label {
+        color: #ffffff;
+        background-color: #6ac045;
+        border: none;
+    }
+
+    #wpdcom .wpd-blog-professional .wpd-comment-author,
+    #wpdcom .wpd-blog-professional .wpd-comment-author a {
+        color: #6ac045;
+    }
+
+    #wpdcom.wpd-layout-1 .wpd-comment .wpd-blog-professional .wpd-avatar img {
+        border-color: #6ac045;
+    }
+
+    #wpdcom.wpd-layout-2 .wpd-comment .wpd-blog-professional .wpd-avatar img {
+        border-bottom-color: #6ac045;
+    }
+
+    #wpdcom.wpd-layout-3 .wpd-blog-professional .wpd-comment-subheader {
+        border-top: 1px dashed #6ac045;
+    }
+
+    #wpdcom.wpd-layout-3
+    .wpd-reply
+    .wpd-blog-professional
+    .wpd-comment-right {
+        border-left: 1px solid #6ac045;
+    }
+
+    #wpdcom .wpd-blog-enterprise .wpd-comment-label {
+        color: #ffffff;
+        background-color: #6ac045;
+        border: none;
+    }
+
+    #wpdcom .wpd-blog-enterprise .wpd-comment-author,
+    #wpdcom .wpd-blog-enterprise .wpd-comment-author a {
+        color: #6ac045;
+    }
+
+    #wpdcom.wpd-layout-1 .wpd-comment .wpd-blog-enterprise .wpd-avatar img {
+        border-color: #6ac045;
+    }
+
+    #wpdcom.wpd-layout-2 .wpd-comment .wpd-blog-enterprise .wpd-avatar img {
+        border-bottom-color: #6ac045;
+    }
+
+    #wpdcom.wpd-layout-3 .wpd-blog-enterprise .wpd-comment-subheader {
+        border-top: 1px dashed #6ac045;
+    }
+
+    #wpdcom.wpd-layout-3 .wpd-reply .wpd-blog-enterprise .wpd-comment-right {
+        border-left: 1px solid #6ac045;
+    }
+
+    #wpdcom .wpd-blog-post_author .wpd-comment-label {
+        color: #ffffff;
+        background-color: #6ac045;
+        border: none;
+    }
+
+    #wpdcom .wpd-blog-post_author .wpd-comment-author,
+    #wpdcom .wpd-blog-post_author .wpd-comment-author a {
+        color: #6ac045;
+    }
+
+    #wpdcom .wpd-blog-post_author .wpd-avatar img {
+        border-color: #6ac045;
+    }
+
+    #wpdcom.wpd-layout-1 .wpd-comment .wpd-blog-post_author .wpd-avatar img {
+        border-color: #6ac045;
+    }
+
+    #wpdcom.wpd-layout-2
+    .wpd-comment.wpd-reply
+    .wpd-comment-wrap.wpd-blog-post_author {
+        border-left: 3px solid #6ac045;
+    }
+
+    #wpdcom.wpd-layout-2 .wpd-comment .wpd-blog-post_author .wpd-avatar img {
+        border-bottom-color: #6ac045;
+    }
+
+    #wpdcom.wpd-layout-3 .wpd-blog-post_author .wpd-comment-subheader {
+        border-top: 1px dashed #6ac045;
+    }
+
+    #wpdcom.wpd-layout-3 .wpd-reply .wpd-blog-post_author .wpd-comment-right {
+        border-left: 1px solid #6ac045;
+    }
+
+    #wpdcom .wpd-blog-guest .wpd-comment-label {
+        color: #ffffff;
+        background-color: #00b38f;
+        border: none;
+    }
+
+    #wpdcom .wpd-blog-guest .wpd-comment-author,
+    #wpdcom .wpd-blog-guest .wpd-comment-author a {
+        color: #00b38f;
+    }
+
+    #wpdcom.wpd-layout-3 .wpd-blog-guest .wpd-comment-subheader {
+        border-top: 1px dashed #00b38f;
+    }
+
+    #comments,
+    #respond,
+    .comments-area,
+    #wpdcom {
+    }
+
+        #wpdcom .ql-editor > * {
+            color: #777777;
+        }
+
+        #wpdcom .ql-editor::before {
+        }
+
+        #wpdcom .ql-toolbar {
+            border: 1px solid #dddddd;
+            border-top: none;
+        }
+
+        #wpdcom .ql-container {
+            border: 1px solid #dddddd;
+            border-bottom: none;
+        }
+
+        #wpdcom .wpd-form-row .wpdiscuz-item input[type="text"],
+        #wpdcom .wpd-form-row .wpdiscuz-item input[type="email"],
+        #wpdcom .wpd-form-row .wpdiscuz-item input[type="url"],
+        #wpdcom .wpd-form-row .wpdiscuz-item input[type="color"],
+        #wpdcom .wpd-form-row .wpdiscuz-item input[type="date"],
+        #wpdcom .wpd-form-row .wpdiscuz-item input[type="datetime"],
+        #wpdcom .wpd-form-row .wpdiscuz-item input[type="datetime-local"],
+        #wpdcom .wpd-form-row .wpdiscuz-item input[type="month"],
+        #wpdcom .wpd-form-row .wpdiscuz-item input[type="number"],
+        #wpdcom .wpd-form-row .wpdiscuz-item input[type="time"],
+        #wpdcom textarea,
+        #wpdcom select {
+            border: 1px solid #dddddd;
+            color: #777777;
+        }
+
+        #wpdcom .wpd-form-row .wpdiscuz-item textarea {
+            border: 1px solid #dddddd;
+        }
+
+        #wpdcom input::placeholder,
+        #wpdcom textarea::placeholder,
+        #wpdcom input::-moz-placeholder,
+        #wpdcom textarea::-webkit-input-placeholder {
+        }
+
+        #wpdcom .wpd-comment-text {
+            color: #777777;
+        }
+
+        #wpdcom .wpd-thread-head .wpd-thread-info {
+            border-bottom: 2px solid #6ac045;
+        }
+
+            #wpdcom .wpd-thread-head .wpd-thread-info.wpd-reviews-tab svg {
+                fill: #6ac045;
+            }
+
+        #wpdcom .wpd-thread-head .wpdiscuz-user-settings {
+            border-bottom: 2px solid #6ac045;
+        }
+
+            #wpdcom .wpd-thread-head .wpdiscuz-user-settings:hover {
+                color: #6ac045;
+            }
+
+        #wpdcom .wpd-comment .wpd-follow-link:hover {
+            color: #6ac045;
+        }
+
+        #wpdcom .wpd-comment-status .wpd-sticky {
+            color: #6ac045;
+        }
+
+        #wpdcom .wpd-thread-filter .wpdf-active {
+            color: #6ac045;
+            border-bottom-color: #6ac045;
+        }
+
+        #wpdcom .wpd-comment-info-bar {
+            border: 1px dashed #88cd6b;
+            background: #f1f9ed;
+        }
+
+            #wpdcom .wpd-comment-info-bar .wpd-current-view i {
+                color: #6ac045;
+            }
+
+        #wpdcom .wpd-filter-view-all:hover {
+            background: #6ac045;
+        }
+
+        #wpdcom .wpdiscuz-item .wpdiscuz-rating > label {
+            color: #dddddd;
+        }
+
+        #wpdcom .wpdiscuz-item .wpdiscuz-rating:not(:checked) > label:hover,
+        .wpdiscuz-rating:not(:checked) > label:hover ~ label {
+        }
+
+        #wpdcom .wpdiscuz-item .wpdiscuz-rating > input ~ label:hover,
+        #wpdcom
+        .wpdiscuz-item
+        .wpdiscuz-rating > input:not(:checked) ~ label:hover ~ label,
+        #wpdcom
+        .wpdiscuz-item
+        .wpdiscuz-rating > input:not(:checked) ~ label:hover ~ label {
+            color: #ffed85;
+        }
+
+        #wpdcom .wpdiscuz-item .wpdiscuz-rating > input:checked ~ label:hover,
+        #wpdcom .wpdiscuz-item .wpdiscuz-rating > input:checked ~ label:hover,
+        #wpdcom
+        .wpdiscuz-item
+        .wpdiscuz-rating > label:hover ~ input:checked ~ label,
+        #wpdcom
+        .wpdiscuz-item
+        .wpdiscuz-rating > input:checked + label:hover ~ label,
+        #wpdcom
+        .wpdiscuz-item
+        .wpdiscuz-rating > input:checked ~ label:hover ~ label,
+        .wpd-custom-field .wcf-active-star,
+        #wpdcom .wpdiscuz-item .wpdiscuz-rating > input:checked ~ label {
+            color: #ffd700;
+        }
+
+    #wpd-post-rating .wpd-rating-wrap .wpd-rating-stars svg .wpd-star {
+        fill: #dddddd;
+    }
+
+    #wpd-post-rating .wpd-rating-wrap .wpd-rating-stars svg .wpd-active {
+        fill: #ffd700;
+    }
+
+    #wpd-post-rating .wpd-rating-wrap .wpd-rate-starts svg .wpd-star {
+        fill: #dddddd;
+    }
+
+    #wpd-post-rating .wpd-rating-wrap .wpd-rate-starts:hover svg .wpd-star {
+        fill: #ffed85;
+    }
+
+    #wpd-post-rating.wpd-not-rated
+    .wpd-rating-wrap
+    .wpd-rate-starts
+    svg:hover ~ svg
+    .wpd-star {
+        fill: #dddddd;
+    }
+
+    .wpdiscuz-post-rating-wrap
+    .wpd-rating
+    .wpd-rating-wrap
+    .wpd-rating-stars
+    svg
+    .wpd-star {
+        fill: #dddddd;
+    }
+
+    .wpdiscuz-post-rating-wrap
+    .wpd-rating
+    .wpd-rating-wrap
+    .wpd-rating-stars
+    svg
+    .wpd-active {
+        fill: #ffd700;
+    }
+
+    #wpdcom .wpd-comment .wpd-follow-active {
+        color: #ff7a00;
+    }
+
+    #wpdcom .page-numbers {
+        color: #555;
+        border: #555 1px solid;
+    }
+
+    #wpdcom span.current {
+        background: #555;
+    }
+
+    #wpdcom.wpd-layout-1
+    .wpd-new-loaded-comment > .wpd-comment-wrap > .wpd-comment-right {
+        background: #fffad6;
+    }
+
+    #wpdcom.wpd-layout-2
+    .wpd-new-loaded-comment.wpd-comment > .wpd-comment-wrap > .wpd-comment-right {
+        background: #fffad6;
+    }
+
+    #wpdcom.wpd-layout-2
+    .wpd-new-loaded-comment.wpd-comment.wpd-reply > .wpd-comment-wrap > .wpd-comment-right {
+        background: transparent;
+    }
+
+    #wpdcom.wpd-layout-2
+    .wpd-new-loaded-comment.wpd-comment.wpd-reply > .wpd-comment-wrap {
+        background: #fffad6;
+    }
+
+    #wpdcom.wpd-layout-3
+    .wpd-new-loaded-comment.wpd-comment > .wpd-comment-wrap > .wpd-comment-right {
+        background: #fffad6;
+    }
+
+    #wpdcom .wpd-follow:hover i,
+    #wpdcom .wpd-unfollow:hover i,
+    #wpdcom .wpd-comment .wpd-follow-active:hover i {
+        color: #6ac045;
+    }
+
+    #wpdcom .wpdiscuz-readmore {
+        cursor: pointer;
+        color: #6ac045;
+    }
+
+    .wpd-custom-field .wcf-pasiv-star,
+    #wpcomm .wpdiscuz-item .wpdiscuz-rating > label {
+        color: #dddddd;
+    }
+
+    .wpd-wrapper .wpd-list-item.wpd-active {
+        border-top: 3px solid #6ac045;
+    }
+
+    #wpdcom.wpd-layout-2
+    .wpd-comment.wpd-reply.wpd-unapproved-comment
+    .wpd-comment-wrap {
+        border-left: 3px solid #fffad6;
+    }
+
+    #wpdcom.wpd-layout-3
+    .wpd-comment.wpd-reply.wpd-unapproved-comment
+    .wpd-comment-right {
+        border-left: 1px solid #fffad6;
+    }
+
+    #wpdcom .wpd-prim-button {
+        background-color: #6ac045;
+        color: #ffffff;
+    }
+
+    #wpdcom .wpd_label__check i.wpdicon-on {
+        color: #6ac045;
+        border: 1px solid #b5e0a2;
+    }
+
+    #wpd-bubble-wrapper #wpd-bubble-all-comments-count {
+        color: #6ac045;
+    }
+
+    #wpd-bubble-wrapper > div {
+        background-color: #6ac045;
+    }
+
+    #wpd-bubble-wrapper > #wpd-bubble #wpd-bubble-add-message {
+        background-color: #6ac045;
+    }
+
+        #wpd-bubble-wrapper > #wpd-bubble #wpd-bubble-add-message::before {
+            border-left-color: #6ac045;
+            border-right-color: #6ac045;
+        }
+
+    #wpd-bubble-wrapper.wpd-right-corner > #wpd-bubble
+    #wpd-bubble-add-message::before {
+        border-left-color: #6ac045;
+        border-right-color: #6ac045;
+    }
+
+    .wpd-inline-icon-wrapper path.wpd-inline-icon-first {
+        fill: #6ac045;
+    }
+
+    .wpd-inline-icon-count {
+        background-color: #6ac045;
+    }
+
+        .wpd-inline-icon-count::before {
+            border-right-color: #6ac045;
+        }
+
+    .wpd-inline-form-wrapper::before {
+        border-bottom-color: #6ac045;
+    }
+
+    .wpd-inline-form-question {
+        background-color: #6ac045;
+    }
+
+    .wpd-inline-form {
+        background-color: #6ac045;
+    }
+
+    .wpd-last-inline-comments-wrapper {
+        border-color: #6ac045;
+    }
+
+        .wpd-last-inline-comments-wrapper::before {
+            border-bottom-color: #6ac045;
+        }
+
+        .wpd-last-inline-comments-wrapper .wpd-view-all-inline-comments {
+            background: #6ac045;
+        }
+
+            .wpd-last-inline-comments-wrapper .wpd-view-all-inline-comments:hover,
+            .wpd-last-inline-comments-wrapper .wpd-view-all-inline-comments:active,
+            .wpd-last-inline-comments-wrapper .wpd-view-all-inline-comments:focus {
+                background-color: #6ac045;
+            }
+
+    #wpdcom .ql-snow .ql-tooltip[data-mode="link"]::before {
+        content: "Nhập link:";
+    }
+
+    #wpdcom .ql-snow .ql-tooltip.ql-editing a.ql-action::after {
+        content: "Lưu";
+    }
+
+    .comments-area {
+        width: auto;
+    }
+</style>
+<link rel="stylesheet"
+      id="wpdiscuz-combo-css-css"
+      href="https://sansukien.com/wp-content/plugins/wpdiscuz/assets/css/wpdiscuz-combo-no_quill.min.css"
+      media="all" />
+<link rel="stylesheet"
+      id="google-fonts-css"
+      href="https://fonts.googleapis.com/css2?family=Roboto%3Aital%2Cwght%400%2C300%3B0%2C400%3B0%2C500%3B0%2C700%3B0%2C900%3B1%2C100%3B1%2C300%3B1%2C400%3B1%2C500%3B1%2C700%3B1%2C900&#038;display=swap&#038;ver=fe7565575eb8fa1b474326b19373ec53"
+      media="all" />
+<link rel="stylesheet"
+      id="vendor-css"
+      href="https://sansukien.com/wp-content/themes/SanSuKien/vendor/unicons-2.0.1/css/unicons.css"
+      media="all" />
+<link rel="stylesheet"
+      id="barren-css"
+      href="https://sansukien.com/wp-content/themes/SanSuKien/css/barren-style.css"
+      media="all" />
+<link rel="stylesheet"
+      id="responsive-css"
+      href="https://sansukien.com/wp-content/themes/SanSuKien/css/responsive.css"
+      media="all" />
+<link rel="stylesheet"
+      id="night-mode-css"
+      href="https://sansukien.com/wp-content/themes/SanSuKien/css/night-mode.css"
+      media="all" />
+<link rel="stylesheet"
+      id="font-awesome-css"
+      href="https://sansukien.com/wp-content/themes/SanSuKien/vendor/fontawesome-free/css/all.min.css"
+      media="all" />
+<link rel="stylesheet"
+      id="owl-carousel-css"
+      href="https://sansukien.com/wp-content/themes/SanSuKien/vendor/OwlCarousel/assets/owl.carousel.css"
+      media="all" />
+<link rel="stylesheet"
+      id="owl-theme-css"
+      href="https://sansukien.com/wp-content/themes/SanSuKien/vendor/OwlCarousel/assets/owl.theme.default.min.css"
+      media="all" />
+<link rel="stylesheet"
+      id="bootstrap-css"
+      href="https://sansukien.com/wp-content/themes/SanSuKien/vendor/bootstrap/css/bootstrap.min.css"
+      media="all" />
+<link rel="stylesheet"
+      id="bootstrap-select-css"
+      href="https://sansukien.com/wp-content/themes/SanSuKien/vendor/bootstrap-select/dist/css/bootstrap-select.min.css"
+      media="all" />
+<link rel="stylesheet"
+      id="main-style-css"
+      href="https://sansukien.com/wp-content/themes/SanSuKien/style.css"
+      media="all" />
+<link rel="stylesheet"
+      id="ssk-style-css"
+      href="https://sansukien.com/wp-content/themes/SanSuKien/css/ssk.css"
+      media="all" />
+<link rel="stylesheet"
+      id="simple-favorites-css"
+      href="https://sansukien.com/wp-content/plugins/favorites/assets/css/favorites.css"
+      media="all" />
+<script src="https://sansukien.com/wp-content/themes/SanSuKien/js/lib/jquery-3.6.0.min.js"
+        id="jquery-js"></script>
+<script src="https://sansukien.com/wp-includes/js/jquery/ui/core.min.js"
+        id="jquery-ui-core-js"></script>
+<script src="https://sansukien.com/wp-includes/js/jquery/ui/datepicker.min.js"
+        id="jquery-ui-datepicker-js"></script>
+<script id="jquery-ui-datepicker-js-after">
+    jQuery(function (jQuery) {
+        jQuery.datepicker.setDefaults({
+            closeText: "\u0110\u00f3ng",
+            currentText: "H\u00f4m nay",
+            monthNames: [
+                "Th\u00e1ng M\u1ed9t",
+                "Th\u00e1ng Hai",
+                "Th\u00e1ng Ba",
+                "Th\u00e1ng T\u01b0",
+                "Th\u00e1ng N\u0103m",
+                "Th\u00e1ng S\u00e1u",
+                "Th\u00e1ng B\u1ea3y",
+                "Th\u00e1ng T\u00e1m",
+                "Th\u00e1ng Ch\u00edn",
+                "Th\u00e1ng M\u01b0\u1eddi",
+                "Th\u00e1ng M\u01b0\u1eddi M\u1ed9t",
+                "Th\u00e1ng M\u01b0\u1eddi Hai",
+            ],
+            monthNamesShort: [
+                "Th1",
+                "Th2",
+                "Th3",
+                "Th4",
+                "Th5",
+                "Th6",
+                "Th7",
+                "Th8",
+                "Th9",
+                "Th10",
+                "Th11",
+                "Th12",
+            ],
+            nextText: "Ti\u1ebfp theo",
+            prevText: "Quay v\u1ec1",
+            dayNames: [
+                "Ch\u1ee7 Nh\u1eadt",
+                "Th\u1ee9 Hai",
+                "Th\u1ee9 Ba",
+                "Th\u1ee9 T\u01b0",
+                "Th\u1ee9 N\u0103m",
+                "Th\u1ee9 S\u00e1u",
+                "Th\u1ee9 B\u1ea3y",
+            ],
+            dayNamesShort: ["CN", "T2", "T3", "T4", "T5", "T6", "T7"],
+            dayNamesMin: ["C", "H", "B", "T", "N", "S", "B"],
+            dateFormat: "dd\/mm\/yy",
+            firstDay: 1,
+            isRTL: false,
+        });
+    });
+</script>
+<script id="events-manager-js-extra">
+    var EM = {
+        ajaxurl: "https:\/\/sansukien.com\/wp-admin\/admin-ajax.php",
+        locationajaxurl:
+            "https:\/\/sansukien.com\/wp-admin\/admin-ajax.php?action=locations_search",
+        firstDay: "1",
+        locale: "vi",
+        dateFormat: "yy-mm-dd",
+        ui_css:
+            "https:\/\/sansukien.com\/wp-content\/plugins\/events-manager\/includes\/css\/jquery-ui\/build.css",
+        show24hours: "1",
+        is_ssl: "1",
+        autocomplete_limit: "10",
+        calendar: { breakpoints: { small: 560, medium: 908, large: false } },
+        datepicker: { format: "d\/m\/Y" },
+        search: { breakpoints: { small: 650, medium: 850, full: false } },
+        google_maps_api: "AIzaSyDFoZE4Eoq0LcDpUnsv09cHIL2z3tv7loQ",
+        bookingInProgress: "Please wait while the booking is being submitted.",
+        tickets_save: "Save Ticket",
+        bookingajaxurl: "https:\/\/sansukien.com\/wp-admin\/admin-ajax.php",
+        bookings_export_save: "Export Bookings",
+        bookings_settings_save: "Save Settings",
+        booking_delete:
+            "Are you sure you want to delete? All transactional history associated with this booking will also be deleted.",
+        booking_offset: "30",
+        bookings: {
+            submit_button: {
+                text: {
+                    default: "Thanh to\u00e1n",
+                    free: "Thanh to\u00e1n",
+                    payment: "Thanh to\u00e1n",
+                    processing: "Processing ...",
+                },
+            },
+        },
+        bb_full: "H\u1ebft v\u00e9",
+        bb_book: "Ho\u00e0n t\u1ea5t \u0111\u1eb7t v\u00e9",
+        bb_booking: "\u0110ang x\u1eed l\u00fd \u0111\u1eb7t v\u00e9...",
+        bb_booked:
+            "\u0110\u00e3 g\u1eedi y\u00eau c\u1ea7u \u0111\u1eb7t v\u00e9",
+        bb_error: "L\u1ed7i \u0111\u1eb7t v\u00e9. Th\u1eed l\u1ea1i?",
+        bb_cancel: "H\u1ee7y",
+        bb_canceling: "\u0110ang h\u1ee7y...",
+        bb_cancelled: "\u0110\u00e3 h\u1ee7y",
+        bb_cancel_error: "L\u1ed7i h\u1ee7y v\u00e9. Th\u1eed l\u1ea1i?",
+        txt_search: "T\u1eeb kh\u00f3a s\u1ef1 ki\u1ec7n",
+        txt_searching: "Searching...",
+        txt_loading: "Loading...",
+        disable_bookings_warning:
+            "B\u1ea1n ch\u1eafc ch\u1eafn mu\u1ed1n h\u1ee7y b\u1ecf b\u00e1n v\u00e9? Vi\u1ec7c h\u1ee7y b\u1ecf s\u1ebd x\u00f3a t\u1ea5t c\u1ea3 \u0111\u01a1n h\u00e0ng \u0111\u00e3 t\u1ea1o, SanSuKien s\u1ebd kh\u00f4ng ch\u1ecbu tr\u00e1ch nhi\u1ec7m ho\u1eb7c thanh to\u00e1n c\u00e1c v\u00e9 \u0111\u00e3 b\u00e1n. \u0110\u1ec3 d\u1eebng nh\u1eadn \u0111\u1eb7t v\u00e9, h\u00e3y gi\u1ea3m s\u1ed1 v\u00e9 c\u00f2n l\u1ea1i.",
+        booking_warning_cancel:
+            "B\u1ea1n ch\u1eafc ch\u1eafn mu\u1ed1n h\u1ee7y b\u1ecf \u0111\u1eb7t v\u00e9 s\u1ef1 ki\u1ec7n n\u00e0y? (s\u1ebd kh\u00f4ng \u0111\u01b0\u1ee3c ho\u00e0n ti\u1ec1n n\u1ebfu \u0111\u00e3 thanh to\u00e1n.) Nh\u1ea5n OK \u0111\u1ec3 ti\u1ebfn h\u00e0nh h\u1ee7y \u0111\u01a1n h\u00e0ng.",
+        offline_confirm:
+            "Be aware that by approving a booking awaiting payment, a full payment transaction will be registered against this booking, meaning that it will be considered as paid.",
+        agency_confirm:
+            "Be aware that by approving a booking awaiting payment, a full payment transaction will be registered against this booking, meaning that it will be considered as paid.",
+        cache: "1",
+        api_nonce: "ef3cdb3351",
+        transaction_delete:
+            "Are you sure you want to delete? This may make your transaction history out of sync with your payment gateway provider.",
+        attendance_api_url:
+            "https:\/\/sansukien.com\/wp-json\/events-manager\/v1\/attendance",
+    };
+</script>
+<script src="https://sansukien.com/wp-content/plugins/events-manager/includes/js/events-manager.js"
+        id="events-manager-js"></script>
+<script src="https://sansukien.com/wp-content/plugins/events-manager-pro/includes/js/events-manager-pro.js"
+        id="events-manager-pro-js"></script>
+<script id="simple-likes-public-js-js-extra">
+    var simpleLikes = {
+        ajaxurl: "https:\/\/sansukien.com\/wp-admin\/admin-ajax.php",
+        likeTitle: "Ch\u1ecdn tham gia",
+        like: "S\u1ebd tham gia ?",
+        unlikeTitle: "H\u1ee7y tham gia",
+        unlike: "S\u1ebd tham gia",
+    };
+</script>
+<script src="https://sansukien.com/wp-content/themes/SanSuKien/js/lib/simple-likes-public.js"
+        id="simple-likes-public-js-js"></script>
+<script src="https://sansukien.com/wp-content/themes/SanSuKien/js/lib/jquery-scrolltofixed-min.js"
+        id="ssk-scrolltofixed-js"></script>
+<script id="ssk-cf7-js-extra">
+    var ssk_cf7 = {
+        contactUsId: "2308",
+        contactOrganizerId: "2309",
+        userPriceId: "2310",
+        visitorRegisterId: "2519",
+        boothRegisterId: "2520",
+    };
+</script>
+<script src="https://sansukien.com/wp-content/themes/SanSuKien/js/lib/ssk-cf7.js"
+        id="ssk-cf7-js"></script>
+<script src="https://sansukien.com/wp-content/themes/SanSuKien/js/lib/infinite-scroll.js"
+        id="infinite-scroll-js"></script>
+<script id="favorites-js-extra">
+    var favorites_data = {
+        ajaxurl: "https:\/\/sansukien.com\/wp-admin\/admin-ajax.php",
+        nonce: "9184d19552",
+        favorite: '<i class="fa-regular fa-bookmark me-2"><\/i>Save',
+        favorited: '<i class="fa-solid fa-bookmark me-2"><\/i>Saved',
+        includecount: "",
+        indicate_loading: "1",
+        loading_text: "Loading",
+        loading_image:
+            '<span class="sf-icon-spinner-wrapper"><i class="sf-icon-spinner"><\/i><\/span>',
+        loading_image_active:
+            '<span class="sf-icon-spinner-wrapper active"><i class="sf-icon-spinner active"><\/i><\/span>',
+        loading_image_preload: "",
+        cache_enabled: "1",
+        button_options: {
+            button_type: "custom",
+            custom_colors: true,
+            box_shadow: true,
+            include_count: false,
+            default: {
+                background_default: "#ffffff",
+                border_default: "#efefef",
+                text_default: "#000000",
+                icon_default: "#000000",
+                count_default: false,
+            },
+            active: {
+                background_active: "#6ac045",
+                border_active: "#6ac045",
+                text_active: "#ffffff",
+                icon_active: "#ffffff",
+                count_active: false,
+            },
+        },
+        authentication_modal_content:
+            '<p>Please login to add favorites.<\/p>\n<p><a href="#" data-favorites-modal-close>Dismiss this notice<\/a><\/p>\n',
+        authentication_redirect: "",
+        dev_mode: "",
+        logged_in: "1",
+        user_id: "593",
+        authentication_redirect_url: "https:\/\/sansukien.com\/wp-login.php",
+    };
+</script>
+<script src="https://sansukien.com/wp-content/plugins/favorites/assets/js/favorites.min.js"
+        id="favorites-js"></script>
+<style>
+    .em-coupon-message {
+        display: inline-block;
+        margin: 5px 0 0;
+    }
+
+    .em-coupon-success {
+        color: green;
+    }
+
+    .em-coupon-error {
+        color: red;
+    }
+
+    .em-cart-coupons-form .em-coupon-message {
+        margin: 0 20px 0 0;
+    }
+
+    .em-coupon-error .em-icon {
+        background-color: red;
+        -webkit-mask-image: var(--icon-cross-circle);
+        mask-image: var(--icon-cross-circle);
+    }
+
+    .em-coupon-success .em-icon {
+        background-color: green;
+        -webkit-mask-image: var(--icon-checkmark-circle);
+        mask-image: var(--icon-checkmark-circle);
+    }
+
+    .em-coupon-code.loading {
+        background: var(--icon-spinner) calc(100% - 10px) 50% no-repeat;
+        background-size: 20px;
+    }
+</style>
+<script data-ad-client="ca-pub-1671851580575912"
+        async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- Google tag (gtag.js) -->
+<script async
+        src="https://www.googletagmanager.com/gtag/js?id=G-KSD53J98LQ"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+    gtag("js", new Date());
+
+    gtag("config", "G-KSD53J98LQ");
+</script>
+
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i["GoogleAnalyticsObject"] = r;
+        (i[r] =
+            i[r] ||
+            function () {
+                (i[r].q = i[r].q || []).push(arguments);
+            }),
+            (i[r].l = 1 * new Date());
+        (a = s.createElement(o)), (m = s.getElementsByTagName(o)[0]);
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m);
+    })(
+        window,
+        document,
+        "script",
+        "https://www.google-analytics.com/analytics.js",
+        "ga"
+    );
+    ga("create", "UA-106935225-1", "auto");
+    ga("require", "displayfeatures");
+    ga("require", "linkid", "linkid.js");
+    ga("send", "pageview");
+</script>
+<!-- Google Tag Manager -->
+<script>
+    (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+        var f = d.getElementsByTagName(s)[0],
+            j = d.createElement(s),
+            dl = l != "dataLayer" ? "&l=" + l : "";
+        j.async = true;
+        j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+        f.parentNode.insertBefore(j, f);
+    })(window, document, "script", "dataLayer", "GTM-PCVCGFP");
+</script>
+<!-- End Google Tag Manager -->
+<script type="application/ld+json">
+    {
+      "@@context": "https://schema.org",
+      "@@type": "Organization",
+      "url": "https://sansukien.com",
+      "logo": "https://sansukien.com/wp-content/themes/SanSuKien/assets/logo/favicon.png",
+      "contactPoint": [
+        {
+          "@@type": "ContactPoint",
+          "telephone": "+84908198689",
+          "contactType": "customer service",
+          "contactOption": "TollFree",
+          "areaServed": ["VN", "US"],
+          "availableLanguage": ["Vietnamese", "English"]
+        }
+      ]
+    }
+</script>
+<style>
+    #wp-admin-bar-pvc-post-views .pvc-graph-container {
+        padding-top: 6px;
+        padding-bottom: 6px;
+        position: relative;
+        display: block;
+        height: 100%;
+        box-sizing: border-box;
+    }
+
+    #wp-admin-bar-pvc-post-views .pvc-line-graph {
+        display: inline-block;
+        width: 1px;
+        margin-right: 1px;
+        background-color: #ccc;
+        vertical-align: baseline;
+    }
+
+        #wp-admin-bar-pvc-post-views .pvc-line-graph:hover {
+            background-color: #eee;
+        }
+
+    #wp-admin-bar-pvc-post-views .pvc-line-graph-0 {
+        height: 1%;
+    }
+
+    #wp-admin-bar-pvc-post-views .pvc-line-graph-1 {
+        height: 5%;
+    }
+
+    #wp-admin-bar-pvc-post-views .pvc-line-graph-2 {
+        height: 10%;
+    }
+
+    #wp-admin-bar-pvc-post-views .pvc-line-graph-3 {
+        height: 15%;
+    }
+
+    #wp-admin-bar-pvc-post-views .pvc-line-graph-4 {
+        height: 20%;
+    }
+
+    #wp-admin-bar-pvc-post-views .pvc-line-graph-5 {
+        height: 25%;
+    }
+
+    #wp-admin-bar-pvc-post-views .pvc-line-graph-6 {
+        height: 30%;
+    }
+
+    #wp-admin-bar-pvc-post-views .pvc-line-graph-7 {
+        height: 35%;
+    }
+
+    #wp-admin-bar-pvc-post-views .pvc-line-graph-8 {
+        height: 40%;
+    }
+
+    #wp-admin-bar-pvc-post-views .pvc-line-graph-9 {
+        height: 45%;
+    }
+
+    #wp-admin-bar-pvc-post-views .pvc-line-graph-10 {
+        height: 50%;
+    }
+
+    #wp-admin-bar-pvc-post-views .pvc-line-graph-11 {
+        height: 55%;
+    }
+
+    #wp-admin-bar-pvc-post-views .pvc-line-graph-12 {
+        height: 60%;
+    }
+
+    #wp-admin-bar-pvc-post-views .pvc-line-graph-13 {
+        height: 65%;
+    }
+
+    #wp-admin-bar-pvc-post-views .pvc-line-graph-14 {
+        height: 70%;
+    }
+
+    #wp-admin-bar-pvc-post-views .pvc-line-graph-15 {
+        height: 75%;
+    }
+
+    #wp-admin-bar-pvc-post-views .pvc-line-graph-16 {
+        height: 80%;
+    }
+
+    #wp-admin-bar-pvc-post-views .pvc-line-graph-17 {
+        height: 85%;
+    }
+
+    #wp-admin-bar-pvc-post-views .pvc-line-graph-18 {
+        height: 90%;
+    }
+
+    #wp-admin-bar-pvc-post-views .pvc-line-graph-19 {
+        height: 95%;
+    }
+
+    #wp-admin-bar-pvc-post-views .pvc-line-graph-20 {
+        height: 100%;
+    }
+</style>
+<link rel="icon"
+      href="https://sansukien.com/wp-content/uploads/2022/12/cropped-favicon-32x32.png"
+      sizes="32x32" />
+<link rel="icon"
+      href="https://sansukien.com/wp-content/uploads/2022/12/cropped-favicon-192x192.png"
+      sizes="192x192" />
+<link rel="apple-touch-icon"
+      href="https://sansukien.com/wp-content/uploads/2022/12/cropped-favicon-180x180.png" />
+<meta name="msapplication-TileImage"
+      content="https://sansukien.com/wp-content/uploads/2022/12/cropped-favicon-270x270.png" />
+<div class="breadcrumb-block">
+    <div class="container">
+        <div class="row">
+        <div class="col-lg-12 col-md-10">
+            <div class="barren-breadcrumb">
+            <nav aria-label="breadcrumb">
+                <ol
+                class="breadcrumb"
+                itemprop="breadcrumb"
+                itemscope
+                itemtype="http://schema.org/BreadcrumbList"
+                >
+                <li
+                    class="breadcrumb-item item-home"
+                    itemprop="itemListElement"
+                    itemscope
+                    itemtype="https://schema.org/ListItem"
+                >
+                    <a
+                    rel="index home"
+                    class="bread-link bread-home"
+                    href="/"
+                    title="Trang chủ"
+                    itemscope
+                    itemtype="https://schema.org/Thing"
+                    itemprop="item"
+                    itemid=/"
+                    ><span itemprop="name">Trang chủ</span></a
+                    ><meta itemprop="position" content="0" />
+                </li>
+                <li
+                    class="breadcrumb-item item-cat item-custom-post-type-event"
+                    itemprop="itemListElement"
+                    itemscope
+                    itemtype="https://schema.org/ListItem"
+                >
+                    <a
+                    class="bread-cat bread-custom-post-type-event"
+                    href="/danh-sach-su-kien"
+                    title="Các sự kiện"
+                    itemscope
+                    itemtype="https://schema.org/Thing"
+                    itemprop="item"
+                    itemid="/danh-sach-su-kien"
+                    ><span itemprop="name">Các sự kiện</span></a
+                    ><meta itemprop="position" content="1" />
+                </li>
+                <li
+                    class="breadcrumb-item item-cat item-cat-6 item-cat-hoi-cho-trien-lam"
+                    itemprop="itemListElement"
+                    itemscope
+                    itemtype="https://schema.org/ListItem"
+                >
+                    <a
+                    class="bread-cat bread-cat-6 bread-cat-hoi-cho-trien-lam"
+                    href="/danh-muc-su-kien"
+                    title="@Model?.Category.Name"
+                    itemscope
+                    itemtype="https://schema.org/Thing"
+                    itemprop="item"
+                    itemid="/danh-muc-su-kien"
+                    ><span itemprop="name">@Model?.Category.Name</span></a
+                    ><meta itemprop="position" content="2" />
+                </li>
+                </ol>
+            </nav>
+            </div>
+        </div>
+        </div>
+    </div>
+    </div>
+
+<div class="event-dt-block p-80">
+    <div class="container">
+    <div class="row">
+    <div class="col-xl-12 col-lg-12 col-md-12">
+        <div class="event-top-dts">
+        <div class="event-top-date">
+            <span class="event-month">Th @Model?.StartDate.Month</span>
+            <span class="event-date">@Model?.StartDate.Day</span>
+        </div>
+        <div class="event-top-dt">
+            <h3 class="event-main-title">
+            @Model?.Name
+            </h3>
+            <div class="event-top-info-status">
+            <span class="event-type-name"
+                ><i class="fa-solid fa-location-dot"></i>@Model?.Place?.Name</span
+            >
+
+            <span class="event-type-name details-hr"
+                ><span class="ev-event-date">@Model?.StartDate.ToShortDateString()</span> lúc
+                @Model?.StartDate.ToShortTimeString()</span
+            >
+            <span class="event-type-name details-hr"
+                ><i class="fa-solid fa-eye me-2"></i>6.2 K</span
+            >
+            </div>
+        </div>
+        </div>
+    </div>
+    <div class="col-xl-8 col-lg-7 col-md-12">
+        <div class="main-event-dt">
+        <div class="event-img">
+            <img
+            data-lazyloaded="1"
+            src="data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs="
+            data-src="@Model?.Image"
+            alt="@Model?.Name"
+            /><noscript
+            ><img
+                src="@Model?.Image"
+                alt="@Model?.Name"
+            /></noscript>
+        </div>
+        <div class="mt-3 text-center">
+            @*<div class="sl-count">132 người tham gia</div>*@
+            @*<a
+            href="https://sansukien.com/wp-admin/admin-ajax.php?action=process_simple_like&post_id=648&nonce=12f9941c1c&is_comment=0&disabled=true"
+            class="sl-button me-2 sl-button-648 main-btn co-main-btn btn-hover h_40"
+            data-nonce="12f9941c1c"
+            data-post-id="648"
+            data-iscomment="0"
+            title="Chọn tham gia"
+            data-bs-target="#SimpleLikeModal"
+            data-bs-toggle="modal"
+            ><span class="sl-icon"
+                ><i class="fa-solid fa-check"></i></span
+            >Sẽ tham gia ?</a
+            ><span class="sl-loader"></span>*@
+            <!-- SimpleLikeModal -->
+            <div
+            class="modal fade"
+            id="SimpleLikeModal"
+            data-bs-backdrop="static"
+            data-bs-keyboard="false"
+            tabindex="-1"
+            role="dialog"
+            aria-labelledby="SimpleLikeModalTitle"
+            aria-hidden="true"
+            >
+            <div
+                class="modal-dialog modal-dialog-centered modal-xl"
+                role="document"
+            >
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="SimpleLikeModalTitle">
+                    Đăng ký tham dự sự kiện
+                    </h5>
+                    <button
+                    type="button"
+                    class="close-model-btn"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                    >
+                    <i class="uil uil-multiply"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row justify-content-center">
+                    <div class="col-lg-12 col-md-12">
+                        <div
+                        class="main-title text-center checkout-title"
+                        >
+                        <h3>Hình thức tham dự</h3>
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-8 col-md-12">
+                        <div class="create-block">
+                        <div class="row">
+                            <div class="col-md-6">
+                            <div class="main-card create-card mt-4">
+                                <div class="create-icon">
+                                <i class="fa-solid fa-user"></i>
+                                </div>
+                                <h4>Khách tham quan</h4>
+
+                                <button
+                                class="main-btn btn-hover h_40 w-100"
+                                disabled
+                                >
+                                Vào cổng tự do
+                                </button>
+                            </div>
+                            </div>
+                            <div class="col-md-6">
+                            <div class="main-card create-card mt-4">
+                                <div class="create-icon">
+                                <i class="fa-solid fa-store"></i>
+                                </div>
+                                <h4>Doanh nghiệp tham gia</h4>
+                                <a
+                                data-bs-target="#BoothModal"
+                                data-bs-toggle="modal"
+                                href="#BoothModal"
+                                rel="nofollow"
+                                class="main-btn btn-hover h_40 w-100"
+                                >
+                                Đăng ký gian hàng
+                                <i
+                                    class="fa-solid fa-arrow-right ms-2"
+                                ></i>
+                                </a>
+                            </div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                <div class="modal-footer mt-4">
+                    <button
+                    type="button"
+                    class="main-btn min-width btn-hover h_40 btn btn-secondary"
+                    data-bs-dismiss="modal"
+                    >
+                    Đóng
+                    </button>
+                </div>
+                </div>
+            </div>
+            </div>
+            <!-- End SimpleLikeModal -->
+
+            <!-- BoothModal -->
+            <div
+            class="modal fade"
+            id="BoothModal"
+            data-bs-backdrop="static"
+            data-bs-keyboard="false"
+            tabindex="-1"
+            role="dialog"
+            aria-labelledby="BoothModalTitle"
+            aria-hidden="true"
+            >
+            <div
+                class="modal-dialog modal-dialog-centered modal-lg"
+                role="document"
+            >
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="BoothModalTitle">
+                    Đăng kí đặt gian hàng
+                    </h5>
+                    <button
+                    type="button"
+                    class="close-model-btn"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                    >
+                    <i class="uil uil-multiply"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row justify-content-center">
+                    <div class="col-lg-12 col-md-12">
+                        <div
+                        class="main-title text-center checkout-title"
+                        >
+                        <p class="mb-0">
+                            Cảm ơn sự quan tâm của bạn với VIETBUILD HOME
+                            HCM 2023 &#8211; Triển lãm quốc tế Bất động
+                            sản &#8211; Trang trí nội ngoại thất &#8211;
+                            Đồ dùng gia đình .<br />Vui lòng để lại thông
+                            tin bên dưới để đặt gian hàng thích hợp nhất
+                            với quý công ty.
+                        </p>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 col-md-12">
+                        <div class="contact-form bp-form p-4">
+                        <div
+                            class="wpcf7 no-js"
+                            id="wpcf7-f2520-p648-o1"
+                            lang="vi"
+                            dir="ltr"
+                        >
+                            <div class="screen-reader-response">
+                            <p
+                                role="status"
+                                aria-live="polite"
+                                aria-atomic="true"
+                            ></p>
+                            <ul></ul>
+                            </div>
+                            <form
+                            action="/su-kien/vietbuild-home-hcm#wpcf7-f2520-p648-o1"
+                            method="post"
+                            class="wpcf7-form init"
+                            aria-label="Form liên hệ"
+                            novalidate="novalidate"
+                            data-status="init"
+                            >
+                            <div style="display: none">
+                                <input
+                                type="hidden"
+                                name="_wpcf7"
+                                value="2520"
+                                />
+                                <input
+                                type="hidden"
+                                name="_wpcf7_version"
+                                value="5.8.2"
+                                />
+                                <input
+                                type="hidden"
+                                name="_wpcf7_locale"
+                                value="vi"
+                                />
+                                <input
+                                type="hidden"
+                                name="_wpcf7_unit_tag"
+                                value="wpcf7-f2520-p648-o1"
+                                />
+                                <input
+                                type="hidden"
+                                name="_wpcf7_container_post"
+                                value="648"
+                                />
+                                <input
+                                type="hidden"
+                                name="_wpcf7_posted_data_hash"
+                                value=""
+                                />
+                                <input
+                                type="hidden"
+                                name="_wpcf7_recaptcha_response"
+                                value=""
+                                />
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 col-md-12">
+                                <div class="form-group mt-4">
+                                    <p>
+                                    <label class="form-label"
+                                        >Tên doanh nghiệp / Company
+                                        Name</label
+                                    ><span
+                                        class="wpcf7-form-control-wrap"
+                                        data-name="your-company"
+                                        ><input
+                                        size="40"
+                                        class="wpcf7-form-control wpcf7-text form-control h_40"
+                                        aria-invalid="false"
+                                        placeholder=""
+                                        value=""
+                                        type="text"
+                                        name="your-company"
+                                    /></span>
+                                    </p>
+                                </div>
+                                </div>
+                                <div class="col-lg-6 col-md-12">
+                                <div class="form-group mt-4">
+                                    <p>
+                                    <label class="form-label"
+                                        >Địa chỉ / Address*</label
+                                    ><span
+                                        class="wpcf7-form-control-wrap"
+                                        data-name="your-address"
+                                        ><input
+                                        size="40"
+                                        class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required form-control h_40"
+                                        aria-required="true"
+                                        aria-invalid="false"
+                                        placeholder=""
+                                        value=""
+                                        type="text"
+                                        name="your-address"
+                                    /></span>
+                                    </p>
+                                </div>
+                                </div>
+                                <div class="col-lg-6 col-md-12">
+                                <div class="form-group mt-4">
+                                    <p>
+                                    <label class="form-label"
+                                        >Số điện thoại / Phone*</label
+                                    ><span
+                                        class="wpcf7-form-control-wrap"
+                                        data-name="your-phone"
+                                        ><input
+                                        size="40"
+                                        class="wpcf7-form-control wpcf7-tel wpcf7-validates-as-required wpcf7-text wpcf7-validates-as-tel form-control h_40"
+                                        aria-required="true"
+                                        aria-invalid="false"
+                                        placeholder=""
+                                        value=""
+                                        type="tel"
+                                        name="your-phone"
+                                    /></span>
+                                    </p>
+                                </div>
+                                </div>
+                                <div class="col-lg-6 col-md-12">
+                                <div class="form-group mt-4">
+                                    <p>
+                                    <label class="form-label"
+                                        >Email*</label
+                                    ><span
+                                        class="wpcf7-form-control-wrap"
+                                        data-name="your-email"
+                                        ><input
+                                        size="40"
+                                        class="wpcf7-form-control wpcf7-email wpcf7-validates-as-required wpcf7-text wpcf7-validates-as-email form-control h_40"
+                                        aria-required="true"
+                                        aria-invalid="false"
+                                        placeholder=""
+                                        value=""
+                                        type="email"
+                                        name="your-email"
+                                    /></span>
+                                    </p>
+                                </div>
+                                </div>
+                                <div class="col-lg-12 col-md-12">
+                                <div class="form-group main-form mt-4">
+                                    <p>
+                                    <label class="form-label"
+                                        >Loại hình / Type of
+                                        business*</label
+                                    ><span
+                                        class="wpcf7-form-control-wrap"
+                                        data-name="your-business"
+                                        ><select
+                                        class="wpcf7-form-control wpcf7-select wpcf7-validates-as-required selectpicker w-100"
+                                        id="cf-business"
+                                        aria-required="true"
+                                        aria-invalid="false"
+                                        name="your-business"
+                                        >
+                                        <option value="">
+                                            - Lựa chọn -
+                                        </option>
+                                        <option
+                                            value="Doanh nghiệp nhà nước"
+                                        >
+                                            Doanh nghiệp nhà nước
+                                        </option>
+                                        <option
+                                            value="Doanh nghiệp tư nhân"
+                                        >
+                                            Doanh nghiệp tư nhân
+                                        </option>
+                                        <option
+                                            value="Doanh nghiệp công ty cổ phần"
+                                        >
+                                            Doanh nghiệp công ty cổ phần
+                                        </option>
+                                        <option value="Công ty TNHH">
+                                            Công ty TNHH
+                                        </option>
+                                        <option
+                                            value="Công ty hợp doanh"
+                                        >
+                                            Công ty hợp doanh
+                                        </option>
+                                        <option
+                                            value="Công ty liên doanh"
+                                        >
+                                            Công ty liên doanh
+                                        </option>
+                                        <option value="Hợp tác xã">
+                                            Hợp tác xã
+                                        </option>
+                                        <option value="Nhà phân phối">
+                                            Nhà phân phối
+                                        </option>
+                                        <option value="Đại lý lẻ">
+                                            Đại lý lẻ
+                                        </option>
+                                        </select></span
+                                    >
+                                    </p>
+                                </div>
+                                </div>
+                                <div class="col-lg-12 col-md-12">
+                                <div class="form-group mt-4">
+                                    <p>
+                                    <label class="form-label"
+                                        >Mặt hàng triển lãm / Exhibition
+                                        products</label
+                                    ><span
+                                        class="wpcf7-form-control-wrap"
+                                        data-name="your-products"
+                                    >
+                                        <textarea
+                                        cols="40"
+                                        rows="3"
+                                        class="wpcf7-form-control wpcf7-textarea form-textarea"
+                                        aria-invalid="false"
+                                        placeholder="Vui lòng cho chúng tôi biết những mặt hàng trưng bày khi tham gia sự kiện"
+                                        name="your-products"
+                                        ></textarea>
+                                    </span>
+                                    </p>
+                                </div>
+                                </div>
+                                <div class="col-md-12">
+                                <div class="text-center mt-4">
+                                    <p>
+                                    <input
+                                        class="wpcf7-form-control wpcf7-submit has-spinner main-btn btn-hover h_50 w-100"
+                                        type="submit"
+                                        value="Gửi"
+                                    />
+                                    </p>
+                                </div>
+                                </div>
+                            </div>
+                            <div
+                                class="wpcf7-response-output"
+                                aria-hidden="true"
+                            ></div>
+                            </form>
+                        </div>
+                        <div
+                            id="thank-you-booth"
+                            class="mb-0 text-center d-none"
+                        >
+                            <h1 class="display-3">Thank You!</h1>
+                            <p class="lead">
+                            <strong
+                                >Vui lòng theo dõi điện thoại hoặc
+                                email</strong
+                            >
+                            </p>
+                            <p class="lead">
+                            Ban tổ chức VIETBUILD HOME HCM 2023 &#8211;
+                            Triển lãm quốc tế Bất động sản &#8211; Trang
+                            trí nội ngoại thất &#8211; Đồ dùng gia đình
+                            sẽ liên hệ với bạn sớm nhất có thể để cung
+                            cấp các thông tin thêm về chương trình triển
+                            lãm, chẳng hạn như sơ đồ gian hàng, địa
+                            điểm, dịch vụ bổ sung và hơn thế nữa.
+                            </p>
+                            <hr />
+                            <p>
+                            Cần hỗ trợ trực tiếp, liên hệ ngay hotline
+                            đơn vị tổ chức (8428) 39974999
+                            </p>
+                        </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button
+                    type="button"
+                    class="co-main-btn min-width btn-hover h_40"
+                    data-bs-target="#SimpleLikeModal"
+                    data-bs-toggle="modal"
+                    >
+                    Về trước
+                    </button>
+                    <button
+                    type="button"
+                    class="main-btn min-width btn-hover h_40 btn btn-secondary"
+                    data-bs-dismiss="modal"
+                    >
+                    Đóng
+                    </button>
+                </div>
+                </div>
+            </div>
+            </div>
+            <!-- End RegisterBoothModal -->
+
+            <!-- VisitorModal -->
+            <!-- End VisitorModal -->
+        </div>
+        <div class="share-save-btns dropdown mt-3">
+            <button
+            class="simplefavorite-button sv-btn me-2"
+            data-postid="648"
+            data-siteid="1"
+            data-groupid="1"
+            data-favoritecount="0"
+            style="
+                background-color: #ffffff;
+                border-color: #efefef;
+                color: #000000;
+            "
+            >
+            <i class="fa-regular fa-bookmark me-2"></i>Save
+            </button>
+            <button
+            class="sv-btn"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+            >
+            <i class="fa-solid fa-share-nodes me-2"></i>Chia sẻ
+            </button>
+            <ul class="dropdown-menu">
+            <li>
+                <a
+                class="dropdown-item"
+                title="Share on Facebook"
+                rel="nofollow"
+                href="https://www.facebook.com/share.php?u=https%3A%2F%2Fsansukien.com%2Fsu-kien%2Fvietbuild-home-hcm&amp;title=VIETBUILD+HOME+HCM+2023+%26%238211%3B+Tri%E1%BB%83n+l%C3%A3m+qu%E1%BB%91c+t%E1%BA%BF+B%E1%BA%A5t+%C4%91%E1%BB%99ng+s%E1%BA%A3n+%26%238211%3B+Trang+tr%C3%AD+n%E1%BB%99i+ngo%E1%BA%A1i+th%E1%BA%A5t+%26%238211%3B+%C4%90%E1%BB%93+d%C3%B9ng+gia+%C4%91%C3%ACnh"
+                onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"
+                ><i class="fa-brands fa-facebook me-3"></i>Facebook</a
+                >
+            </li>
+            <li>
+                <a
+                class="dropdown-item"
+                title="Share on Twitter"
+                rel="nofollow"
+                href="https://twitter.com/home?status=VIETBUILD+HOME+HCM+2023+%26%238211%3B+Tri%E1%BB%83n+l%C3%A3m+qu%E1%BB%91c+t%E1%BA%BF+B%E1%BA%A5t+%C4%91%E1%BB%99ng+s%E1%BA%A3n+%26%238211%3B+Trang+tr%C3%AD+n%E1%BB%99i+ngo%E1%BA%A1i+th%E1%BA%A5t+%26%238211%3B+%C4%90%E1%BB%93+d%C3%B9ng+gia+%C4%91%C3%ACnh+https%3A%2F%2Fsansukien.com%2Fsu-kien%2Fvietbuild-home-hcm"
+                onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"
+                target="_blank"
+                ><i class="fa-brands fa-twitter me-3"></i>Twitter</a
+                >
+            </li>
+            <li>
+                <a
+                class="dropdown-item"
+                title="Share on Pinterest"
+                rel="nofollow"
+                href="http://pinterest.com/pin/create/button/?url=https%3A%2F%2Fsansukien.com%2Fsu-kien%2Fvietbuild-home-hcm&description=Check+this+out:"
+                target="_blank"
+                ><i class="fa-brands fa-pinterest me-3"></i>Pinterest</a
+                >
+            </li>
+            <li>
+                <a
+                class="dropdown-item"
+                title="Share by Email"
+                rel="nofollow"
+                href="mailto:?subject=Th%C3%B4ng+tin+s%E1%BB%B1+ki%E1%BB%87n+VIETBUILD+HOME+HCM+2023+%26%238211%3B+Tri%E1%BB%83n+l%C3%A3m+qu%E1%BB%91c+t%E1%BA%BF+B%E1%BA%A5t+%C4%91%E1%BB%99ng+s%E1%BA%A3n+%26%238211%3B+Trang+tr%C3%AD+n%E1%BB%99i+ngo%E1%BA%A1i+th%E1%BA%A5t+%26%238211%3B+%C4%90%E1%BB%93+d%C3%B9ng+gia+%C4%91%C3%ACnh&amp;body=Xem+chi+ti%E1%BA%BFt+t%E1%BA%A1i+https%3A%2F%2Fsansukien.com%2Fsu-kien%2Fvietbuild-home-hcm"
+                target="_blank"
+                ><i class="fa-regular fa-envelope me-3"></i>Email</a
+                >
+            </li>
+            </ul>
+        </div>
+
+        <div class="main-event-content">
+            <h4>Giới thiệu sự kiện</h4>
+            <div class="entry-content" id="showmore-event">
+            <p>&nbsp;</p>
+           @* <p><em>Xem thêm:</em></p>
+            <div class="card border-success text-center mt-3">
+                <div class="card-header">VIETNAM EXPO HCM 2023</div>
+                <div class="card-body">
+                <h5 class="card-title">
+                    Hội chợ Thương mại Quốc tế Việt Nam lần thứ 21
+                </h5>
+                <p class="card-text">
+                    VIETNAM EXPO HCM 2023 đã chính thức bắt đầu nhận đăng
+                    ký gian hàng trưng bày!
+                </p>
+                <a
+                    href="https://sansukien.com/su-kien/vietnam-expo-hcm"
+                    rel="nofollow"
+                    target="_blank"
+                    class="main-btn btn-hover h_40 mt-3 qc-link-btn"
+                    >Đăng ký ngay</a
+                >
+                </div>
+                <div class="card-footer text-muted fst-italic fw-light">
+                Ưu đãi dành riêng cho khách hàng tại Săn Sự Kiện
+                </div>
+            </div>*@
+            <h2>Điểm nổi bật tại @Model?.Name</h2>
+            <p>
+                @Model?.Description
+            </div>
+        </div>
+        </div>
+    </div>
+    <div class="col-xl-4 col-lg-5 col-md-12">
+        <div class="main-card event-right-dt">
+        <div class="bp-title">
+            <h4>Thông tin sự kiện</h4>
+        </div>
+        <div class="time-left">
+            <div class="countdown">
+            <div class="countdown-item">
+                <span id="days" data-day=""></span>Ngày
+            </div>
+            <div class="countdown-item">
+                <span id="hours" data-hour=""></span>Giờ
+            </div>
+            <div class="countdown-item">
+                <span id="minutes" data-minute=""></span>Phút
+            </div>
+            <div class="countdown-item">
+                <span id="seconds" data-second=""></span>Giây
+            </div>
+            </div>
+        </div>
+        <script>
+            function makeTimer() {
+            var endTime = new Date('@Model?.EndDate.ToString()');
+            var endTime = Date.parse(endTime) / 1000;
+            var now = new Date();
+            var now = Date.parse(now) / 1000;
+            var timeLeft = endTime - now;
+            var days = Math.floor(timeLeft / 86400);
+            var hours = Math.floor((timeLeft - days * 86400) / 3600);
+            var minutes = Math.floor(
+                (timeLeft - days * 86400 - hours * 3600) / 60
+            );
+            var seconds = Math.floor(
+                timeLeft - days * 86400 - hours * 3600 - minutes * 60
+            );
+            if (hours < "10") {
+                hours = "0" + hours;
+            }
+            if (minutes < "10") {
+                minutes = "0" + minutes;
+            }
+            if (seconds < "10") {
+                seconds = "0" + seconds;
+            }
+            $("#days").html(days);
+            $("#hours").html(hours);
+            $("#minutes").html(minutes);
+            $("#seconds").html(seconds);
+            }
+            setInterval(function () {
+            makeTimer();
+            }, 300);
+        </script>
+        <div class="event-dt-right-group mt-5">
+            <div class="event-dt-right-icon">
+            <i class="fa-solid fa-circle-user"></i>
+            </div>
+            <div class="event-dt-right-content">
+            <h4>Đơn vị tổ chức</h4>
+            <h5>
+                @Model?.Organizer
+            </h5>
+            <a
+                data-bs-target="#OrganizerModal"
+                data-bs-toggle="modal"
+                href="#OrganizerModal"
+                rel="nofollow"
+                >Liên hệ</a
+            >
+            </div>
+            <!-- OrganizerModal -->
+            <div
+            class="modal fade"
+            id="OrganizerModal"
+            tabindex="-1"
+            role="dialog"
+            aria-labelledby="OrganizerModal"
+            aria-hidden="true"
+            >
+            <div
+                class="modal-dialog modal-dialog-centered modal-xl"
+                role="document"
+            >
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="MapModalTitle">
+                    Liên hệ đơn vị tổ chức
+                    </h5>
+                    <button
+                    type="button"
+                    class="close-model-btn"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                    >
+                    <i class="uil uil-multiply"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-12 col-md-12">
+                        <div
+                            class="main-title checkout-title text-center"
+                        >
+                            <h3 class="mt-3">
+                               @Model?.Organizer
+                            </h3>
+                            @*<p class="mb-0">
+                            Công ty Tổ chức Triển lãm Quốc tế Xây dựng
+                            VIETBUILD là đơn vị tổ chức Triển lãm Quốc
+                            tế chuyên nghiệp hàng đầu hiện nay tại Việt
+                            Nam. VIETBUILD là Triển lãm định kỳ hằng năm
+                            của Ngành xây dựng do Bộ Xây dựng Việt Nam
+                            phối hợp với Ủy ban Nhân dân TP. Hà Nội, Ủy
+                            ban Nhân dân TP. Hồ Chí Minh, Ủy ban Nhân
+                            dân TP. Đà Nẵng và Ủy ban Nhân dân TP. Cần
+                            Thơ chỉ đạo và bảo trợ tổ chức tại các thành
+                            phố lớn trong cả nước.
+                            </p>*@
+                        </div>
+                        </div>
+                        <div class="col-lg-12">
+                        <div class="main-card mt-5">
+                            <div class="row">
+                            <div
+                                class="col-xl-7 col-lg-12 col-md-12 order-lg-2"
+                            >
+                                <div
+                                class="contact-form bp-form p-lg-5 ps-lg-4 pt-lg-0 pb-5 p-4"
+                                >
+                                <div
+                                    class="wpcf7 no-js"
+                                    id="wpcf7-f2309-p648-o2"
+                                    lang="vi"
+                                    dir="ltr"
+                                >
+                                    <div class="screen-reader-response">
+                                    <p
+                                        role="status"
+                                        aria-live="polite"
+                                        aria-atomic="true"
+                                    ></p>
+                                    <ul></ul>
+                                    </div>
+                                    <form
+                                    action="/su-kien/vietbuild-home-hcm#wpcf7-f2309-p648-o2"
+                                    method="post"
+                                    class="wpcf7-form init"
+                                    aria-label="Form liên hệ"
+                                    novalidate="novalidate"
+                                    data-status="init"
+                                    >
+                                    <div style="display: none">
+                                        <input
+                                        type="hidden"
+                                        name="_wpcf7"
+                                        value="2309"
+                                        />
+                                        <input
+                                        type="hidden"
+                                        name="_wpcf7_version"
+                                        value="5.8.2"
+                                        />
+                                        <input
+                                        type="hidden"
+                                        name="_wpcf7_locale"
+                                        value="vi"
+                                        />
+                                        <input
+                                        type="hidden"
+                                        name="_wpcf7_unit_tag"
+                                        value="wpcf7-f2309-p648-o2"
+                                        />
+                                        <input
+                                        type="hidden"
+                                        name="_wpcf7_container_post"
+                                        value="648"
+                                        />
+                                        <input
+                                        type="hidden"
+                                        name="_wpcf7_posted_data_hash"
+                                        value=""
+                                        />
+                                        <input
+                                        type="hidden"
+                                        name="_wpcf7_recaptcha_response"
+                                        value=""
+                                        />
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                        <div class="form-group mt-4">
+                                            <p>
+                                            <label class="form-label"
+                                                >Họ tên / Full
+                                                name*</label
+                                            ><span
+                                                class="wpcf7-form-control-wrap"
+                                                data-name="your-name"
+                                                ><input
+                                                size="40"
+                                                class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required form-control h_50"
+                                                aria-required="true"
+                                                aria-invalid="false"
+                                                placeholder=""
+                                                value=""
+                                                type="text"
+                                                name="your-name"
+                                            /></span>
+                                            </p>
+                                        </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                        <div class="form-group mt-4">
+                                            <p>
+                                            <label class="form-label"
+                                                >Điện thoại liên hệ /
+                                                Phone number*</label
+                                            ><span
+                                                class="wpcf7-form-control-wrap"
+                                                data-name="your-phone"
+                                                ><input
+                                                size="40"
+                                                class="wpcf7-form-control wpcf7-tel wpcf7-validates-as-required wpcf7-text wpcf7-validates-as-tel form-control h_50"
+                                                aria-required="true"
+                                                aria-invalid="false"
+                                                placeholder=""
+                                                value=""
+                                                type="tel"
+                                                name="your-phone"
+                                            /></span>
+                                            </p>
+                                        </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                        <div class="form-group mt-4">
+                                            <p>
+                                            <label class="form-label"
+                                                >Email*</label
+                                            ><span
+                                                class="wpcf7-form-control-wrap"
+                                                data-name="your-email"
+                                                ><input
+                                                size="40"
+                                                class="wpcf7-form-control wpcf7-email wpcf7-validates-as-required wpcf7-text wpcf7-validates-as-email form-control h_50"
+                                                aria-required="true"
+                                                aria-invalid="false"
+                                                placeholder=""
+                                                value=""
+                                                type="email"
+                                                name="your-email"
+                                            /></span>
+                                            </p>
+                                        </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                        <div class="form-group mt-4">
+                                            <p>
+                                            <label class="form-label"
+                                                >Lời nhắn /
+                                                Message*</label
+                                            ><span
+                                                class="wpcf7-form-control-wrap"
+                                                data-name="your-message"
+                                            >
+                                                <textarea
+                                                cols="40"
+                                                rows="3"
+                                                class="wpcf7-form-control wpcf7-textarea wpcf7-validates-as-required form-textarea"
+                                                aria-required="true"
+                                                aria-invalid="false"
+                                                placeholder=""
+                                                name="your-message"
+                                                ></textarea>
+                                            </span>
+                                            </p>
+                                        </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                        <div class="text-center mt-4">
+                                            <p>
+                                            <input
+                                                class="wpcf7-form-control wpcf7-submit has-spinner main-btn btn-hover h_50 w-100"
+                                                type="submit"
+                                                value="Send"
+                                            />
+                                            </p>
+                                        </div>
+                                        </div>
+                                    </div>
+                                    <div
+                                        class="wpcf7-response-output"
+                                        aria-hidden="true"
+                                    ></div>
+                                    </form>
+                                </div>
+                                <div
+                                    id="thank-you-contact"
+                                    class="mb-0 text-center mt-5 d-none"
+                                >
+                                    <h1 class="display-3">Thank You!</h1>
+                                    <p class="lead">
+                                    <strong
+                                        >Vui lòng theo dõi điện thoại hoặc
+                                        email</strong
+                                    >
+                                    </p>
+                                    <p class="lead">
+                                    Đơn vị tổ chức sẽ sớm liên hệ hỗ trợ
+                                    bạn
+                                    </p>
+                                    <hr />
+                                    <p>
+                                    Cần hỗ trợ trực tiếp, liên hệ ngay
+                                    hotline đơn vị tổ chức (8428)
+                                    39974999
+                                    </p>
+                                </div>
+                                </div>
+                            </div>
+                            <div
+                                class="col-xl-5 col-lg-12 col-md-12 order-lg-1 d-none d-xl-block"
+                            >
+                                <div class="contact-banner-block">
+                                <div class="contact-hero-banner">
+                                    <div class="contact-hero-banner-info">
+                                    <h3>Thông tin liên hệ</h3>
+                                    <p>
+                                        Liên hệ ngay với đơn vị tổ chức để
+                                        nhận được hỗ trợ, đặt gian hàng,
+                                        brochute...
+                                    </p>
+                                    <ul>
+                                        <li>
+                                        <div
+                                            class="contact-info d-flex align-items-center"
+                                        >
+                                            <div class="contact-icon">
+                                            <i
+                                                class="fa-solid fa-square-phone fa-beat-fade"
+                                                style="
+                                                --fa-beat-fade-opacity: 0.67;
+                                                --fa-beat-fade-scale: 1.075;
+                                                "
+                                            ></i>
+                                            </div>
+                                            <a href="#" rel="nofollow"
+                                            >(8428) 39974999</a
+                                            >
+                                        </div>
+                                        </li>
+                                        <li>
+                                        <div
+                                            class="contact-info d-flex align-items-center"
+                                        >
+                                            <div class="contact-icon">
+                                            <i
+                                                class="fa-solid fa-envelope fa-beat-fade"
+                                                style="
+                                                --fa-beat-fade-opacity: 0.67;
+                                                --fa-beat-fade-scale: 1.075;
+                                                "
+                                            ></i>
+                                            </div>
+                                            <a
+                                            href="mailto:sal&#101;s&#64;vi&#101;tbui&#108;dexh&#105;bit&#105;on.&#99;&#111;m.&#118;&#110;"
+                                            rel="nofollow"
+                                            >sa&#108;&#101;&#115;&#64;&#118;i&#101;t&#98;&#117;&#105;&#108;d&#101;&#120;&#104;&#105;&#98;itio&#110;&#46;&#99;om.&#118;&#110;</a
+                                            >
+                                        </div>
+                                        </li>
+                                        <li>
+                                        <div
+                                            class="contact-info d-flex align-items-center"
+                                        >
+                                            <div class="contact-icon">
+                                            <i
+                                                class="fa-solid fa-location-dot fa-beat-fade"
+                                                style="
+                                                --fa-beat-fade-opacity: 0.67;
+                                                --fa-beat-fade-scale: 1.075;
+                                                "
+                                            ></i>
+                                            </div>
+                                            <a href="#" rel="nofollow"
+                                            >307/17 Nguyễn Văn Trỗi –
+                                            Quận Tân Bình -TP.HCM</a
+                                            >
+                                        </div>
+                                        </li>
+                                        <li>
+                                        <div
+                                            class="contact-info d-flex align-items-center text-truncate"
+                                        >
+                                            <div class="contact-icon">
+                                            <i
+                                                class="fa-solid fa-link fa-beat-fade"
+                                                style="
+                                                --fa-beat-fade-opacity: 0.67;
+                                                --fa-beat-fade-scale: 1.075;
+                                                "
+                                            ></i>
+                                            </div>
+                                            <a
+                                            href="https://www.vietbuildexhibition.com.vn/"
+                                            target="_blank"
+                                            >https://www.vietbuildexhibition.com.vn/</a
+                                            >
+                                        </div>
+                                        </li>
+                                    </ul>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                        </div>
+
+                        <div
+                        class="col-lg-10 col-md-12 d-block d-xl-none"
+                        >
+                        <div class="main-card mt-4">
+                            <div class="contact-banner-block">
+                            <div
+                                class="contact-hero-banner p_30 min-h-auto"
+                            >
+                                <div class="contact-hero-banner-info">
+                                <h3>Thông tin liên hệ</h3>
+                                <p>
+                                    Liên hệ ngay với đơn vị tổ chức để
+                                    nhận được hỗ trợ, đặt gian hàng,
+                                    brochute...
+                                </p>
+                                <ul>
+                                    <li>
+                                    <div
+                                        class="contact-info d-flex align-items-center"
+                                    >
+                                        <div class="contact-icon">
+                                        <i
+                                            class="fa-solid fa-square-phone fa-beat-fade"
+                                            style="
+                                            --fa-beat-fade-opacity: 0.67;
+                                            --fa-beat-fade-scale: 1.075;
+                                            "
+                                        ></i>
+                                        </div>
+                                        <a href="#" rel="nofollow"
+                                        >(8428) 39974999</a
+                                        >
+                                    </div>
+                                    </li>
+                                    <li>
+                                    <div
+                                        class="contact-info d-flex align-items-center"
+                                    >
+                                        <div class="contact-icon">
+                                        <i
+                                            class="fa-solid fa-envelope fa-beat-fade"
+                                            style="
+                                            --fa-beat-fade-opacity: 0.67;
+                                            --fa-beat-fade-scale: 1.075;
+                                            "
+                                        ></i>
+                                        </div>
+                                        <a
+                                        href="mailto:&#115;ale&#115;&#64;&#118;&#105;e&#116;&#98;&#117;i&#108;d&#101;xhi&#98;&#105;&#116;i&#111;&#110;&#46;c&#111;m.&#118;&#110;"
+                                        rel="nofollow"
+                                        >&#115;&#97;&#108;e&#115;&#64;&#118;iet&#98;u&#105;&#108;d&#101;&#120;hi&#98;&#105;t&#105;o&#110;.&#99;o&#109;.v&#110;</a
+                                        >
+                                    </div>
+                                    </li>
+                                    <li>
+                                    <div
+                                        class="contact-info d-flex align-items-center"
+                                    >
+                                        <div class="contact-icon">
+                                        <i
+                                            class="fa-solid fa-location-dot fa-beat-fade"
+                                            style="
+                                            --fa-beat-fade-opacity: 0.67;
+                                            --fa-beat-fade-scale: 1.075;
+                                            "
+                                        ></i>
+                                        </div>
+                                        <a href="#" rel="nofollow"
+                                        >307/17 Nguyễn Văn Trỗi – Quận
+                                        Tân Bình -TP.HCM</a
+                                        >
+                                    </div>
+                                    </li>
+                                    <li>
+                                    <div
+                                        class="contact-info d-flex align-items-center text-truncate"
+                                    >
+                                        <div class="contact-icon">
+                                        <i
+                                            class="fa-solid fa-link fa-beat-fade"
+                                            style="
+                                            --fa-beat-fade-opacity: 0.67;
+                                            --fa-beat-fade-scale: 1.075;
+                                            "
+                                        ></i>
+                                        </div>
+                                        <a
+                                        href="https://www.vietbuildexhibition.com.vn/"
+                                        target="_blank"
+                                        >https://www.vietbuildexhibition.com.vn/</a
+                                        >
+                                    </div>
+                                    </li>
+                                </ul>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button
+                    type="button"
+                    class="main-btn min-width btn-hover h_40 btn btn-secondary"
+                    data-bs-dismiss="modal"
+                    >
+                    Đóng
+                    </button>
+                </div>
+                </div>
+            </div>
+            </div>
+            <!-- End OrganizerModal -->
+        </div>
+        <div class="event-dt-right-group">
+            <div class="event-dt-right-icon">
+            <i class="fa-solid fa-calendar-day"></i>
+            </div>
+            <div class="event-dt-right-content">
+            <h4>Thời gian</h4>
+            <h5 class="mb-1">@Model?.StartDate.ToShortDateString() - @Model?.EndDate.ToShortDateString()</h5>
+                            <h5>@Model?.StartDate.ToShortTimeString() - @Model?.EndDate.ToShortTimeString()</h5>
+            <div class="add-to-calendar">
+                <a
+                href="#"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+                >
+                <i class="fa-regular fa-calendar-days me-3"></i>Thêm vào
+                lịch
+                </a>
+                @*<ul class="dropdown-menu">
+                <li>
+                    <a
+                    class="dropdown-item"
+                    href="https://sansukien.com/su-kien/vietbuild-home-hcm/ical/"
+                    target="_blank"
+                    rel="nofollow"
+                    ><i class="fa-solid fa-file-arrow-down me-3"></i
+                    >Download ICS</a
+                    >
+                </li>
+                <li>
+                    <a
+                    class="dropdown-item"
+                    href="https://outlook.live.com/calendar/0/deeplink/compose?allday=false&#038;body=Vietbuild+Home+HCM+l%C3%A0+m%E1%BB%99t+ng%C3%A0y+h%E1%BB%99i+truy%E1%BB%81n+th%E1%BB%91ng%2C+m%E1%BB%99t+s%E1%BB%B1+ki%E1%BB%87n+l%E1%BB%9Bn+%C4%91%E1%BA%A7y+%E1%BA%A5n+t%C6%B0%E1%BB%A3ng+c%E1%BB%A7a+Ng%C3%A0nh+X%C3%A2y+d%E1%BB%B1ng+%E2%80%93%C2%A0+B%E1%BA%A5t+%C4%91%E1%BB%99ng+s%E1%BA%A3n+%E2%80%93+V%E1%BA%ADt+li%E1%BB%87u+x%C3%A2y+d%E1%BB%B1ng+%26amp%3B+Trang+tr%C3%AD+n%E1%BB%99i+ngo%E1%BA%A1i+th%E1%BA%A5t+%C4%91%C6%B0%E1%BB%A3c+di%E1%BB%85n+ra+t%E1%BA%A1i+Vi%E1%BB%87t+Nam.+V%E1%BB%9Bi+kinh+nghi%E1%BB%87m+h%C6%A1n+20+n%C4%83m+trong+ng%C3%A0nh+t%E1%BB%95+ch%E1%BB%A9c+h%E1%BB%99i+ch%E1%BB%A3+tri%E1%BB%83n+l%C3%A3m%2C+Tri%E1%BB%83n+l%C3%A3m+Qu%E1%BB%91c+t%E1%BA%BF+VIETBUILD+mang+t%E1%BA%A7m+v%C3%B3c+Qu%E1%BB%91c+gia+v%C3%A0+Qu%E1%BB%91c+t%E1%BA%BF.+%C4%90%C3%A2y+l%C3%A0+tri%E1%BB%83n+l%C3%A3m+l%E1%BB%9Bn+nh%E1%BA%A5t+Vi%E1%BB%87t+Nam+hi%E1%BB%87n+nay%2C+c%C3%B3+quy+m%C3%B4+ho%C3%A0nh+tr%C3%A1ng%2C+h%E1%BB%99i+t%E1%BB%A5+%C4%91%E1%BA%A7y+%C4%91%E1%BB%A7+c%C3%A1c+d%E1%BB%8Bch+v%E1%BB%A5%2C+s%E1%BA%A3n+ph%E1%BA%A9m+m%E1%BB%9Bi+%26amp%3B+c%C3%B4ng+ngh%E1%BB%87+ti%C3%AAn+ti%E1%BA%BFn+c%E1%BB%A7a+Ng%C3%A0nh+X%C3%A2y+d%E1%BB%B1ng+%E2%80%93+B%E1%BA%A5t+%C4%91%E1%BB%99ng+s%E1%BA%A3n+c%C3%B9ng+v%E1%BB%9Bi+nhi%E1%BB%81u+ho%E1%BA%A1t+%C4%91%E1%BB%99ng+%C4%91a+d%E1%BA%A1ng+v%C3%A0+phong+ph%C3%BA...&#038;location=C%C3%B4ng+vi%C3%AAn+Ph%E1%BA%A7n+m%E1%BB%81m+Quang+Trung%2C+%C4%90%C6%B0%E1%BB%9Dng+S%E1%BB%91+1%2C+P.+T%C3%A2n+H%C6%B0ng+Thu%E1%BA%ADn%2C+H%E1%BB%93+Ch%C3%AD+Minh%2C+Qu%E1%BA%ADn+12%2C+71509%2C+VietNam&#038;path=/calendar/action/compose&#038;rru=addevent&#038;startdt=2023-12-20T08%3A30%3A00%2B07%3A00&#038;enddt=2023-12-24T18%3A00%3A00%2B07%3A00&#038;subject=VIETBUILD+HOME+HCM+2023+-+Tri%E1%BB%83n+l%C3%A3m+qu%E1%BB%91c+t%E1%BA%BF+B%E1%BA%A5t+%C4%91%E1%BB%99ng+s%E1%BA%A3n+-+Trang+tr%C3%AD+n%E1%BB%99i+ngo%E1%BA%A1i+th%E1%BA%A5t+-+%C4%90%E1%BB%93+d%C3%B9ng+gia+%C4%91%C3%ACnh"
+                    target="_blank"
+                    rel="nofollow"
+                    ><i class="fa-brands fa-windows me-3"></i>Outlook</a
+                    >
+                </li>
+                <li>
+                    <a
+                    class="dropdown-item"
+                    href="webcal://sansukien.com/su-kien/vietbuild-home-hcm/ical/"
+                    target="_blank"
+                    rel="nofollow"
+                    ><i class="fa-brands fa-apple me-3"></i>Apple</a
+                    >
+                </li>
+                <li>
+                    <a
+                    class="dropdown-item"
+                    href="https://www.google.com/calendar/event?action=TEMPLATE&#038;text=VIETBUILD+HOME+HCM+2023+-+Tri%E1%BB%83n+l%C3%A3m+qu%E1%BB%91c+t%E1%BA%BF+B%E1%BA%A5t+%C4%91%E1%BB%99ng+s%E1%BA%A3n+-+Trang+tr%C3%AD+n%E1%BB%99i+ngo%E1%BA%A1i+th%E1%BA%A5t+-+%C4%90%E1%BB%93+d%C3%B9ng+gia+%C4%91%C3%ACnh&#038;dates=20231220T083000/20231224T180000&#038;details=Vietbuild+Home+HCM+l%C3%A0+m%E1%BB%99t+ng%C3%A0y+h%E1%BB%99i+truy%E1%BB%81n+th%E1%BB%91ng%2C+m%E1%BB%99t+s%E1%BB%B1+ki%E1%BB%87n+l%E1%BB%9Bn+%C4%91%E1%BA%A7y+%E1%BA%A5n+t%C6%B0%E1%BB%A3ng+c%E1%BB%A7a+Ng%C3%A0nh+X%C3%A2y+d%E1%BB%B1ng+%E2%80%93%C2%A0+B%E1%BA%A5t+%C4%91%E1%BB%99ng+s%E1%BA%A3n+%E2%80%93+V%E1%BA%ADt+li%E1%BB%87u+x%C3%A2y+d%E1%BB%B1ng+%26amp%3B+Trang+tr%C3%AD+n%E1%BB%99i+ngo%E1%BA%A1i+th%E1%BA%A5t+%C4%91%C6%B0%E1%BB%A3c+di%E1%BB%85n+ra+t%E1%BA%A1i+Vi%E1%BB%87t+Nam.+V%E1%BB%9Bi+kinh+nghi%E1%BB%87m+h%C6%A1n+20+n%C4%83m+trong+ng%C3%A0nh+t%E1%BB%95+ch%E1%BB%A9c+h%E1%BB%99i+ch%E1%BB%A3+tri%E1%BB%83n+l%C3%A3m%2C+Tri%E1%BB%83n+l%C3%A3m+Qu%E1%BB%91c+t%E1%BA%BF+VIETBUILD+mang+t%E1%BA%A7m+v%C3%B3c+Qu%E1%BB%91c+gia+v%C3%A0+Qu%E1%BB%91c+t%E1%BA%BF.+%C4%90%C3%A2y+l%C3%A0+tri%E1%BB%83n+l%C3%A3m+l%E1%BB%9Bn+nh%E1%BA%A5t+Vi%E1%BB%87t+Nam+hi%E1%BB%87n+nay%2C+c%C3%B3+quy+m%C3%B4+ho%C3%A0nh+tr%C3%A1ng%2C+h%E1%BB%99i+t%E1%BB%A5+%C4%91%E1%BA%A7y+%C4%91%E1%BB%A7+c%C3%A1c+d%E1%BB%8Bch+v%E1%BB%A5%2C+s%E1%BA%A3n+ph%E1%BA%A9m+m%E1%BB%9Bi+%26amp%3B+c%C3%B4ng+ngh%E1%BB%87+ti%C3%AAn+ti%E1%BA%BFn+c%E1%BB%A7a+Ng%C3%A0nh+X%C3%A2y+d%E1%BB%B1ng+%E2%80%93+B%E1%BA%A5t+%C4%91%E1%BB%99ng+s%E1%BA%A3n+c%C3%B9ng+v%E1%BB%9Bi+nhi%E1%BB...&#038;location=C%C3%B4ng+vi%C3%AAn+Ph%E1%BA%A7n+m%E1%BB%81m+Quang+Trung%2C+%C4%90%C6%B0%E1%BB%9Dng+S%E1%BB%91+1%2C+P.+T%C3%A2n+H%C6%B0ng+Thu%E1%BA%ADn%2C+H%E1%BB%93+Ch%C3%AD+Minh%2C+Qu%E1%BA%ADn+12%2C+71509%2C+VietNam&#038;trp=false&#038;sprop=https%3A%2F%2Fsansukien.com%2Fsu-kien%2Fvietbuild-home-hcm&#038;sprop=name:S%C4%83n+S%E1%BB%B1+Ki%E1%BB%87n&#038;ctz=Asia%2FHo_Chi_Minh"
+                    target="_blank"
+                    rel="nofollow"
+                    ><i class="fa-brands fa-google me-3"></i>Google</a
+                    >
+                </li>
+                <li>
+                    <a
+                    class="dropdown-item"
+                    href="https://outlook.office.com/calendar/0/deeplink/compose?allday=false&#038;body=Vietbuild+Home+HCM+l%C3%A0+m%E1%BB%99t+ng%C3%A0y+h%E1%BB%99i+truy%E1%BB%81n+th%E1%BB%91ng%2C+m%E1%BB%99t+s%E1%BB%B1+ki%E1%BB%87n+l%E1%BB%9Bn+%C4%91%E1%BA%A7y+%E1%BA%A5n+t%C6%B0%E1%BB%A3ng+c%E1%BB%A7a+Ng%C3%A0nh+X%C3%A2y+d%E1%BB%B1ng+%E2%80%93%C2%A0+B%E1%BA%A5t+%C4%91%E1%BB%99ng+s%E1%BA%A3n+%E2%80%93+V%E1%BA%ADt+li%E1%BB%87u+x%C3%A2y+d%E1%BB%B1ng+%26amp%3B+Trang+tr%C3%AD+n%E1%BB%99i+ngo%E1%BA%A1i+th%E1%BA%A5t+%C4%91%C6%B0%E1%BB%A3c+di%E1%BB%85n+ra+t%E1%BA%A1i+Vi%E1%BB%87t+Nam.+V%E1%BB%9Bi+kinh+nghi%E1%BB%87m+h%C6%A1n+20+n%C4%83m+trong+ng%C3%A0nh+t%E1%BB%95+ch%E1%BB%A9c+h%E1%BB%99i+ch%E1%BB%A3+tri%E1%BB%83n+l%C3%A3m%2C+Tri%E1%BB%83n+l%C3%A3m+Qu%E1%BB%91c+t%E1%BA%BF+VIETBUILD+mang+t%E1%BA%A7m+v%C3%B3c+Qu%E1%BB%91c+gia+v%C3%A0+Qu%E1%BB%91c+t%E1%BA%BF.+%C4%90%C3%A2y+l%C3%A0+tri%E1%BB%83n+l%C3%A3m+l%E1%BB%9Bn+nh%E1%BA%A5t+Vi%E1%BB%87t+Nam+hi%E1%BB%87n+nay%2C+c%C3%B3+quy+m%C3%B4+ho%C3%A0nh+tr%C3%A1ng%2C+h%E1%BB%99i+t%E1%BB%A5+%C4%91%E1%BA%A7y+%C4%91%E1%BB%A7+c%C3%A1c+d%E1%BB%8Bch+v%E1%BB%A5%2C+s%E1%BA%A3n+ph%E1%BA%A9m+m%E1%BB%9Bi+%26amp%3B+c%C3%B4ng+ngh%E1%BB%87+ti%C3%AAn+ti%E1%BA%BFn+c%E1%BB%A7a+Ng%C3%A0nh+X%C3%A2y+d%E1%BB%B1ng+%E2%80%93+B%E1%BA%A5t+%C4%91%E1%BB%99ng+s%E1%BA%A3n+c%C3%B9ng+v%E1%BB%9Bi+nhi%E1%BB%81u+ho%E1%BA%A1t+%C4%91%E1%BB%99ng+%C4%91a+d%E1%BA%A1ng+v%C3%A0+phong+ph...&#038;location=C%C3%B4ng+vi%C3%AAn+Ph%E1%BA%A7n+m%E1%BB%81m+Quang+Trung%2C+%C4%90%C6%B0%E1%BB%9Dng+S%E1%BB%91+1%2C+P.+T%C3%A2n+H%C6%B0ng+Thu%E1%BA%ADn%2C+H%E1%BB%93+Ch%C3%AD+Minh%2C+Qu%E1%BA%ADn+12%2C+71509%2C+VietNam&#038;path=/calendar/action/compose&#038;rru=addevent&#038;startdt=2023-12-20T08%3A30%3A00%2B07%3A00&#038;enddt=2023-12-24T18%3A00%3A00%2B07%3A00&#038;subject=VIETBUILD+HOME+HCM+2023+-+Tri%E1%BB%83n+l%C3%A3m+qu%E1%BB%91c+t%E1%BA%BF+B%E1%BA%A5t+%C4%91%E1%BB%99ng+s%E1%BA%A3n+-+Trang+tr%C3%AD+n%E1%BB%99i+ngo%E1%BA%A1i+th%E1%BA%A5t+-+%C4%90%E1%BB%93+d%C3%B9ng+gia+%C4%91%C3%ACnh"
+                    target="_blank"
+                    rel="nofollow"
+                    ><i class="fa-brands fa-windows me-3"></i>Office
+                    365</a
+                    >
+                </li>
+                </ul>*@
+            </div>
+            </div>
+        </div>
+        <div class="event-dt-right-group">
+            <div class="event-dt-right-icon">
+            <i class="fa-solid fa-location-dot"></i>
+            </div>
+            <div class="event-dt-right-content">
+            <h4>Địa điểm</h4>
+            <h5 class="mb-0">
+               @Model?.Place?.Name
+                &#8211; SSEC
+            </h5>
+            <span
+                >@Model?.Place.Address</span
+            >
+            <a
+                href="/"
+                class="d-block"
+                target="_blank"
+                ><i class="fa-solid fa-location-dot me-2"></i>Xem bản
+                đồ</a
+            >
+            </div>
+        </div>
+        <div class="event-dt-right-group">
+            <div class="event-dt-right-icon">
+            <i class="fa-solid fa-tags"></i>
+            </div>
+            <div class="event-dt-right-content">
+            <h4>Danh mục</h4>
+            <h5 class="mb-0">
+                <a
+                class="mt-0"
+                href="/"
+                target="_blank"
+                >@Model?.Category.Name
+                </a>
+            </h5>
+            </div>
+        </div>
+        <div id="scrollitem">
+            <div class="add-card">
+            <div class="select-tickets-block card-body">
+                <h6>Thông tin vé</h6>
+                <p>Sự kiện này không bán vé! Có thể miễn phí.</p>
+            </div>
+
+            <div class="booking-btn">
+                <a
+                href="#"
+                class="main-btn btn-hover fw-bold text-uppercase w-100"
+                data-bs-target="#SimpleLikeModal"
+                data-bs-toggle="modal"
+                rel="nofollow"
+                >
+                Đăng ký tham dự
+                <i class="fa-solid fa-arrow-right ms-3"></i>
+                </a>
+            </div>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <div class="col-xl-8 col-lg-7 col-md-12 scrollmobile">
+        <hr />
+        <script
+        async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
+        ></script>
+        <!-- Inside post ads -->
+        <ins
+        class="adsbygoogle"
+        style="display: block; text-align: center"
+        data-ad-layout="in-article"
+        data-ad-format="fluid"
+        data-ad-client="ca-pub-1671851580575912"
+        data-ad-slot="1132583654"
+        ></ins>
+        <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+        <!-- Event Comment -->
+        <div id="event-comment">
+        <div class="wpdiscuz_top_clearing"></div>
+        <div id="comments" class="comments-area">
+            <div
+            id="respond"
+            style="
+                width: 0;
+                height: 0;
+                clear: both;
+                margin: 0;
+                padding: 0;
+            "
+            ></div>
+            <style type="text/css">
+            #wc-comment-header {
+                margin: 50px 0 25px;
+                line-height: 48px;
+                background-color: #e8f4f8;
+                border: 1px solid #ddd;
+                padding: 0 10px;
+                font-size: 18px;
+            }
+            </style>
+            <div
+            id="wpdcom"
+            class="wpdiscuz_auth wpd-default wpd-layout-1 wpd-comments-open"
+            >
+            <div class="wc_social_plugin_wrapper"></div>
+            <div class="wpd-form-wrap">
+                <div class="wpd-form-head">
+                    <div class="wpd-sbs-toggle">
+                        <i class="far fa-envelope"></i>
+                        <span class="wpd-sbs-title">Subscribe</span>
+                        <i class="fas fa-caret-down"></i>
+                    </div>
+                    <div class="wpd-auth">
+                        <div class="wpd-login">
+                        @if(user != null){
+                            <div>
+                                Bạn đang đăng nhập tài khoản
+                                <a href="/"
+                                    >@user.Name</a
+                                >
+                                |
+                                <a
+                                    rel="nofollow"
+                                    href="/home/logout"
+                                    >Đăng xuất</a
+                                >
+                            </div>
+                        }else{
+                            <a href="/member-login"><i class="fas fa-sign-in-alt"></i> Login</a>
+                        }
+                        </div>
+                    </div>
+                </div>
+                <div class="wpdiscuz-subscribe-bar wpdiscuz-hidden">
+                <form
+                    action="https://sansukien.com/wp-admin/admin-ajax.php?action=wpdAddSubscription"
+                    method="post"
+                    id="wpdiscuz-subscribe-form"
+                >
+                    <div class="wpdiscuz-subscribe-form-intro">
+                    Thông báo khi có
+                    </div>
+                    <div
+                    class="wpdiscuz-subscribe-form-option"
+                    style="width: 65%"
+                    >
+                    <select
+                        class="wpdiscuz_select"
+                        name="wpdiscuzSubscriptionType"
+                    >
+                        <option value="post">bình luận mới</option>
+                        <option value="all_comment">
+                        trả lời cho bình luận của tôi
+                        </option>
+                    </select>
+                    </div>
+                    <div class="wpdiscuz-subscribe-form-button">
+                    <input
+                        id="wpdiscuz_subscription_button"
+                        class="wpd-prim-button wpd_not_clicked"
+                        type="submit"
+                        value="›"
+                        name="wpdiscuz_subscription_button"
+                    />
+                    </div>
+                    <input
+                    type="hidden"
+                    id="wpdiscuz_subscribe_form_nonce"
+                    name="wpdiscuz_subscribe_form_nonce"
+                    value="be787f95c0"
+                    /><input
+                    type="hidden"
+                    name="_wp_http_referer"
+                    value="/su-kien/vietbuild-home-hcm"
+                    />
+                </form>
+                </div>
+                <div
+                class="wpd-form wpd-form-wrapper wpd-main-form-wrapper"
+                id="wpd-main-form-wrapper-0_0"
+                >
+                <form
+                    method="post"
+                    enctype="multipart/form-data"
+                    data-uploading="false"
+                    class="wpd_comm_form wpd_main_comm_form"
+                >
+                    <div class="wpd-field-comment">
+                    <div class="wpdiscuz-item wc-field-textarea">
+                        <div class="wpdiscuz-textarea-wrap wpd-txt">
+                        <div class="wpd-avatar">
+                            @if(user != null ){
+                                <img
+                                data-lazyloaded="1"
+                                src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1NiIgaGVpZ2h0PSI1NiIgdmlld0JveD0iMCAwIDU2IDU2Ij48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjY2ZkNGRiIi8+PC9zdmc+"
+                                class="avatar"
+                                data-src="@user.Avatar"
+                                width="56"
+                                height="56"
+                                /><noscript
+                                ><img
+                                    class="avatar"
+                                    src="@user.Avatar"
+                                    width="56"
+                                    height="56"
+                                /></noscript>
+                            }else{
+                                <img data-lazyloaded="1" src="/wp-content/themes/SanSuKien/assets/images/default-avatar.png" alt="guest" data-src="/wp-content/themes/SanSuKien/assets/images/default-avatar.png" data-srcset="/wp-content/themes/SanSuKien/assets/images/default-avatar.png 2x" class="avatar avatar-56 photo entered litespeed-loaded" height="56" width="56" data-ll-status="loaded" srcset="/wp-content/themes/SanSuKien/assets/images/default-avatar.png 2x">
+                                <noscript><img alt='guest' src='/wp-content/themes/SanSuKien/assets/images/default-avatar.png' srcset='/wp-content/themes/SanSuKien/assets/images/default-avatar.png 2x' class='avatar avatar-56 photo' height='56' width='56' /></noscript>
+                            }
+                        </div>
+                        <div class="wpd-textarea-wrap">
+                            <div
+                            id="wpd-editor-char-counter-0_0"
+                            class="wpd-editor-char-counter"
+                            ></div>
+                            <label
+                            style="display: none"
+                            for="wc-textarea-0_0"
+                            >Label</label
+                            >
+                            <textarea
+                            id="wc-textarea-0_0"
+                            placeholder="Tham gia thảo luận"
+                            aria-label="Tham gia thảo luận"
+                            name="wc_comment"
+                            class="wc_comment wpd-field"
+                            ></textarea>
+                        </div>
+                        <div class="wpd-editor-buttons-right"></div>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="wpd-form-foot" style="display: none">
+                    <div class="wpdiscuz-textarea-foot">
+                        <div class="wpdiscuz-button-actions"></div>
+                    </div>
+                    <div class="wpd-form-row">
+                        <div class="wpd-form-col-left"></div>
+                        <div class="wpd-form-col-right">
+                        <div class="wc-field-submit">
+                            <label
+                            class="wpd_label"
+                            wpd-tooltip="Thông báo khi có người trả lời bình luận này."
+                            >
+                            <input
+                                id="wc_notification_new_comment-0_0"
+                                class="wc_notification_new_comment-0_0 wpd_label__checkbox"
+                                value="comment"
+                                type="checkbox"
+                                name="wpdiscuz_notification_type"
+                                checked="checked"
+                            />
+                            <span class="wpd_label__text">
+                                <span class="wpd_label__check">
+                                <i
+                                    class="fas fa-bell wpdicon wpdicon-on"
+                                ></i>
+                                <i
+                                    class="fas fa-bell-slash wpdicon wpdicon-off"
+                                ></i>
+                                </span>
+                            </span>
+                            </label>
+                            <input
+                            id="wpd-field-submit-0_0"
+                            class="wc_comm_submit wpd_not_clicked wpd-prim-button"
+                            type="submit"
+                            name="submit"
+                            value="Gửi ngay"
+                            aria-label="Gửi ngay"
+                            />
+                        </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    </div>
+                    <input
+                    type="hidden"
+                    class="wpdiscuz_unique_id"
+                    value="0_0"
+                    name="wpdiscuz_unique_id"
+                    />
+                </form>
+                </div>
+                <div
+                id="wpdiscuz_hidden_secondary_form"
+                style="display: none"
+                >
+                <div
+                    class="wpd-form wpd-form-wrapper wpd-secondary-form-wrapper"
+                    id="wpd-secondary-form-wrapper-wpdiscuzuniqueid"
+                    style="display: none"
+                >
+                    <div class="wpd-secondary-forms-social-content"></div>
+                    <div class="clearfix"></div>
+                    <form
+                    method="post"
+                    enctype="multipart/form-data"
+                    data-uploading="false"
+                    class="wpd_comm_form wpd-secondary-form-wrapper"
+                    >
+                    <div class="wpd-field-comment">
+                        <div class="wpdiscuz-item wc-field-textarea">
+                        <div class="wpdiscuz-textarea-wrap wpd-txt">
+                            <div class="wpd-avatar">
+                            <img
+                                data-lazyloaded="1"
+                                src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1NiIgaGVpZ2h0PSI1NiIgdmlld0JveD0iMCAwIDU2IDU2Ij48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjY2ZkNGRiIi8+PC9zdmc+"
+                                class="avatar"
+                                data-src="https://secure.gravatar.com/avatar/cafb47dcce7daa4434120cd9c9b8e290?s=96&d=identicon&r=g"
+                                width="56"
+                                height="56"
+                            /><noscript
+                                ><img
+                                class="avatar"
+                                src="https://secure.gravatar.com/avatar/cafb47dcce7daa4434120cd9c9b8e290?s=96&d=identicon&r=g"
+                                width="56"
+                                height="56"
+                            /></noscript>
+                            </div>
+                            <div class="wpd-textarea-wrap">
+                            <div
+                                id="wpd-editor-char-counter-wpdiscuzuniqueid"
+                                class="wpd-editor-char-counter"
+                            ></div>
+                            <label
+                                style="display: none"
+                                for="wc-textarea-wpdiscuzuniqueid"
+                                >Label</label
+                            >
+                            <textarea
+                                id="wc-textarea-wpdiscuzuniqueid"
+                                placeholder="Tham gia thảo luận"
+                                aria-label="Tham gia thảo luận"
+                                name="wc_comment"
+                                class="wc_comment wpd-field"
+                            ></textarea>
+                            </div>
+                            <div class="wpd-editor-buttons-right"></div>
+                        </div>
+                        </div>
+                    </div>
+                    <div class="wpd-form-foot" style="display: none">
+                        <div class="wpdiscuz-textarea-foot">
+                        <div class="wpdiscuz-button-actions"></div>
+                        </div>
+                        <div class="wpd-form-row">
+                        <div class="wpd-form-col-left"></div>
+                        <div class="wpd-form-col-right">
+                            <div class="wc-field-submit">
+                            <label
+                                class="wpd_label"
+                                wpd-tooltip="Thông báo khi có người trả lời bình luận này."
+                            >
+                                <input
+                                id="wc_notification_new_comment-wpdiscuzuniqueid"
+                                class="wc_notification_new_comment-wpdiscuzuniqueid wpd_label__checkbox"
+                                value="comment"
+                                type="checkbox"
+                                name="wpdiscuz_notification_type"
+                                checked="checked"
+                                />
+                                <span class="wpd_label__text">
+                                <span class="wpd_label__check">
+                                    <i
+                                    class="fas fa-bell wpdicon wpdicon-on"
+                                    ></i>
+                                    <i
+                                    class="fas fa-bell-slash wpdicon wpdicon-off"
+                                    ></i>
+                                </span>
+                                </span>
+                            </label>
+                            <input
+                                id="wpd-field-submit-wpdiscuzuniqueid"
+                                class="wc_comm_submit wpd_not_clicked wpd-prim-button"
+                                type="submit"
+                                name="submit"
+                                value="Gửi ngay"
+                                aria-label="Gửi ngay"
+                            />
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        </div>
+                    </div>
+                    <input
+                        type="hidden"
+                        class="wpdiscuz_unique_id"
+                        value="wpdiscuzuniqueid"
+                        name="wpdiscuz_unique_id"
+                    />
+                    </form>
+                </div>
+                </div>
+            </div>
+            <div id="wpd-threads" class="wpd-thread-wrapper">
+                <div class="wpd-thread-head">
+                <div class="wpd-thread-info" data-comments-count="1">
+                    <span class="wpdtc" title="1">1</span> bình luận
+                </div>
+                <div class="wpd-space"></div>
+                <div class="wpd-thread-filter">
+                    <div
+                    class="wpd-filter wpdf-reacted wpd_not_clicked"
+                    wpd-tooltip="Most reacted comment"
+                    >
+                    <i class="fas fa-bolt"></i>
+                    </div>
+                    <div
+                    class="wpd-filter wpdf-hottest wpd_not_clicked"
+                    wpd-tooltip="Hottest comment thread"
+                    >
+                    <i class="fas fa-fire"></i>
+                    </div>
+                    <div class="wpd-filter wpdf-sorting">
+                    <span
+                        class="wpdiscuz-sort-button wpdiscuz-date-sort-asc wpdiscuz-sort-button-active"
+                        data-sorting="oldest"
+                        >cũ nhất</span
+                    >
+                    <i class="fas fa-sort-down"></i>
+                    <div class="wpdiscuz-sort-buttons">
+                        <span
+                        class="wpdiscuz-sort-button wpdiscuz-date-sort-desc"
+                        data-sorting="newest"
+                        >mới nhất</span
+                        >
+                        <span
+                        class="wpdiscuz-sort-button wpdiscuz-vote-sort-up"
+                        data-sorting="by_vote"
+                        >bình chọn</span
+                        >
+                    </div>
+                    </div>
+                </div>
+                </div>
+                <div class="wpd-comment-info-bar">
+                <div class="wpd-current-view">
+                    <i class="fas fa-quote-left"></i> Inline Feedbacks
+                </div>
+                <div class="wpd-filter-view-all">Xem tất cả</div>
+                </div>
+                <div class="wpd-thread-list">
+                <div
+                    id="wpd-comm-74_0"
+                    class="comment even thread-even depth-1 wpd-comment wpd_comment_level-1"
+                >
+                    <div class="wpd-comment-wrap wpd-blog-guest">
+                    <div class="wpd-comment-left">
+                        <div class="wpd-avatar">
+                        <img
+                            data-lazyloaded="1"
+                            src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCIgdmlld0JveD0iMCAwIDY0IDY0Ij48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjY2ZkNGRiIi8+PC9zdmc+"
+                            alt="trần triển bằng"
+                            data-src="https://sansukien.com/wp-content/themes/SanSuKien/assets/images/default-avatar.png"
+                            data-srcset="https://sansukien.com/wp-content/themes/SanSuKien/assets/images/default-avatar.png 2x"
+                            class="avatar avatar-64 photo"
+                            height="64"
+                            width="64"
+                        /><noscript
+                            ><img
+                            alt="trần triển bằng"
+                            src="https://sansukien.com/wp-content/themes/SanSuKien/assets/images/default-avatar.png"
+                            srcset="
+                                https://sansukien.com/wp-content/themes/SanSuKien/assets/images/default-avatar.png 2x
+                            "
+                            class="avatar avatar-64 photo"
+                            height="64"
+                            width="64"
+                        /></noscript>
+                        </div>
+                        <div
+                        class="wpd-comment-label"
+                        wpd-tooltip="Khách"
+                        wpd-tooltip-position="right"
+                        >
+                        <span>Khách</span>
+                        </div>
+                    </div>
+                    <div id="comment-74" class="wpd-comment-right">
+                        <div class="wpd-comment-header">
+                        <div class="wpd-comment-author">
+                            trần triển bằng
+                        </div>
+                        <div
+                            class="wpd-comment-date"
+                            title="03/04/2022 08:18"
+                        >
+                            <i
+                            class="far fa-clock"
+                            aria-hidden="true"
+                            ></i>
+                            03/04/2022 08:18
+                        </div>
+
+                        <div class="wpd-space"></div>
+                        </div>
+
+                        <div class="wpd-comment-text">
+                        <p>xin hỏi thuê một gian hàng là bao nhiêu?</p>
+                        </div>
+                        <div class="wpd-comment-footer">
+                        <div class="wpd-vote">
+                            <div class="wpd-vote-up wpd_not_clicked">
+                            <svg
+                                xmlns="https://www.w3.org/2000/svg"
+                                viewBox="0 0 24 24"
+                            >
+                                <path fill="none" d="M0 0h24v24H0V0z" />
+                                <path
+                                d="M1 21h4V9H1v12zm22-11c0-1.1-.9-2-2-2h-6.31l.95-4.57.03-.32c0-.41-.17-.79-.44-1.06L14.17 1 7.59 7.59C7.22 7.95 7 8.45 7 9v10c0 1.1.9 2 2 2h9c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73v-2z"
+                                />
+                            </svg>
+                            </div>
+                            <div class="wpd-vote-result" title="0">0</div>
+                            <div class="wpd-vote-down wpd_not_clicked">
+                            <svg
+                                xmlns="https://www.w3.org/2000/svg"
+                                viewBox="0 0 24 24"
+                            >
+                                <path fill="none" d="M0 0h24v24H0z" />
+                                <path
+                                d="M15 3H6c-.83 0-1.54.5-1.84 1.22l-3.02 7.05c-.09.23-.14.47-.14.73v2c0 1.1.9 2 2 2h6.31l-.95 4.57-.03.32c0 .41.17.79.44 1.06L9.83 23l6.59-6.59c.36-.36.58-.86.58-1.41V5c0-1.1-.9-2-2-2zm4 0v12h4V3h-4z"
+                                />
+                            </svg>
+                            </div>
+                        </div>
+                        <div class="wpd-reply-button">
+                            <svg
+                            xmlns="https://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            >
+                            <path
+                                d="M10 9V5l-7 7 7 7v-4.1c5 0 8.5 1.6 11 5.1-1-5-4-10-11-11z"
+                            />
+                            <path d="M0 0h24v24H0z" fill="none" />
+                            </svg>
+                            <span>Trả lời</span>
+                        </div>
+                        <div class="wpd-space"></div>
+                        </div>
+                    </div>
+                    </div>
+                    <div id="wpdiscuz_form_anchor-74_0"></div>
+                </div>
+                <div class="wpdiscuz-comment-pagination"></div>
+                </div>
+            </div>
+            </div>
+        </div>
+        <div
+            id="wpdiscuz-loading-bar"
+            class="wpdiscuz-loading-bar-auth"
+        ></div>
+        <div
+            id="wpdiscuz-comment-message"
+            class="wpdiscuz-comment-message-auth"
+        ></div>
+        </div>
+        <!-- /Event Comment -->
+    </div>
+    </div>
+    <div class="row scrolldesktop scrollstop">
+    <div class="col-xl-12 col-lg-12 col-md-12">
+        <div class="more-events">
+        <div class="main-title position-relative">
+            <h3>Sự kiện nổi bật</h3>
+            <a
+            href="https://sansukien.com/chu-de-su-kien/duoc-tai-tro"
+            class="view-all-link"
+            >Xem tất cả<i class="fa-solid fa-right-long ms-2"></i
+            ></a>
+        </div>
+        <div class="owl-carousel moreEvents-slider owl-theme">
+			@foreach(var ev in events)
+			{
+				<div class="item">
+					<div class="main-card mt-4">
+						<div class="event-thumbnail">
+							<a href="/su-kien/@ev.Id" title="@ev.Name" target="_blank" class="thumbnail-img">
+								<img data-lazyloaded="1" src="@ev.Image" data-src="@ev.Image" alt="@ev.Name"><noscript><img src="@ev.Image" alt="@ev.Name"></noscript>
+							</a>
+						</div>
+						<div class="event-content">
+							<a href="/su-kien/@ev.Id" title="@ev.Name" target="_blank" class="event-title">@ev.Name</a>
+							<div class="duration-price-remaining">
+								<span class="duration-price">Vào cổng tự do</span>
+							</div>
+						</div>
+						<div class="event-footer">
+							<div class="event-timing">
+								<div class="publish-date">
+									<span><i class="fa-solid fa-calendar-day me-2"></i>@ev.StartDate.ToShortTimeString()</span>
+									<span class="dot"><i class="fa-solid fa-circle"></i></span>
+									<span>@ev.StartDate.ToShortDateString()</span>
+								</div>
+								<span class="publish-time"><i class="fa-solid fa-eye me-2"></i>18.7 K</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			}
+		</div>
+    </div>
+    </div>
+</div>
+</div>
+
+<div
+    id="fsticky"
+    class="d-xl-none text-center fixed-bottom mt-auto py-3 bg-light"
+>
+    <button
+        type="button"
+        class="main-btn btn-hover fw-bold text-uppercase h_40 mb-1"
+        data-bs-target="#SimpleLikeModal"
+        data-bs-toggle="modal"
+    >
+        Đăng ký tham dự / gian hàng<i class="fa-solid fa-arrow-up ms-2"></i>
+    </button>
+</div>

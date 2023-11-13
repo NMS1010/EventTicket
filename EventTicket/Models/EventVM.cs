@@ -9,7 +9,7 @@ namespace EventTicket.Models
         public string Name { get; set; }
         public DateTime StartDate { get; set; } = DateTime.Now;
         public DateTime EndDate { get; set; } = DateTime.Now;
-
+        public string Organizer { get; set; }
         public IFormFile Image { get; set; }
 
         public string Description { get; set; }

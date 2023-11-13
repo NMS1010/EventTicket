@@ -94,6 +94,7 @@ namespace EventTicket.Migrations
                     Image = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Status = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Organizer = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CategoryId = table.Column<long>(type: "bigint", nullable: true),
                     TopicId = table.Column<long>(type: "bigint", nullable: true),
                     PlaceId = table.Column<long>(type: "bigint", nullable: true)

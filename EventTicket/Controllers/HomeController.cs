@@ -9,89 +9,99 @@ using System.Diagnostics;
 
 namespace EventTicket.Controllers
 {
-	public class HomeController : Controller
-	{
-		private readonly ITopicRepository _topicRepository;
-		private readonly ICategoryRepository _categoryRepository;
-		private readonly IEventRepository _eventRepository;
-		private readonly IPlaceRepository _placeRepository;
+    public class HomeController : Controller
+    {
+        private readonly ITopicRepository _topicRepository;
+        private readonly ICategoryRepository _categoryRepository;
+        private readonly IEventRepository _eventRepository;
+        private readonly IPlaceRepository _placeRepository;
 
-		public HomeController(ITopicRepository topicRepository, IEventRepository eventRepository, ICategoryRepository categoryRepository, IPlaceRepository placeRepository)
-		{
-			_topicRepository = topicRepository;
-			_eventRepository = eventRepository;
-			_categoryRepository = categoryRepository;
-			_placeRepository = placeRepository;
-		}
+        public HomeController(ITopicRepository topicRepository, IEventRepository eventRepository, ICategoryRepository categoryRepository, IPlaceRepository placeRepository)
+        {
+            _topicRepository = topicRepository;
+            _eventRepository = eventRepository;
+            _categoryRepository = categoryRepository;
+            _placeRepository = placeRepository;
+        }
 
-		[Route("/")]
-		public async Task<IActionResult> Index()
-		{
-			var topics = await _topicRepository.GetTopics();
-			var events = await _eventRepository.GetEvents();
+        [Route("/")]
+        public async Task<IActionResult> Index()
+        {
+            var topics = await _topicRepository.GetTopics();
+            var events = await _eventRepository.GetEvents();
 
-			ViewData["topics"] = topics;
-			ViewData["events"] = events;
+            ViewData["topics"] = topics;
+            ViewData["events"] = events;
 
-			return View();
-		}
+            return View();
+        }
 
-		[Route("chu-de-su-kien")]
-		public async Task<IActionResult> Topic()
-		{
-			var topics = await _topicRepository.GetTopics();
-			var events = await _eventRepository.GetEvents();
+        [Route("chu-de-su-kien")]
+        public async Task<IActionResult> Topic()
+        {
+            var topics = await _topicRepository.GetTopics();
+            var events = await _eventRepository.GetEvents();
 
-			ViewData["topics"] = topics.Where(x => x.Status).ToList(); ;
-			ViewData["events"] = events.Where(x => x.Status != "Ẩn").ToList();
+            ViewData["topics"] = topics.Where(x => x.Status).ToList(); ;
+            ViewData["events"] = events.Where(x => x.Status != "Ẩn").ToList();
 
-			return View("Topics");
-		}
+            return View("Topics");
+        }
 
-		[Route("danh-muc-su-kien")]
-		public async Task<IActionResult> Category()
-		{
-			var categories = await _categoryRepository.GetCategories();
-			var events = await _eventRepository.GetEvents();
+        [Route("danh-muc-su-kien")]
+        public async Task<IActionResult> Category()
+        {
+            var categories = await _categoryRepository.GetCategories();
+            var events = await _eventRepository.GetEvents();
 
-			ViewData["categories"] = categories.Where(x => x.Status).ToList();
-			ViewData["events"] = events.Where(x => x.Status != "Ẩn").ToList();
+            ViewData["categories"] = categories.Where(x => x.Status).ToList();
+            ViewData["events"] = events.Where(x => x.Status != "Ẩn").ToList();
 
-			return View("Categories");
-		}
+            return View("Categories");
+        }
 
-		[Route("dia-diem-to-chuc-su-kien")]
-		public async Task<IActionResult> Place()
-		{
-			var places = await _placeRepository.GetPlaces();
-			var events = await _eventRepository.GetEvents();
+        [Route("dia-diem-to-chuc-su-kien")]
+        public async Task<IActionResult> Place()
+        {
+            var places = await _placeRepository.GetPlaces();
+            var events = await _eventRepository.GetEvents();
 
-			ViewData["places"] = places.Where(x => x.Status).ToList();
-			ViewData["events"] = events.Where(x => x.Status != "Ẩn").ToList();
+            ViewData["places"] = places.Where(x => x.Status).ToList();
+            ViewData["events"] = events.Where(x => x.Status != "Ẩn").ToList();
 
-			return View("Places");
-		}
+            return View("Places");
+        }
 
-		[Route("danh-sach-su-kien")]
-		public async Task<IActionResult> Event()
-		{
-			var events = await _eventRepository.GetEvents();
+        [Route("danh-sach-su-kien")]
+        public async Task<IActionResult> Event()
+        {
+            var events = await _eventRepository.GetEvents();
 
-			ViewData["events"] = events.Where(x => x.Status != "Ẩn").ToList();
+            ViewData["events"] = events.Where(x => x.Status != "Ẩn").ToList();
 
-			return View("Events");
-		}
+            return View("Events");
+        }
 
-		[HttpGet]
-		public async Task<IActionResult> Logout()
-		{
-			HttpContext.Session.Remove("UserId");
-			HttpContext.Session.Remove("User");
-			HttpContext.Session.Remove("Avatar");
-			HttpContext.Session.Remove("Name");
-			await HttpContext.SignOutAsync("UserAuth");
+        [Route("su-kien/{id}")]
+        public async Task<IActionResult> EventDetail(long id)
+        {
+            var events = await _eventRepository.GetEvents();
+            ViewData["events"] = events.Where(x => x.Status != "Ẩn").ToList();
+            var ev = events.FirstOrDefault(x => x.Id == id);
 
-			return Redirect("/");
-		}
-	}
+            return View("EventDetail", ev);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Logout()
+        {
+            HttpContext.Session.Remove("UserId");
+            HttpContext.Session.Remove("User");
+            HttpContext.Session.Remove("Avatar");
+            HttpContext.Session.Remove("Name");
+            await HttpContext.SignOutAsync("UserAuth");
+
+            return Redirect("/");
+        }
+    }
 }

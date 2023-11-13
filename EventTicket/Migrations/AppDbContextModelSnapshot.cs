@@ -67,6 +67,9 @@ namespace EventTicket.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Organizer")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<long?>("PlaceId")
                         .HasColumnType("bigint");
 

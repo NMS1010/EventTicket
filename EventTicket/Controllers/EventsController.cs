@@ -90,6 +90,7 @@ namespace EventTicket.Controllers
                 PlaceId = ev.Place.Id,
                 StartDate = ev.StartDate,
                 TopicId = ev.Topic.Id,
+                Organizer = ev.Organizer,
             });
         }
 

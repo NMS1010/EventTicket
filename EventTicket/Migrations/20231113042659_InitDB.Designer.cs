@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EventTicket.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231111121148_InitDB")]
+    [Migration("20231113042659_InitDB")]
     partial class InitDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -67,6 +67,9 @@ namespace EventTicket.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Organizer")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<long?>("PlaceId")

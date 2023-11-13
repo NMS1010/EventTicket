@@ -28,7 +28,8 @@ namespace EventTicket.Repository.Event
                 Place = await _context.Places.FindAsync(ev.PlaceId),
                 Description = ev.Description,
                 EndDate = ev.EndDate,
-                StartDate = ev.StartDate
+                StartDate = ev.StartDate,
+                Organizer = ev.Organizer
             };
 
             await _context.Events.AddAsync(eventEntity);
@@ -79,6 +80,7 @@ namespace EventTicket.Repository.Event
             eventEntity.Description = ev.Description;
             eventEntity.EndDate = ev.EndDate;
             eventEntity.StartDate = ev.StartDate;
+            eventEntity.Organizer = ev.Organizer;
 
             var img = eventEntity.Image;
             if (ev.Image != null)

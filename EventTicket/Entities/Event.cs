@@ -8,6 +8,7 @@
         public string Image { get; set; }
         public string Description { get; set; }
         public string Status { get; set; }
+        public string Organizer { get; set; }
         public Category Category { get; set; }
         public Topic Topic { get; set; }
         public Place Place { get; set; }
