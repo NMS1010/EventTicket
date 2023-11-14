@@ -3,25 +3,29 @@ using EventTicket.Repository.Category;
 using EventTicket.Repository.Event;
 using EventTicket.Repository.Place;
 using EventTicket.Repository.Topic;
+using EventTicket.Repository.User;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
 namespace EventTicket.Controllers
 {
-    public class HomeController : Controller
+	public class HomeController : Controller
     {
         private readonly ITopicRepository _topicRepository;
         private readonly ICategoryRepository _categoryRepository;
         private readonly IEventRepository _eventRepository;
         private readonly IPlaceRepository _placeRepository;
+        private readonly IUserRepository _userRepository;
 
-        public HomeController(ITopicRepository topicRepository, IEventRepository eventRepository, ICategoryRepository categoryRepository, IPlaceRepository placeRepository)
+        public HomeController(ITopicRepository topicRepository, IEventRepository eventRepository, ICategoryRepository categoryRepository, IPlaceRepository placeRepository, IUserRepository userRepository)
         {
             _topicRepository = topicRepository;
             _eventRepository = eventRepository;
             _categoryRepository = categoryRepository;
             _placeRepository = placeRepository;
+            _userRepository = userRepository;
         }
 
         [Route("/")]
@@ -102,6 +106,17 @@ namespace EventTicket.Controllers
             await HttpContext.SignOutAsync("UserAuth");
 
             return Redirect("/");
+        }
+
+		[Authorize]
+		[Route("member-account")]
+        public async Task<IActionResult> MemberAccount()
+        {
+            var userId = HttpContext.Session.GetString("UserId");
+            if (string.IsNullOrEmpty(userId))
+                return Redirect("/home/logout");
+            var user = await _userRepository.GetById(long.Parse(userId));
+            return View("Account", user);
         }
     }
 }

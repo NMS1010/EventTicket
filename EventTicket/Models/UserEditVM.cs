@@ -2,18 +2,20 @@
 
 namespace EventTicket.Models
 {
-	public class RegisterVM
+	public class UserEditVM
 	{
+		[Required]
+		public long Id { get; set; }
+
 		[Required]
 		public string Name { get; set; }
 
 		[Required]
-		public string UserName { get; set; }
+		public string Phone { get; set; }
 
 		[Required]
-		public string Email { get; set; }
+		public string Address { get; set; }
 
-		[Required]
 		public string Password { get; set; }
 	}
 }

@@ -29,15 +29,24 @@ namespace EventTicket.Repository.User
 
 		public async Task<Entities.User> GetById(long id)
 		{
-			var user = await _context.Users.FirstOrDefaultAsync(x => x.Id == id);
+			var user = await _context.Users.Include(x => x.UserTickets)
+				.ThenInclude(x => x.Event)
+				.FirstOrDefaultAsync(x => x.Id == id);
 			user.Avatar = _uploadService.GetFullPath(user.Avatar);
-
+			foreach(var i in user.UserTickets)
+			{
+				var a = _uploadService.GetFullPath(i.Event.Image);
+				if (!i.Event.Image.Contains("/"))
+					i.Event.Image = a;
+			}
 			return user;
 		}
 
 		public async Task<Entities.User> Login(LoginVM request)
 		{
 			var u = await _context.Users.FirstOrDefaultAsync(x => x.UserName == request.UserName || x.Email == request.UserName);
+			if (u == null)
+				return null;
 			if (u.Password == Encrypt(request.Password))
 			{
 				u.Avatar = _uploadService.GetFullPath(u.Avatar);
@@ -76,7 +85,8 @@ namespace EventTicket.Repository.User
 				Name = request.Name,
 				UserName = request.UserName,
 				Password = Encrypt(request.Password),
-				Role = 1
+				Role = 1,
+				Avatar = "default-user.png",
 			};
 
 			await _context.Users.AddAsync(user);
@@ -91,6 +101,53 @@ namespace EventTicket.Repository.User
 			u.Status = !u.Status;
 
 			return await _context.SaveChangesAsync() > 0;
+		}
+
+		public async Task EditInfoUser(UserEditVM vm)
+		{
+			var user = await _context.Users.FirstOrDefaultAsync(x => x.Id == vm.Id);
+
+			user.Name = vm.Name;
+			user.Address = vm.Address;
+			user.Phone = vm.Phone;
+			if (!string.IsNullOrEmpty(vm.Password))
+				user.Password = Encrypt(vm.Password);
+			_context.Users.Update(user);
+			await _context.SaveChangesAsync();
+		}
+
+		public async Task EditAvatarUser(UserEditAvatar vm)
+		{
+			var user = await _context.Users.FirstOrDefaultAsync(x => x.Id == vm.Id);
+			var avatar = user.Avatar;
+			if (vm.Avatar != null)
+			{
+				user.Avatar = await _uploadService.SaveFile(vm.Avatar);
+			}
+			_context.Users.Update(user);
+			var success = await _context.SaveChangesAsync() > 0;
+			if (success && !avatar.Contains("default"))
+				await _uploadService.DeleteFile(avatar);
+		}
+
+		public async Task RegisterEvent(RegisterEventVM vm)
+		{
+			var user = await _context.Users.Include(x => x.UserTickets).FirstOrDefaultAsync(x => x.Id == vm.UserId);
+
+			user.UserTickets ??= new List<UserTicket>();
+
+			user.UserTickets.Add(new UserTicket()
+			{
+				Address = vm.Address,
+				Email = vm.Email,
+				Phone = vm.Phone,
+				Name = vm.Name,
+				EventId = vm.EventId,
+				CreatedAt = DateTime.Now,
+			});
+
+			_context.Users.Update(user);
+			await _context.SaveChangesAsync();
 		}
 	}
 }

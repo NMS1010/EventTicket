@@ -13,5 +13,7 @@
 		public bool Status { get; set; } = true;
 
 		public long Role { get; set; }
+
+		public ICollection<UserTicket> UserTickets { get; set; }
 	}
 }

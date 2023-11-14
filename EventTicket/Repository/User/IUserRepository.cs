@@ -14,5 +14,11 @@ namespace EventTicket.Repository.User
 		Task<bool> Toggle(long id);
 
 		Task<List<Entities.User>> GetAll();
+
+		Task EditInfoUser(UserEditVM vm);
+
+		Task EditAvatarUser(UserEditAvatar vm);
+
+		Task RegisterEvent(RegisterEventVM vm);
 	}
 }

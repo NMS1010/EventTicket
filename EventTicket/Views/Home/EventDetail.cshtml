@@ -1281,28 +1281,13 @@
                     </div>
                     <div class="col-xl-6 col-lg-8 col-md-12">
                         <div class="create-block">
-                        <div class="row">
-                            <div class="col-md-6">
-                            <div class="main-card create-card mt-4">
-                                <div class="create-icon">
-                                <i class="fa-solid fa-user"></i>
-                                </div>
-                                <h4>Khách tham quan</h4>
-
-                                <button
-                                class="main-btn btn-hover h_40 w-100"
-                                disabled
-                                >
-                                Vào cổng tự do
-                                </button>
-                            </div>
-                            </div>
+                        <div class="row justify-content-center">
                             <div class="col-md-6">
                             <div class="main-card create-card mt-4">
                                 <div class="create-icon">
                                 <i class="fa-solid fa-store"></i>
                                 </div>
-                                <h4>Doanh nghiệp tham gia</h4>
+                                <h4>Khách hàng tham dự</h4>
                                 <a
                                 data-bs-target="#BoothModal"
                                 data-bs-toggle="modal"
@@ -1310,7 +1295,7 @@
                                 rel="nofollow"
                                 class="main-btn btn-hover h_40 w-100"
                                 >
-                                Đăng ký gian hàng
+                                Nhập thông tin
                                 <i
                                     class="fa-solid fa-arrow-right ms-2"
                                 ></i>
@@ -1354,7 +1339,7 @@
                 <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="BoothModalTitle">
-                    Đăng kí đặt gian hàng
+                    Đăng kí
                     </h5>
                     <button
                     type="button"
@@ -1372,12 +1357,7 @@
                         class="main-title text-center checkout-title"
                         >
                         <p class="mb-0">
-                            Cảm ơn sự quan tâm của bạn với VIETBUILD HOME
-                            HCM 2023 &#8211; Triển lãm quốc tế Bất động
-                            sản &#8211; Trang trí nội ngoại thất &#8211;
-                            Đồ dùng gia đình .<br />Vui lòng để lại thông
-                            tin bên dưới để đặt gian hàng thích hợp nhất
-                            với quý công ty.
+                            Cảm ơn sự quan tâm của bạn với @Model?.Name
                         </p>
                         </div>
                     </div>
@@ -1397,14 +1377,14 @@
                             ></p>
                             <ul></ul>
                             </div>
-                            <form
-                            action="/su-kien/vietbuild-home-hcm#wpcf7-f2520-p648-o1"
+                            <form action="/account/RegisterEvent"
                             method="post"
                             class="wpcf7-form init"
                             aria-label="Form liên hệ"
                             novalidate="novalidate"
                             data-status="init"
                             >
+                            <input type="hidden" name="EventId" value="@Model?.Id"/>
                             <div style="display: none">
                                 <input
                                 type="hidden"
@@ -1447,20 +1427,23 @@
                                 <div class="form-group mt-4">
                                     <p>
                                     <label class="form-label"
-                                        >Tên doanh nghiệp / Company
-                                        Name</label
+                                        >Tên người đăng ký</label
                                     ><span
                                         class="wpcf7-form-control-wrap"
-                                        data-name="your-company"
-                                        ><input
-                                        size="40"
-                                        class="wpcf7-form-control wpcf7-text form-control h_40"
-                                        aria-invalid="false"
-                                        placeholder=""
-                                        value=""
-                                        type="text"
-                                        name="your-company"
-                                    /></span>
+                                        data-name="Name"
+                                        >
+                                        <input
+                                            size="40"
+                                            class="wpcf7-form-control wpcf7-text form-control h_40"
+                                            aria-invalid="false"
+                                            aria-required="true"
+                                            placeholder=""
+                                            value=""
+                                            type="text"
+                                            name="Name"
+                                            required
+                                        />
+                                    </span>
                                     </p>
                                 </div>
                                 </div>
@@ -1468,10 +1451,10 @@
                                 <div class="form-group mt-4">
                                     <p>
                                     <label class="form-label"
-                                        >Địa chỉ / Address*</label
+                                        >Địa chỉ*</label
                                     ><span
                                         class="wpcf7-form-control-wrap"
-                                        data-name="your-address"
+                                        data-name="Address"
                                         ><input
                                         size="40"
                                         class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required form-control h_40"
@@ -1480,7 +1463,8 @@
                                         placeholder=""
                                         value=""
                                         type="text"
-                                        name="your-address"
+                                        name="Address"
+                                        required
                                     /></span>
                                     </p>
                                 </div>
@@ -1489,10 +1473,10 @@
                                 <div class="form-group mt-4">
                                     <p>
                                     <label class="form-label"
-                                        >Số điện thoại / Phone*</label
+                                        >Số điện thoại*</label
                                     ><span
                                         class="wpcf7-form-control-wrap"
-                                        data-name="your-phone"
+                                        data-name="Phone"
                                         ><input
                                         size="40"
                                         class="wpcf7-form-control wpcf7-tel wpcf7-validates-as-required wpcf7-text wpcf7-validates-as-tel form-control h_40"
@@ -1500,8 +1484,9 @@
                                         aria-invalid="false"
                                         placeholder=""
                                         value=""
-                                        type="tel"
-                                        name="your-phone"
+                                        type="text"
+                                        name="Phone"
+                                        required
                                     /></span>
                                     </p>
                                 </div>
@@ -1513,7 +1498,7 @@
                                         >Email*</label
                                     ><span
                                         class="wpcf7-form-control-wrap"
-                                        data-name="your-email"
+                                        data-name="Email"
                                         ><input
                                         size="40"
                                         class="wpcf7-form-control wpcf7-email wpcf7-validates-as-required wpcf7-text wpcf7-validates-as-email form-control h_40"
@@ -1521,92 +1506,10 @@
                                         aria-invalid="false"
                                         placeholder=""
                                         value=""
+                                        required
                                         type="email"
-                                        name="your-email"
+                                        name="Email"
                                     /></span>
-                                    </p>
-                                </div>
-                                </div>
-                                <div class="col-lg-12 col-md-12">
-                                <div class="form-group main-form mt-4">
-                                    <p>
-                                    <label class="form-label"
-                                        >Loại hình / Type of
-                                        business*</label
-                                    ><span
-                                        class="wpcf7-form-control-wrap"
-                                        data-name="your-business"
-                                        ><select
-                                        class="wpcf7-form-control wpcf7-select wpcf7-validates-as-required selectpicker w-100"
-                                        id="cf-business"
-                                        aria-required="true"
-                                        aria-invalid="false"
-                                        name="your-business"
-                                        >
-                                        <option value="">
-                                            - Lựa chọn -
-                                        </option>
-                                        <option
-                                            value="Doanh nghiệp nhà nước"
-                                        >
-                                            Doanh nghiệp nhà nước
-                                        </option>
-                                        <option
-                                            value="Doanh nghiệp tư nhân"
-                                        >
-                                            Doanh nghiệp tư nhân
-                                        </option>
-                                        <option
-                                            value="Doanh nghiệp công ty cổ phần"
-                                        >
-                                            Doanh nghiệp công ty cổ phần
-                                        </option>
-                                        <option value="Công ty TNHH">
-                                            Công ty TNHH
-                                        </option>
-                                        <option
-                                            value="Công ty hợp doanh"
-                                        >
-                                            Công ty hợp doanh
-                                        </option>
-                                        <option
-                                            value="Công ty liên doanh"
-                                        >
-                                            Công ty liên doanh
-                                        </option>
-                                        <option value="Hợp tác xã">
-                                            Hợp tác xã
-                                        </option>
-                                        <option value="Nhà phân phối">
-                                            Nhà phân phối
-                                        </option>
-                                        <option value="Đại lý lẻ">
-                                            Đại lý lẻ
-                                        </option>
-                                        </select></span
-                                    >
-                                    </p>
-                                </div>
-                                </div>
-                                <div class="col-lg-12 col-md-12">
-                                <div class="form-group mt-4">
-                                    <p>
-                                    <label class="form-label"
-                                        >Mặt hàng triển lãm / Exhibition
-                                        products</label
-                                    ><span
-                                        class="wpcf7-form-control-wrap"
-                                        data-name="your-products"
-                                    >
-                                        <textarea
-                                        cols="40"
-                                        rows="3"
-                                        class="wpcf7-form-control wpcf7-textarea form-textarea"
-                                        aria-invalid="false"
-                                        placeholder="Vui lòng cho chúng tôi biết những mặt hàng trưng bày khi tham gia sự kiện"
-                                        name="your-products"
-                                        ></textarea>
-                                    </span>
                                     </p>
                                 </div>
                                 </div>
@@ -1640,9 +1543,7 @@
                             >
                             </p>
                             <p class="lead">
-                            Ban tổ chức VIETBUILD HOME HCM 2023 &#8211;
-                            Triển lãm quốc tế Bất động sản &#8211; Trang
-                            trí nội ngoại thất &#8211; Đồ dùng gia đình
+                            Ban tổ chức @Model?.Name
                             sẽ liên hệ với bạn sớm nhất có thể để cung
                             cấp các thông tin thêm về chương trình triển
                             lãm, chẳng hạn như sơ đồ gian hàng, địa
@@ -1651,7 +1552,7 @@
                             <hr />
                             <p>
                             Cần hỗ trợ trực tiếp, liên hệ ngay hotline
-                            đơn vị tổ chức (8428) 39974999
+                            đơn vị tổ chức
                             </p>
                         </div>
                         </div>
