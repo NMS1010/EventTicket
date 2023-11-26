@@ -14,6 +14,7 @@
 
 		public long Role { get; set; }
 
+		public ICollection<Event> Events { get; set; }
 		public ICollection<UserTicket> UserTickets { get; set; }
 	}
 }

@@ -12,11 +12,13 @@ namespace EventTicket.Repository.User
 	{
 		private readonly AppDbContext _context;
 		private readonly IUploadService _uploadService;
+		private readonly IMailService _mailService;
 
-		public UserRepository(AppDbContext context, IUploadService uploadService)
+		public UserRepository(AppDbContext context, IUploadService uploadService, IMailService mailService)
 		{
 			_context = context;
 			_uploadService = uploadService;
+			_mailService = mailService;
 		}
 
 		public async Task<List<Entities.User>> GetAll()
@@ -29,16 +31,19 @@ namespace EventTicket.Repository.User
 
 		public async Task<Entities.User> GetById(long id)
 		{
-			var user = await _context.Users.Include(x => x.UserTickets)
+			var user = await _context.Users
+				.Include(x => x.UserTickets)
 				.ThenInclude(x => x.Event)
+				.Include(x => x.Events)
+				.ThenInclude(x => x.UserTickets)
 				.FirstOrDefaultAsync(x => x.Id == id);
 			user.Avatar = _uploadService.GetFullPath(user.Avatar);
-			foreach(var i in user.UserTickets)
-			{
-				var a = _uploadService.GetFullPath(i.Event.Image);
-				if (!i.Event.Image.Contains("/"))
-					i.Event.Image = a;
-			}
+			//foreach (var i in user.UserTickets)
+			//{
+			//	var a = _uploadService.GetFullPath(i.Event.Image);
+			//	if (!i.Event.Image.Contains("/"))
+			//		i.Event.Image = a;
+			//}
 			return user;
 		}
 
@@ -91,7 +96,16 @@ namespace EventTicket.Repository.User
 
 			await _context.Users.AddAsync(user);
 
-			return await _context.SaveChangesAsync() > 0;
+			var res = await _context.SaveChangesAsync() > 0;
+
+			_mailService.SendMail(new CreateMailRequest()
+			{
+				Content = "Bạn đã đăng ký tài khoản thành công với email: " + request.Email,
+				Title = "Đăng ký thành công",
+				Email = request.Email,
+				Name = request.Name,
+			});
+			return res;
 		}
 
 		public async Task<bool> Toggle(long id)
@@ -148,6 +162,16 @@ namespace EventTicket.Repository.User
 
 			_context.Users.Update(user);
 			await _context.SaveChangesAsync();
+
+			var ev = await _context.Events.FirstOrDefaultAsync(x => x.Id == vm.EventId);
+
+			_mailService.SendMail(new CreateMailRequest()
+			{
+				Content = "Bạn đã đăng ký thành công sự kiện " + ev.Name + " vào ngày " + DateTime.Now,
+				Title = "Đăng ký thành công",
+				Email = vm.Email,
+				Name = vm.Name,
+			});
 		}
 	}
 }

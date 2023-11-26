@@ -6,7 +6,6 @@ using EventTicket.Repository.Topic;
 using EventTicket.Repository.User;
 using EventTicket.Services;
 using Microsoft.EntityFrameworkCore;
-using System;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,6 +33,7 @@ builder.Services
 	.AddScoped<ITopicRepository, TopicRepository>()
 	.AddScoped<IEventRepository, EventRepository>()
 	.AddScoped<IUserRepository, UserRepository>()
+	.AddScoped<IMailService, MailService>()
 	.AddScoped<IUploadService, UploadService>();
 
 builder.Services.AddSession(options =>

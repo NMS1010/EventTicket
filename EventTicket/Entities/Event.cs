@@ -12,6 +12,7 @@
 		public Category Category { get; set; }
 		public Topic Topic { get; set; }
 		public Place Place { get; set; }
+		public User User { get; set; }
 		public ICollection<UserTicket> UserTickets { get; set; }
 	}
 }

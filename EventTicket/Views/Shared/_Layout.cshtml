@@ -53,6 +53,7 @@
 	<meta property="og:image" content="/wp-content/uploads/2017/02/facebook-cover-828x315.png" />
 	<meta name="twitter:card" content="summary_large_image" />
 	<meta name="google-site-verification" content="UnYvixVfmxBuAAPftUSDeJGUlZvX901dafrSjtP-Kxo" />
+	<link href="/admin/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 	<!-- / Yoast SEO plugin. -->
 
 
@@ -448,6 +449,11 @@
 			}
 		});
 	</script>
+	<script src="/admin/vendor/datatables/jquery.dataTables.min.js"></script>
+	<script src="/admin/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+	<!-- Page level custom scripts -->
+	<script src="js/demo/datatables-demo.js"></script>
 	@await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

@@ -9,15 +9,21 @@ namespace EventTicket.Repository.Event
     {
         private readonly AppDbContext _context;
         private readonly IUploadService _uploadService;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public EventRepository(AppDbContext context, IUploadService uploadService)
+        public EventRepository(AppDbContext context, IUploadService uploadService, IHttpContextAccessor httpContextAccessor)
         {
             _context = context;
             _uploadService = uploadService;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public async Task AddEvent(EventVM ev)
         {
+            var res = long.TryParse(_httpContextAccessor.HttpContext.Session.GetString("UserId"), out long userId);
+            if (!res)
+                return;
+
             var eventEntity = new Entities.Event()
             {
                 Image = ev.Image != null ? await _uploadService.SaveFile(ev.Image) : "",
@@ -26,6 +32,7 @@ namespace EventTicket.Repository.Event
                 Category = await _context.Categories.FindAsync(ev.CategoryId),
                 Topic = await _context.Topics.FindAsync(ev.TopicId),
                 Place = await _context.Places.FindAsync(ev.PlaceId),
+                User = await _context.Users.FindAsync(userId),
                 Description = ev.Description,
                 EndDate = ev.EndDate,
                 StartDate = ev.StartDate,
@@ -49,6 +56,9 @@ namespace EventTicket.Repository.Event
         public async Task<IEnumerable<Entities.Event>> GetEvents()
         {
             var eventEntitys = await _context.Events
+                .Include(x => x.User)
+                .Include(x => x.UserTickets)
+                .ThenInclude(x => x.User)
                 .Include(x => x.Category)
                 .Include(x => x.Place)
                 .Include(x => x.Topic).ToListAsync();
@@ -61,9 +71,14 @@ namespace EventTicket.Repository.Event
         public async Task<Entities.Event> GetEvent(long id)
         {
             var eventEntity = await _context.Events
+                .Include(x => x.User)
+                .Include(x => x.UserTickets)
+                .ThenInclude(x => x.User)
                 .Include(x => x.Category)
                 .Include(x => x.Place)
                 .Include(x => x.Topic).FirstOrDefaultAsync(x => x.Id == id);
+            if (eventEntity == null)
+                return null;
             eventEntity.Image = _uploadService.GetFullPath(eventEntity.Image);
             return eventEntity;
         }

@@ -1,0 +1,45 @@
+﻿@using EventTicket.Entities;
+@model Event
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Danh sách người dùng đặt vé";
+}
+
+<!-- DataTales Example -->
+<div class="card shadow mb-4 mx-auto container mt-5">
+    <a href="/member-account" class="btn btn-outline-danger mb-3 mt-3" style="width: 10%;">Quay lại</a>
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Danh sách người dùng đặt vé</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered display nowrap" id="dataTable" cellspacing="0" style="width: 100%;">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Tên</th>
+                        <th>Địa chỉ</th>
+                        <th>Số điện thoại</th>
+                        <th>Email</th>
+                        <th>Ngày đặt vé</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model?.UserTickets)
+                    {
+                        var user = item.User;
+                        <tr>
+                            <td>@item.Id</td>
+                            <td>@item.Name</td>
+                            <td>@item.Address</td>
+                            <td>@item.Phone</td>
+                            <td>@item.Email</td>
+                            <td>@item.CreatedAt.ToString()</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

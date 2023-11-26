@@ -98,26 +98,31 @@
 								<div class="tab-pane fade active show" id="events" role="tabpanel" aria-labelledby="events-tab">
 									<div class="nav my-event-tabs mt-4" role="tablist">
 										<button class="event-link active" data-bs-toggle="tab" data-bs-target="#saved" type="button" role="tab" aria-controls="saved" aria-selected="true">
-											<span class="event-count">0</span>
+											<span class="event-count">@Model?.UserTickets.Count</span>
 											<span>Sự kiện đã đăng ký</span>
 										</button>
-										@{/*<button class="event-link" data-bs-toggle="tab" data-bs-target="#going" type="button" role="tab" aria-controls="going" aria-selected="true">
-											<span class="event-count">0</span>
-											<span>Sự kiện sẽ tham gia</span>
-										</button>*/}
+										<button class="event-link" data-bs-toggle="tab" data-bs-target="#going" type="button" role="tab" aria-controls="going" aria-selected="true">
+											<span class="event-count">@Model?.Events.Count</span>
+											<span>Sự kiện của tôi</span>
+										</button>
 									</div>
 									<div class="tab-content">
 
 										<div class="tab-pane fade show active" id="saved" role="tabpanel">
 											<div class="row">
 												<div class="col-md-12">
+
+													@if (Model?.UserTickets.Count == 0)
+													{
+														<p class="text-center">Chưa có sự kiện tại mục này!</p>
+													}
 													@foreach(var item in Model?.UserTickets)
 													{
 														var ev = item.Event;
 														<div class="main-card mt-4">
 															<div class="card-top p-4">
 																<div class="card-event-img">
-																	<img src="@ev.Image" alt="">
+																	<img src="/user-content/@ev.Image" alt="">
 																</div>
 																<div class="card-event-dt">
 																	<h5>@ev.Name</h5>
@@ -146,7 +151,47 @@
 										<div class="tab-pane fade" id="going" role="tabpanel">
 											<div class="row">
 												<div class="col-md-12">
-													<p class="text-center">Chưa có sự kiện tại mục này!</p>
+													<a class="main-btn btn-hover mt-3" href="/member-account/event/create">
+														<i class="fa-regular fa-pen-to-square me-2"></i>Tạo sự kiện
+													</a>
+													@if(Model?.Events.Count == 0)
+													{
+														<p class="text-center">Chưa có sự kiện tại mục này!</p>
+													}
+													@foreach (var item in Model?.Events)
+													{
+														var ev = item;
+														<div class="main-card mt-4 d-flex align-items-center">
+															<div class="card-top p-4">
+																<div class="card-event-img">
+																	<img src="/user-content/@ev.Image" alt="">
+																</div>
+																<div class="card-event-dt">
+																	<h5>@ev.Name</h5>
+																	<div class="evnt-time">
+																		<i class="fa-solid fa-calendar-day me-2"></i>
+																		<span>
+																			@ev.StartDate.ToShortTimeString() - @ev.StartDate.ToShortDateString()
+																		</span>
+																	</div>
+																	<div>
+																		<p>Số người đăng ký: @item.UserTickets.Count</p>
+																	</div>
+																	<div class="event-btn-group">
+																		<button class="esv-btn me-2" onclick="window.location.href='/su-kien/@ev.Id'"><i class="fa-solid fa-arrow-up-from-bracket me-2"></i>Xem</button>
+																	</div>
+																</div>
+															</div>
+															<div class="">
+																<a class="btn btn-success mb-3" href="/member-account/event/edit/@ev.Id">
+																	<i class="fa-regular fa-pen-to-square me-2"></i>Chỉnh sửa
+																</a>
+																<a class="btn btn-info mt-3" href="/member-account/event/detail/@ev.Id">
+																	<i class="fa-regular fa-pen-to-square me-2"></i>Danh sách
+																</a>
+															</div>
+														</div>
+													}
 												</div>
 											</div>
 										</div>
@@ -278,6 +323,7 @@
 		</div>
 	</div>
 </div>
+
 
 <!-- Follow People Model Start-->
 <div class="modal fade" id="FFModal" tabindex="-1" aria-labelledby="FFModalLabel" aria-hidden="true">

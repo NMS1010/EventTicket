@@ -1,0 +1,76 @@
+﻿@using EventTicket.Entities;
+@using EventTicket.Models;
+@model EventVM;
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Thêm mới sự kiện";
+    var categories = (List<Category>)ViewData["categories"];
+    var places = (List<Place>)ViewData["places"];
+    var topics = (List<Topic>)ViewData["topics"];
+}
+<div class="mb-5 text-center mx-auto container mt-5" style="display:flex; flex-direction:column; align-items: center">
+    <a href="/member-account" class="btn btn-outline-danger mb-3">Quay lại</a>
+    <form class="user w-50" action="/member-account/event/create" method="post" enctype="multipart/form-data">
+        <input asp-for="@Model.Image" class="mb-3" />
+        <div class="form-group ">
+            <input asp-for="@Model.Name" class="form-control form-control-user mb-3"
+                   required placeholder="Tên sự kiện" />
+            <input asp-for="@Model.Organizer" class="form-control form-control-user mb-3"
+                   required placeholder="Đơn vị tổ chức" />
+            <input asp-for="@Model.Description" class="form-control form-control-user mb-3"
+                   required placeholder="Mô tả sự kiện" />
+
+        </div><div class="form-group">
+            <label asp-for="@Model.StartDate">Ngày bắt đầu</label>
+            <input asp-for="@Model.StartDate" class="form-control form-control-user mb-3"
+                   required />
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.EndDate">Ngày kết thúc</label>
+            <input asp-for="@Model.EndDate" class="form-control form-control-user mb-3"
+                   required />
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.CategoryId">Danh mục sự kiện</label>
+            <select name="CategoryId" class="form-control" required>
+                @foreach (var cate in categories)
+                {
+                    <option value="@cate.Id">@cate.Name</option>
+                })
+            </select>
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.TopicId">Chủ đề sự kiện</label>
+            <select name="TopicId" class="form-control" required>
+                @foreach (var topic in topics)
+                {
+                    <option value="@topic.Id">@topic.Name</option>
+                })
+            </select>
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.CategoryId">Địa điểm tổ chức</label>
+            <select name="PlaceId" class="form-control" required>
+                @foreach (var place in places)
+                {
+                    <option value="@place.Id">@place.Name</option>
+                })
+            </select>
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.Status">Trạng thái</label>
+            <select name="Status" class="form-control" required>
+                <!option value="Đã diễn ra">Đã diễn ra</!option>
+                <!option value="Đang diễn ra">Đang diễn ra</!option>
+                <!option selected value="Sắp diễn ra">Sắp diễn ra</!option>
+                <!option value="Ẩn">Ẩn</!option>
+            </select>
+        </div>
+        <div class="mt-3 d-flex justify-content-center">
+            <button type="submit" class="btn btn-primary btn-user btn-block">
+                Tạo mới
+            </button>
+        </div>
+    </form>
+</div>

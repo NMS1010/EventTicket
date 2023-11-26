@@ -7,11 +7,10 @@ using EventTicket.Repository.User;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
 
 namespace EventTicket.Controllers
 {
-	public class HomeController : Controller
+    public class HomeController : Controller
     {
         private readonly ITopicRepository _topicRepository;
         private readonly ICategoryRepository _categoryRepository;
@@ -108,8 +107,8 @@ namespace EventTicket.Controllers
             return Redirect("/");
         }
 
-		[Authorize]
-		[Route("member-account")]
+        [Authorize]
+        [Route("member-account")]
         public async Task<IActionResult> MemberAccount()
         {
             var userId = HttpContext.Session.GetString("UserId");
@@ -117,6 +116,105 @@ namespace EventTicket.Controllers
                 return Redirect("/home/logout");
             var user = await _userRepository.GetById(long.Parse(userId));
             return View("Account", user);
+        }
+
+        [Authorize]
+        [Route("member-account/event/create")]
+        public async Task<IActionResult> AddEvent()
+        {
+            var categories = await _categoryRepository.GetCategories();
+            var topics = await _topicRepository.GetTopics();
+            var places = await _placeRepository.GetPlaces();
+
+            ViewData["categories"] = categories.Where(x => x.Status).ToList();
+            ViewData["topics"] = topics.Where(x => x.Status).ToList();
+            ViewData["places"] = places.Where(x => x.Status).ToList();
+
+            return View(new EventVM());
+        }
+
+        [Authorize]
+        [HttpPost("member-account/event/create")]
+        public async Task<ActionResult> AddEvent([FromForm] EventVM vm)
+        {
+            if (!ModelState.IsValid)
+            {
+                ViewData["Message"] = "Dữ liệu không hợp lệ";
+                return View(vm);
+            }
+            try
+            {
+                await _eventRepository.AddEvent(vm);
+
+                return Redirect("/member-account");
+            }
+            catch
+            {
+                ViewData["Message"] = "Không thể tạo mới";
+                return View(vm);
+            }
+        }
+
+        [Authorize]
+        [Route("member-account/event/edit/{id}")]
+        public async Task<ActionResult> UpdateEvent(int id)
+        {
+            var categories = await _categoryRepository.GetCategories();
+            var topics = await _topicRepository.GetTopics();
+            var places = await _placeRepository.GetPlaces();
+
+            ViewData["categories"] = categories.Where(x => x.Status).ToList();
+            ViewData["topics"] = topics.Where(x => x.Status).ToList();
+            ViewData["places"] = places.Where(x => x.Status).ToList();
+            var ev = await _eventRepository.GetEvent(id);
+            ViewData["event"] = ev;
+
+            return View(new EventVM()
+            {
+                Id = ev.Id,
+                Name = ev.Name,
+                Status = ev.Status,
+                Image = null,
+                CategoryId = ev.Category.Id,
+                Description = ev.Description,
+                EndDate = ev.EndDate,
+                PlaceId = ev.Place.Id,
+                StartDate = ev.StartDate,
+                TopicId = ev.Topic.Id,
+                Organizer = ev.Organizer,
+            });
+        }
+
+        [Authorize]
+        [Route("member-account/event/detail/{id}")]
+        public async Task<ActionResult> DetailEvent(int id)
+        {
+            if (id < 1)
+                return Redirect("/member-account");
+            var ev = await _eventRepository.GetEvent(id);
+
+            return View(ev);
+        }
+
+        [Authorize]
+        [HttpPost("member-account/event/edit")]
+        public async Task<ActionResult> UpdateEvent([FromForm] EventVM vm)
+        {
+            if (!ModelState.IsValid)
+            {
+                ViewData["Message"] = "Dữ liệu không hợp lệ";
+                return View(vm);
+            }
+            try
+            {
+                await _eventRepository.UpdateEvent(vm);
+                return Redirect("/member-account");
+            }
+            catch
+            {
+                ViewData["Message"] = "Không thể tạo mới";
+                return View(vm);
+            }
         }
     }
 }
